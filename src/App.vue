@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app
-    v-toolbar(app="")
+    v-toolbar(app)
       v-toolbar-title.headline
         span MONETA BANK
       v-spacer
