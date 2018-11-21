@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Menu from './views/Menu.vue';
+import Balance from './views/Balance.vue';
 
 Vue.use(Router);
 
@@ -10,8 +11,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'menu',
+      component: Menu,
+    },
+    {
+      path: '/balance',
+      name: 'balance',
+      component: Balance,
     },
     {
       path: '/about',
