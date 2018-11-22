@@ -4,6 +4,7 @@ import Menu from './views/Menu.vue';
 import Balance from './views/Balance.vue';
 import Statement from './views/Statement.vue';
 import Transfer from './views/Transfer.vue';
+import Login from './views/Login.vue';
 
 Vue.use(Router);
 
@@ -12,7 +13,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/menu',
       name: 'menu',
       component: Menu,
     },
@@ -30,6 +31,11 @@ export default new Router({
       path: '/transfer',
       name: 'transfer',
       component: Transfer,
+    },
+    {
+      path: '/',
+      name: 'login',
+      component: Login,
     },
     {
       path: '/about',

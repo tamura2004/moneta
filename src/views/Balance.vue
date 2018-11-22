@@ -1,9 +1,19 @@
 <template lang="pug">
-  v-container(text-xs-center style="position:relative")
-    v-btn.main(fab dark large color="orange") 10,000,000
-    h2.account 普通預金 655655
-    h2.value 残高
-    v-btn.back(round large color="white" @click="back") 戻る
+  v-app
+    v-toolbar(app)
+      v-toolbar-title.headline
+        v-btn(flat icon x-large @click="back")
+          v-icon arrow_back
+          span 戻る
+      v-spacer
+      v-btn(flat)
+        span.mr-2 login:モネタ太郎様
+    v-content
+      v-container(text-xs-center style="position:relative")
+        v-btn.main(fab dark large color="orange") 10,000,000
+        h2.value 残高
+        h2.account 普通預金 655655
+        v-btn.back(round large color="white" @click="back") 戻る
 </template>
 
 <script lang="ts">
@@ -30,11 +40,11 @@ export default class Balance extends Vue {
 
   .account,.value
     @extend .overlap
-    top -280px
+    top -300px
 
   .v-btn.back
     @extend .overlap
-    top -160px
+    top -150px
     font-size 24px
     color orange
     text-decoration none

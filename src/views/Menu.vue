@@ -1,16 +1,24 @@
 <template lang="pug">
-  v-container(text-xs-center)
-    v-layout(row wrap)
-      v-flex(
-        xs6 offset-xs3
-        sm4 offset-sm4
-        md4 offset-md4
-        lg3 offset-lg5
-        xl3 offset-xl5
-      )
-        MenuButton(to="/balance" label="残高照会")
-        MenuButton(to="/statement" label="入出金明細")
-        MenuButton(to="/transfer" label="振込")
+  v-app
+    v-toolbar(app)
+      v-toolbar-title.headline
+        span MONETA BANK
+      v-spacer
+      v-btn(flat)
+        span.mr-2 login:モネタ太郎様
+    v-content
+      v-container(text-xs-center)
+        v-layout(row wrap)
+          v-flex(
+            xs6 offset-xs3
+            sm4 offset-sm4
+            md4 offset-md4
+            lg3 offset-lg5
+            xl3 offset-xl5
+          )
+            MenuButton(to="/balance" label="残高照会")
+            MenuButton(to="/statement" label="入出金明細")
+            MenuButton(to="/transfer" label="振込")
 </template>
 
 <script lang="ts">
