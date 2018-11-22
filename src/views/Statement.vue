@@ -19,7 +19,7 @@
             xl6 offset-xl3
           )
             h2 入出金明細
-            v-data-table.elevation-8(:headers="headers" :items="statements")
+            v-data-table.elevation-8#statement(:headers="headers" :items="statements")
               template(slot="items" slot-scope="props")
                 td {{ props.item.date }}
                 td {{ props.item.type }}
@@ -96,3 +96,8 @@ export default class Statement extends Vue {
   }
 }
 </script>
+
+<style lang="stylus">
+  table.v-table tbody td
+    font-size 24px
+</style>
