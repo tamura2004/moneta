@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Menu from './views/Menu.vue';
 import Balance from './views/Balance.vue';
+import Statement from './views/Statement.vue';
+import Transfer from './views/Transfer.vue';
 
 Vue.use(Router);
 
@@ -18,6 +20,16 @@ export default new Router({
       path: '/balance',
       name: 'balance',
       component: Balance,
+    },
+    {
+      path: '/statement',
+      name: 'statement',
+      component: Statement,
+    },
+    {
+      path: '/transfer',
+      name: 'transfer',
+      component: Transfer,
     },
     {
       path: '/about',

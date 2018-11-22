@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container(grid-list-md text-xs-center)
+  v-container(text-xs-center)
     v-layout(row wrap)
       v-flex(
         xs6 offset-xs3
@@ -8,21 +8,17 @@
         lg3 offset-lg5
         xl3 offset-xl5
       )
-        router-link(to="/balance")
-          v-btn.menu.my-4(round dark block large color="primary") 残高照会
-        v-btn.menu.my-4(round dark block large color="primary") 入出金明細
-        v-btn.menu.my-4(round dark block large color="primary") 振込
+        MenuButton(to="/balance" label="残高照会")
+        MenuButton(to="/statement" label="入出金明細")
+        MenuButton(to="/transfer" label="振込")
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import MenuButton from '@/components/MenuButton.vue';
 
-  @Component({})
-  export default class Menu extends Vue {}
+@Component({
+  components: { MenuButton },
+})
+export default class Menu extends Vue {}
 </script>
-
-<style lang="stylus">
-  .v-btn.menu
-    height 60px
-    font-size 32px
-</style>
