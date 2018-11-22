@@ -5,10 +5,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-@Component({
-  components: {
-  },
-})
+
+@Component
 export default class MenuButton extends Vue {
   @Prop() private to!: string;
   @Prop() private label!: string;
