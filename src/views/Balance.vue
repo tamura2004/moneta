@@ -21,19 +21,22 @@ export default class Balance extends Vue {
 </script>
 
 <style lang="stylus">
+  circle_size = 320px
+
   .container
     position relative
   
-  .account,.value
+  .overlap
     position relative
     text-align center
     color white
+
+  .account,.value
+    @extend .overlap
     top -280px
 
   .v-btn.back
-    position relative
-    text-align center
-    color white
+    @extend .overlap
     top -160px
     font-size 24px
     color orange
@@ -41,6 +44,6 @@ export default class Balance extends Vue {
 
   .v-btn.main
     font-size 48px
-    height 320px
-    width 320px
+    height circle_size
+    width circle_size
 </style>
