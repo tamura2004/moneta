@@ -6,8 +6,7 @@
           v-icon arrow_back
           span 戻る
       v-spacer
-      v-btn(flat)
-        span.mr-2 login:モネタ太郎様
+      UserInfo
     v-content
       v-container(fluid)
         v-layout(row wrap)
@@ -18,18 +17,41 @@
             lg6 offset-lg3
             xl6 offset-xl3
           )
-            h2 入出金明細
-            v-data-table.elevation-8#statement(:headers="headers" :items="statements")
-              template(slot="items" slot-scope="props")
-                td {{ props.item.date }}
-                td {{ props.item.type }}
-                td {{ props.item.amount }}
-                td {{ props.item.comment }}
-                td {{ props.item.total }}
+            v-card
+              v-toolbar(color="primary" dark)
+                v-toolbar-title 入出金明細
+              v-list
+                v-list-tile
+                  v-list-tile-content hi
+                  v-list-tile-content
+                    v-list-tile-title 2018/11/01
+                v-divider
+          //- v-layout(row wrap)
+          //-   table
+          //-     tr
+          //-       th(xs2) 日付
+          //-       th(xs1) 種別
+          //-       th(xs3) 金額
+          //-       th(xs3) 適用
+          //-       th(xs3) 残高
+            //- h2 入出金明細
+            //- v-data-table.elevation-8#statement(
+            //-   :headers="headers"
+            //-   :items="statements"
+            //-   hide-actions
+            //-   must-sort
+            //- )
+            //-   template(slot="items" slot-scope="props")
+            //-     td {{ props.item.date }}
+            //-     td {{ props.item.type }}
+            //-     td {{ props.item.amount }}
+            //-     td {{ props.item.comment }}
+            //-     td {{ props.item.total }}
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import UserInfo from '@/components/UserInfo.vue';
 
 interface Header {
   text: string;
@@ -44,7 +66,11 @@ interface Cell {
   total: number;
 }
 
-@Component
+@Component({
+  components: {
+    UserInfo,
+  },
+})
 export default class Statement extends Vue {
   public headers: Header[] = [
     {
@@ -64,7 +90,7 @@ export default class Statement extends Vue {
       value: 'comment',
     },
     {
-      text: '合計',
+      text: '残高',
       value: 'total',
     },
   ];
@@ -99,5 +125,5 @@ export default class Statement extends Vue {
 
 <style lang="stylus">
   table.v-table tbody td
-    font-size 24px
+    font-size 18px
 </style>

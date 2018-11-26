@@ -4,8 +4,17 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+// import { Route } from 'vue-router';
 
 Vue.config.productionTip = false;
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requireAuth) && !store.state.authenticated) {
+    next({ path: '/login' });
+  } else {
+    next();
+  }
+});
 
 new Vue({
   router,

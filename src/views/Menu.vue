@@ -1,11 +1,12 @@
 <template lang="pug">
   v-app
     v-toolbar(app)
+      //- v-toolbar-side-icon
+      v-icon home
       v-toolbar-title.headline
         span MONETA BANK
       v-spacer
-      v-btn(flat)
-        span.mr-2 login:モネタ太郎様
+      UserInfo
     v-content
       v-container(text-xs-center)
         v-layout(row wrap)
@@ -24,9 +25,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import MenuButton from '@/components/MenuButton.vue';
+import UserInfo from '@/components/UserInfo.vue';
 
 @Component({
-  components: { MenuButton },
+  components: {
+    MenuButton,
+    UserInfo,
+  },
 })
 export default class Menu extends Vue {}
 </script>

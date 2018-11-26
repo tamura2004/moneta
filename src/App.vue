@@ -3,19 +3,13 @@
 </template>
 
 <script>
+import { Component, Vue } from 'vue-property-decorator';
 import Menu from '@/views/Menu';
 
-export default {
-  name: 'App',
-  components: {
-    Menu,
-  },
-  data() {
-    return {
-      //
-    };
-  },
-};
+@Component({
+  components: { Menu },
+})
+export default class App extends Vue {}
 </script>
 
 <style lang="stylus">

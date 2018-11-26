@@ -8,12 +8,12 @@ import Login from './views/Login.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/menu',
+      path: '/',
       name: 'menu',
       component: Menu,
     },
@@ -21,19 +21,28 @@ export default new Router({
       path: '/balance',
       name: 'balance',
       component: Balance,
+      meta: {
+        requireAuth: true,
+      },
     },
     {
       path: '/statement',
       name: 'statement',
       component: Statement,
+      meta: {
+        requireAuth: true,
+      },
     },
     {
       path: '/transfer',
       name: 'transfer',
       component: Transfer,
+      meta: {
+        requireAuth: true,
+      },
     },
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login,
     },
@@ -47,3 +56,5 @@ export default new Router({
     },
   ],
 });
+
+export default router;

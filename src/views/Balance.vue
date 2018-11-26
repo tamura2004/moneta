@@ -6,23 +6,31 @@
           v-icon arrow_back
           span 戻る
       v-spacer
-      v-btn(flat)
-        span.mr-2 login:モネタ太郎様
+      UserInfo
     v-content
       v-container(text-xs-center style="position:relative")
-        v-btn.main(fab dark large color="orange") 10,000,000
+        v-btn.main(fab dark large color="orange") {{ balance() }}
         h2.value 残高
         h2.account 普通預金 655655
-        v-btn.back(round large color="white" @click="back") 戻る
+        v-btn.back(round large color="white" @click="statements") 明細
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import UserInfo from '@/components/UserInfo.vue';
 
-@Component
+@Component({
+  components: {
+    UserInfo,
+  },
+})
 export default class Balance extends Vue {
-  private back($event: Event): void {
-    this.$router.push('/');
+  private statements($event: Event): void {
+    this.$router.push({name: 'statement'});
+  }
+  private balance(): string {
+    const n = this.$store.state.balance;
+    return '￥' + Number(n).toLocaleString() + '-';
   }
 }
 </script>
