@@ -21,11 +21,14 @@
               v-toolbar(color="primary" dark)
                 v-toolbar-title 入出金明細
               v-list
-                v-list-tile
-                  v-list-tile-content hi
-                  v-list-tile-content
-                    v-list-tile-title 2018/11/01
-                v-divider
+                div(v-for="i in 10")
+                  v-list-tile
+                    v-list-tile-content(xs3) 2018/11/01
+                    v-list-tile-content(xs1) 出
+                    v-list-tile-content(xs2) 3,450
+                    v-list-tile-content(xs3) 東京ガス
+                    v-list-tile-content.text-xs-right(xs3) 113,450
+                  v-divider
           //- v-layout(row wrap)
           //-   table
           //-     tr
