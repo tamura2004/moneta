@@ -1,127 +1,56 @@
 <template lang="pug">
-  v-app
-    v-toolbar(app)
-      v-toolbar-title.headline
-        v-btn(flat icon x-large @click="back")
-          v-icon arrow_back
-          span 戻る
-      v-spacer
-      UserInfo
-    v-content
-      v-container(fluid)
-        v-layout(row wrap)
-          v-flex(
-            xs10 offset-xs1
-            sm10 offset-sm1
-            md8 offset-md2
-            lg6 offset-lg3
-            xl6 offset-xl3
-          )
-            v-card
-              v-toolbar(color="primary" dark)
-                v-toolbar-title 入出金明細
-              v-list
-                div(v-for="i in 10")
-                  v-list-tile
-                    v-list-tile-content(xs3) 2018/11/01
-                    v-list-tile-content(xs1) 出
-                    v-list-tile-content(xs2) 3,450
-                    v-list-tile-content(xs3) 東京ガス
-                    v-list-tile-content.text-xs-right(xs3) 113,450
-                  v-divider
-          //- v-layout(row wrap)
-          //-   table
-          //-     tr
-          //-       th(xs2) 日付
-          //-       th(xs1) 種別
-          //-       th(xs3) 金額
-          //-       th(xs3) 適用
-          //-       th(xs3) 残高
-            //- h2 入出金明細
-            //- v-data-table.elevation-8#statement(
-            //-   :headers="headers"
-            //-   :items="statements"
-            //-   hide-actions
-            //-   must-sort
-            //- )
-            //-   template(slot="items" slot-scope="props")
-            //-     td {{ props.item.date }}
-            //-     td {{ props.item.type }}
-            //-     td {{ props.item.amount }}
-            //-     td {{ props.item.comment }}
-            //-     td {{ props.item.total }}
+  LeafPageToolbar
+    v-container(fluid)
+      v-layout(row wrap)
+        v-flex(
+          xs10 offset-xs1
+          sm10 offset-sm1
+          md8 offset-md2
+          lg6 offset-lg3
+          xl6 offset-xl3
+        )
+          v-card
+            v-toolbar(color="primary" dark)
+              v-toolbar-title 入出金明細
+            v-list
+              v-list-tile
+                v-layout
+                  v-flex(xs3): v-list-tile-content.font-weight-bold 日付
+                  v-flex(xs1): v-list-tile-content.font-weight-bold 種別
+                  v-flex(xs2): v-list-tile-content.font-weight-bold 金額
+                  v-flex(xs3): v-list-tile-content.font-weight-bold 適用
+                  v-flex(xs3): v-list-tile-content.font-weight-bold 残高
+              div(v-for="row in rows")
+                v-divider
+                v-list-tile
+                  v-layout
+                    v-flex(xs3): v-list-tile-content {{ row.date }}
+                    v-flex(xs1): v-list-tile-content {{ row.type }}
+                    v-flex(xs2): v-list-tile-content {{ row.amount }}
+                    v-flex(xs3): v-list-tile-content {{ row.memo }}
+                    v-flex(xs3): v-list-tile-content {{ row.total }}
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import UserInfo from '@/components/UserInfo.vue';
+import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
 
-interface Header {
-  text: string;
-  value: string;
-}
-
-interface Cell {
+interface Row {
   date: string;
   type: string;
-  amount: number;
-  comment: string;
-  total: number;
+  amount: string;
+  memo: string;
+  total: string;
 }
 
 @Component({
   components: {
-    UserInfo,
+    LeafPageToolbar,
   },
 })
 export default class Statement extends Vue {
-  public headers: Header[] = [
-    {
-      text: '日付',
-      value: 'date',
-    },
-    {
-      text: '種別',
-      value: 'type',
-    },
-    {
-      text: '金額',
-      value: 'amount',
-    },
-    {
-      text: '適用',
-      value: 'comment',
-    },
-    {
-      text: '残高',
-      value: 'total',
-    },
-  ];
-  public statements: Cell[] = [
-    {
-      date: '2018/11/01',
-      type: '入',
-      amount: 3120,
-      comment: '',
-      total: 13120,
-    },
-    {
-      date: '2018/11/01',
-      type: '入',
-      amount: 312000,
-      comment: '給与',
-      total: 1312000,
-    },
-    {
-      date: '2018/11/01',
-      type: '出',
-      amount: 10220,
-      comment: 'ガス料金',
-      total: 1301780,
-    },
-  ];
-  private back($event: Event): void {
-    this.$router.push('/');
+  private get rows(): Row[] {
+    return this.$store.state.statements;
   }
 }
 </script>

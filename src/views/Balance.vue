@@ -1,34 +1,27 @@
 <template lang="pug">
-  v-app
-    v-toolbar(app)
-      v-toolbar-title.headline
-        v-btn(flat icon x-large @click="back")
-          v-icon arrow_back
-          span 戻る
-      v-spacer
-      UserInfo
+  LeafPageToolbar
     v-content
       v-container(text-xs-center style="position:relative")
-        v-btn.main(fab dark large color="orange") {{ balance() }}
+        v-btn.main(fab dark large color="orange") {{ balance }}
         h2.value 残高
         h2.account 普通預金 655655
-        v-btn.back(round large color="white" @click="statements") 明細
+        v-btn.back(round large color="white" @click="gotoStatements") 明細
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import UserInfo from '@/components/UserInfo.vue';
+import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
 
 @Component({
   components: {
-    UserInfo,
+    LeafPageToolbar,
   },
 })
 export default class Balance extends Vue {
-  private statements($event: Event): void {
+  private gotoStatements($event: Event): void {
     this.$router.push({name: 'statement'});
   }
-  private balance(): string {
+  private get balance(): string {
     const n = this.$store.state.balance;
     return '￥' + Number(n).toLocaleString() + '-';
   }
