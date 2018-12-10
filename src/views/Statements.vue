@@ -1,6 +1,6 @@
 <template lang="pug">
   LeafPageToolbar
-    v-card
+    v-card.statements
       v-toolbar(color="primary" dark)
         v-toolbar-title 入出金明細
       v-list
@@ -40,8 +40,8 @@ export default class Statements extends Vue {
 </script>
 
 <style lang="stylus">
-  .v-card
-    width 640px
+  .statements
+    width 70%
   
   table.v-table tbody td
     font-size 18px
