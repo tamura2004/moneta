@@ -3,28 +3,27 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import Statement from '@/models/Statement';
+
 export default new Vuex.Store({
   state: {
+    loading: false,
     balance: 10200300,
     authenticated: false,
     statements: [
-      {
-        key: 1,
-        date: '2018/11/12',
-        type: '出',
-        amount: '3,450',
-        memo: '東京ガス',
-        total: '113,450',
-      },
-      {
-        key: 2,
-        date: '2018/11/13',
-        type: '入',
-        amount: '350,000',
-        memo: '給与',
-        total: '363,450',
-      },
+      new Statement(1, '2018/11/12', '出', 3450, '東京ガス', 113450),
+      new Statement(2, '2018/11/13', '入', 350000, '給与', 363450),
     ],
+  },
+  getters: {
+    balance: (state) => {
+      const lastStatement: Statement | undefined = state.statements.slice(-1).pop();
+      if (lastStatement === undefined) {
+        return '---';
+      } else {
+        return lastStatement.monetaryTotal();
+      }
+    },
   },
   mutations: {
     authenticate(state) {

@@ -26,30 +26,23 @@
                   v-layout
                     v-flex(xs3): v-list-tile-content {{ row.date }}
                     v-flex(xs1): v-list-tile-content {{ row.type }}
-                    v-flex(xs2): v-list-tile-content {{ row.amount }}
+                    v-flex(xs2): v-list-tile-content {{ row.monetaryAmount() }}
                     v-flex(xs3): v-list-tile-content {{ row.memo }}
-                    v-flex(xs3): v-list-tile-content {{ row.total }}
+                    v-flex(xs3): v-list-tile-content {{ row.monetaryTotal() }}
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
-
-interface Row {
-  date: string;
-  type: string;
-  amount: string;
-  memo: string;
-  total: string;
-}
+import Statement from '@/models/Statement';
 
 @Component({
   components: {
     LeafPageToolbar,
   },
 })
-export default class Statement extends Vue {
-  private get rows(): Row[] {
+export default class Statements extends Vue {
+  private get rows(): Statement[] {
     return this.$store.state.statements;
   }
 }

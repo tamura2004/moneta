@@ -18,7 +18,7 @@
             xl3 offset-xl5
           )
             MenuButton(to="/balance" label="残高照会")
-            MenuButton(to="/statement" label="入出金明細")
+            MenuButton(to="/statements" label="入出金明細")
             MenuButton(to="/transfer" label="振込")
 </template>
 

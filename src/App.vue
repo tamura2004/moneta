@@ -1,10 +1,11 @@
 <template lang="pug">
-  router-view
+  transition(name="router")
+    router-view
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Menu from '@/views/Menu';
+import Menu from '@/views/Menu.vue';
 
 @Component({
   components: { Menu },
@@ -13,7 +14,12 @@ export default class App extends Vue {}
 </script>
 
 <style lang="stylus">
-  .v-btn.menu
-    height 60px
-    font-size 32px
+  .router-enter-active, .router-leave-active
+    transition all 0.5s ease
+  
+  .router-enter
+    transform translateX(100%)
+  
+  .router-leave-active
+    transform translateX(-100%)
 </style>

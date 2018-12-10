@@ -19,11 +19,10 @@ import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
 })
 export default class Balance extends Vue {
   private gotoStatements($event: Event): void {
-    this.$router.push({name: 'statement'});
+    this.$router.push({name: 'statements'});
   }
   private get balance(): string {
-    const n = this.$store.state.balance;
-    return '￥' + Number(n).toLocaleString() + '-';
+    return this.$store.getters.balance;
   }
 }
 </script>
