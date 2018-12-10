@@ -8,7 +8,9 @@
       v-spacer
       UserInfo
     v-content
-      slot
+      v-container(fluid fill-height)
+        v-layout(align-start justify-center)
+          slot
 </template>
 
 <script lang="ts">
