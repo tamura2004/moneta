@@ -4,7 +4,8 @@ export default class Statement {
   }
 
   constructor(
-    public key: number,
+    public id: number,
+    public accountId: number,
     public date: string,
     public type: string,
     public amount: number,

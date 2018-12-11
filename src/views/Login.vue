@@ -14,11 +14,13 @@ v-app
                 p.red--text(v-if="error") IDまたはパスワードが違います
             v-card-actions
               v-spacer
-              v-btn(color="primary" @click="menu") ログイン
+              v-btn(color="primary" @click="login") ログイン
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import Customer from '@/models/Customer';
+import md5 from 'md5';
 
 @Component
 export default class Login extends Vue {
@@ -26,9 +28,13 @@ export default class Login extends Vue {
   private pass: string = '';
   private error: boolean = false;
 
-  private menu(): void {
-    if (this.pass === '0001') {
-      this.$store.commit('authenticate');
+  private login(): void {
+    const customer: Customer | undefined = this.$store.state.customers.find((c: Customer) => {
+      return (c.loginId === this.id);
+    });
+
+    if (customer !== undefined && md5(this.pass) === customer.hashedPassword) {
+      this.$store.commit('authenticate', customer);
       this.$router.push('/');
     } else {
       this.id = '';
