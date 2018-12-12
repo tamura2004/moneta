@@ -43,7 +43,8 @@ export default class Login extends Vue {
     }
   }
   private mounted(): void {
-    this.$store.dispatch('getBanks');
+    this.$store.dispatch('initBanks');
+    console.log("mounted");
   }
 }
 </script>
