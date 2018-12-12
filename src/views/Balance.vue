@@ -24,6 +24,9 @@ export default class Balance extends Vue {
   private get balance(): string {
     return this.$store.getters.balance;
   }
+  private mounted(): void {
+    this.$store.dispatch('getBanks');
+  }
 }
 </script>
 
