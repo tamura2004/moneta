@@ -15,13 +15,13 @@ export default new Vuex.Store({
   state: new State(),
   getters: {
     balance: (state) => {
-      const lastStatement: Statement | undefined = state.statements.slice(-1).pop();
+      const lastStatement: Statement | undefined = state.statements[0];
       if (lastStatement === undefined) {
         return '---';
       } else {
         return lastStatement.monetaryTotal();
       }
-    }
+    },
   },
   mutations: {
     authenticate(state: State, customer: Customer) {
@@ -32,6 +32,7 @@ export default new Vuex.Store({
         state.branch = branch;
         state.bank = state.banks.find((b) => b.id === branch.bankId);
       }
+      state.account = state.accounts.find((a) => a.customerId === customer.id);
     },
     logoff(state: State) {
       state.authenticated = false;
@@ -68,7 +69,7 @@ export default new Vuex.Store({
       context.dispatch('getBranches');
       context.dispatch('getCustomers');
       context.dispatch('getAccounts');
-      context.dispatch('getStatements');
+      // context.dispatch('getStatements');
     },
     getBanks(context) {
       axios.get('http://localhost:3000/banks').then((res) => {
@@ -90,8 +91,8 @@ export default new Vuex.Store({
         context.commit('setAccounts', res.data);
       });
     },
-    getStatements(context) {
-      axios.get('http://localhost:3000/statements').then((res) => {
+    getStatements(context, AccountId) {
+      axios.get(`http://localhost:3000/accounts/${AccountId}/statements`).then((res) => {
         context.commit('setStatements', res.data);
       });
     },

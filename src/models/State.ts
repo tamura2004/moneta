@@ -9,6 +9,7 @@ export default class State {
   public bank?: Bank = undefined;
   public branch?: Branch = undefined;
   public customer?: Customer = undefined;
+  public account?: Account = undefined;
   public banks: Bank[] = [];
   public branches: Branch[] = [];
   public customers: Customer[] = [];

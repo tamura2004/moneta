@@ -4,7 +4,7 @@
       v-container(text-xs-center style="position:relative")
         v-btn.main(fab dark large color="orange") {{ balance }}
         h2.value 残高
-        h2.account 普通預金 655655
+        h2.account {{ kind }}預金 {{ num }}
         v-btn.back(round large color="white" @click="gotoStatements") 明細
 </template>
 
@@ -24,8 +24,14 @@ export default class Balance extends Vue {
   private get balance(): string {
     return this.$store.getters.balance;
   }
+  private get kind(): string {
+    return this.$store.state.account.kind;
+  }
+  private get num(): string {
+    return this.$store.state.account.num;
+  }
   private mounted(): void {
-    this.$store.dispatch('getBanks');
+    this.$store.dispatch('getStatements', this.$store.state.account.id);
   }
 }
 </script>

@@ -1,19 +1,20 @@
 class StatementsController < ApplicationController
   before_action :set_statement, only: [:show, :update, :destroy]
+  before_action :set_account
 
-  # GET /statements
+  # GET /accounts/:account_id/statements
   def index
-    @statements = Statement.all
+    @statements = Statement.where(account: @account).order(updated_at: "DESC")
 
     render json: @statements
   end
 
-  # GET /statements/1
+  # GET /accounts/:account_id/statements/1
   def show
     render json: @statement
   end
 
-  # POST /statements
+  # POST /accounts/:account_id/statements
   def create
     @statement = Statement.new(statement_params)
 
@@ -24,7 +25,7 @@ class StatementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /statements/1
+  # PATCH/PUT /accounts/:account_id/statements/1
   def update
     if @statement.update(statement_params)
       render json: @statement
@@ -33,7 +34,7 @@ class StatementsController < ApplicationController
     end
   end
 
-  # DELETE /statements/1
+  # DELETE /accounts/:account_id/statements/1
   def destroy
     @statement.destroy
   end
@@ -42,6 +43,10 @@ class StatementsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_statement
       @statement = Statement.find(params[:id])
+    end
+
+    def set_account
+      @account = Account.find(params[:account_id])
     end
 
     # Only allow a trusted parameter "white list" through.
