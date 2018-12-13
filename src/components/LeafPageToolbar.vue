@@ -24,7 +24,7 @@ import UserInfo from '@/components/UserInfo.vue';
 })
 export default class LeafPageToolbar extends Vue {
   private back(): void {
-    this.$router.push('/login');
+    this.$router.push('/');
   }
 }
 </script>

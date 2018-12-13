@@ -22,7 +22,7 @@ const router = new Router({
       name: 'balance',
       component: Balance,
       meta: {
-        requireAuth: true,
+        requireAuth: false,
       },
     },
     {
@@ -38,7 +38,7 @@ const router = new Router({
       name: 'transfer',
       component: Transfer,
       meta: {
-        requireAuth: true,
+        requireAuth: false,
       },
     },
     {

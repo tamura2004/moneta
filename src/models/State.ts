@@ -1,12 +1,14 @@
 import Customer from './Customer';
-import { Bank } from './Bank';
+import Bank from './Bank';
 import Branch from './Branch';
 import Account from './Account';
 import Statement from './Statement';
 
 export default class State {
   public authenticated: boolean = false;
-  public customer: Customer | null = null;
+  public bank?: Bank = undefined;
+  public branch?: Branch = undefined;
+  public customer?: Customer = undefined;
   public banks: Bank[] = [];
   public branches: Branch[] = [];
   public customers: Customer[] = [];

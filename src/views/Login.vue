@@ -10,7 +10,7 @@ v-app
             v-card-text
               v-form
                 v-text-field(prepend-icon="person" name="ID" label="ID" type="text" v-model="id")
-                v-text-field(id="password" prepend-icon="lock" name="password" label="password" type="text" v-model="pass")
+                v-text-field(id="password" prepend-icon="lock" name="password" label="password" type="password" v-model="pass")
                 p.red--text(v-if="error") IDまたはパスワードが違います
             v-card-actions
               v-spacer
@@ -41,10 +41,6 @@ export default class Login extends Vue {
       this.pass = '';
       this.error = true;
     }
-  }
-  private mounted(): void {
-    this.$store.dispatch('initBanks');
-    console.log("mounted");
   }
 }
 </script>

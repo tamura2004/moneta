@@ -16,7 +16,7 @@
           v-list-tile
             v-layout
               v-flex(xs3): v-list-tile-content {{ row.date }}
-              v-flex(xs1): v-list-tile-content {{ row.type }}
+              v-flex(xs1): v-list-tile-content {{ row.kind }}
               v-flex(xs2): v-list-tile-content {{ row.monetaryAmount() }}
               v-flex(xs3): v-list-tile-content {{ row.memo }}
               v-flex(xs3): v-list-tile-content {{ row.monetaryTotal() }}

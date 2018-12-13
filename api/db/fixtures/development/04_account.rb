@@ -6,7 +6,7 @@ Customer.all.each do |customer|
     Account.seed do |s|
       s.id = id
       s.customer_id = customer.id
-      s.number = sprintf("%04d%02d", 1000 + id, j)
+      s.num = sprintf("%04d%02d", 1000 + id, j)
       s.kind = "普通"
     end
     id += 1

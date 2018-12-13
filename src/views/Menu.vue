@@ -4,7 +4,7 @@
       //- v-toolbar-side-icon
       v-icon home
       v-toolbar-title.headline
-        span MONETA BANK
+        span {{ bank }} {{ branch }}
       v-spacer
       UserInfo
     v-content
@@ -33,5 +33,13 @@ import UserInfo from '@/components/UserInfo.vue';
     UserInfo,
   },
 })
-export default class Menu extends Vue {}
+export default class Menu extends Vue {
+  private get bank(): string {
+    return this.$store.state.bank.name;
+  }
+
+  private get branch(): string {
+    return this.$store.state.branch.name;
+  }
+}
 </script>

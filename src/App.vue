@@ -10,7 +10,11 @@ import Menu from '@/views/Menu.vue';
 @Component({
   components: { Menu },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private mounted(): void {
+    this.$store.dispatch('init');
+  }
+}
 </script>
 
 <style lang="stylus">
