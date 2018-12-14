@@ -1,4 +1,4 @@
-STATEMENTS_PER_ACCOUNT = 10
+STATEMENTS_PER_ACCOUNT = 3
 
 KIND = ['入', '出']
 MEMO_OUT = [
@@ -10,6 +10,8 @@ MEMO_OUT = [
 ]
 MEMO_IN = [
   '振込',
+  '利息',
+  '配当金',
   '給与'
 ]
 id = 1
@@ -20,10 +22,10 @@ Account.all.each do |account|
   STATEMENTS_PER_ACCOUNT.times do |i|
     if i == 0
       date = (rand(30)+10).days.before.to_date
-      total = rand(90000) + 10000
+      total = rand(100)*1_000 + 100_000
     end
-    date += rand(3)
-    amount = rand(9000) + 1000
+    date += rand(10)
+    amount = rand(100)*100 + 100
     kind = KIND.sample
     if kind == '入'
       total += amount

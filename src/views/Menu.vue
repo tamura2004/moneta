@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app
+  div
     v-toolbar(app)
       //- v-toolbar-side-icon
       v-icon home

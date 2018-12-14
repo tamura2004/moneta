@@ -1,6 +1,7 @@
 <template lang="pug">
-  transition(name="router")
-    router-view
+  v-app
+    transition(name="router" mode="out-in")
+      router-view
 </template>
 
 <script lang="ts">
@@ -19,11 +20,13 @@ export default class App extends Vue {
 
 <style lang="stylus">
   .router-enter-active, .router-leave-active
-    transition all 0.5s ease
+    transition all 0.3s ease
   
   .router-enter
     transform translateX(100%)
+    // opacity 0
   
   .router-leave-active
+    // opacity 0
     transform translateX(-100%)
 </style>

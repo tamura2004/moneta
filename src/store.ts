@@ -36,6 +36,7 @@ export default new Vuex.Store({
     },
     logoff(state: State) {
       state.authenticated = false;
+      state.customer = undefined;
     },
     setBanks(state: State, data) {
       state.banks = data.map((init: any) => {
