@@ -75,12 +75,6 @@ export default new Vuex.Store({
     setAccountTo(state: State, account: Account) {
       state.transfer.AccountTo = account;
     },
-    setAccountFrom(state: State, account: Account) {
-      state.transfer.AccountFrom = account;
-    },
-    setAmount(state: State, amount: number) {
-      state.transfer.Amount = amount;
-    },
   },
   actions: {
     init(context) {
