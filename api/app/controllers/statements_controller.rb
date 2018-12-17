@@ -14,6 +14,11 @@ class StatementsController < ApplicationController
     render json: @statement
   end
 
+  # GET /accounts/:account_id/balance
+  def balance
+    render json: @account.statements.balance
+  end
+  
   # GET /accounts/:account_id/account_to/:to/amount/:amount/transfer
   def transfer
     amount = params[:amount].to_i

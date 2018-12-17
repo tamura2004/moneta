@@ -11,6 +11,7 @@ export default class State {
   public branch?: Branch = undefined;
   public customer?: Customer = undefined;
   public account?: Account = undefined;
+  public balance?: number = undefined;
   public transfer: Transfer = new Transfer();
   public banks: Bank[] = [];
   public branches: Branch[] = [];
