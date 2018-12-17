@@ -63,6 +63,24 @@ export default new Vuex.Store({
         return new Statement(init);
       });
     },
+    setBankTo(state: State, bank: Bank) {
+      state.transfer.BankTo = bank;
+    },
+    setBranchTo(state: State, branch: Branch) {
+      state.transfer.BranchTo = branch;
+    },
+    setCustomerTo(state: State, customer: Customer) {
+      state.transfer.CustomerTo = customer;
+    },
+    setAccountTo(state: State, account: Account) {
+      state.transfer.AccountTo = account;
+    },
+    setAccountFrom(state: State, account: Account) {
+      state.transfer.AccountFrom = account;
+    },
+    setAmount(state: State, amount: number) {
+      state.transfer.Amount = amount;
+    },
   },
   actions: {
     init(context) {

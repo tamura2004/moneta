@@ -11,7 +11,7 @@
       v-container(text-xs-center)
         v-layout(row wrap)
           v-flex(
-            xs6 offset-xs3
+            xs10 offset-xs1
             sm4 offset-sm4
             md4 offset-md4
             lg3 offset-lg5
@@ -19,7 +19,7 @@
           )
             MenuButton(to="/balance" label="残高照会")
             MenuButton(to="/statements" label="入出金明細")
-            MenuButton(to="/transfer" label="振込")
+            MenuButton(to="/selectBank" label="振込")
 </template>
 
 <script lang="ts">

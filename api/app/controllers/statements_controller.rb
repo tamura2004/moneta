@@ -14,6 +14,36 @@ class StatementsController < ApplicationController
     render json: @statement
   end
 
+  # GET /accounts/:account_id/account_to/:to/amount/:amount/transfer
+  def transfer
+    amount = params[:amount].to_i
+    account_to = Account.find(params[:to])
+    statement_to = account_to.statements.order(updated_at: "desc").first
+    statement_from = @account.statements.order(updated_at: "desc").first
+
+    @statement_from = @account.statements.build(
+      date: Time.new.to_date,
+      kind: "出",
+      amount: amount,
+      memo: "振込",
+      total: statement_from.total - amount
+    )
+
+    @statement_to = account_to.statements.build(
+      date: Date.new,
+      kind: "入",
+      amount: amount,
+      memo: "振込",
+      total: statement_to.total + amount
+    )
+
+    if @statement_from.save && @statement_from.save
+      render json: @statement_from, status: :created, location: @account
+    else
+      render json: @statement_from, status: :unprocessable_entity
+    end
+  end
+
   # POST /accounts/:account_id/statements
   def create
     @statement = Statement.new(statement_params)
