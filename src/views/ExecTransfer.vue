@@ -20,7 +20,7 @@
           p.red--text(v-if="error") 残高が不足しています
       v-card-actions
         v-spacer
-        v-btn(color="primary" @click="exec") 振込実行
+        v-btn(color="primary" @click="exec" :disabled="ready") 振込実行
 </template>
 
 <script lang="ts">
@@ -38,7 +38,7 @@ import axios from 'axios';
   },
 })
 export default class ExecTransfer extends Vue {
-  private amount: number = 0;
+  private amount: Number | null = null;
   private error: boolean = false;
 
   private exec(): void {
@@ -52,6 +52,9 @@ export default class ExecTransfer extends Vue {
         this.$router.push('/statements')
       });
     }
+  }
+  get ready(): boolean {
+    return this.amount === null || this.amount === '';
   }
   get balance(): string {
     return this.$store.getters.balance;
