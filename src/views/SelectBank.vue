@@ -1,6 +1,14 @@
 <template lang="pug">
-  LeafPageToolbar
-    v-card.elevation-12.mt-4
+  div
+    v-list.elevation-12.mb-4
+      v-subheader 振込元
+      v-list-tile
+        v-list-tile-avatar 口座
+        v-list-tile-content 普通 1098765
+      v-list-tile
+        v-list-tile-avatar 残高
+        v-list-tile-content {{ $store.getters.balance }}
+    v-card.elevation-12.mt-2
       v-toolbar(dark color="primary")
         v-toolbar-title 振込先銀行を選択して下さい
       v-card-text
@@ -20,12 +28,12 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
+import TransferCard from '@/components/LeafPageToolbar.vue';
 import Bank from '@/models/Bank';
 
 @Component({
   components: {
-    LeafPageToolbar,
+    TransferCard,
   },
 })
 export default class SelectBank extends Vue {

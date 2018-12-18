@@ -14,14 +14,13 @@ import axios from 'axios';
 export default new Vuex.Store({
   state: new State(),
   getters: {
-    // balance: (state) => {
-    //   const lastStatement: Statement | undefined = state.statements[0];
-    //   if (lastStatement === undefined) {
-    //     return '---';
-    //   } else {
-    //     return lastStatement.monetaryTotal();
-    //   }
-    // },
+    balance: (state) => {
+      if (state.balance === undefined) {
+        return '---';
+      } else {
+        return '￥' + state.balance.toLocaleString() + ' -';
+      }
+    },
   },
   mutations: {
     authenticate(state: State, customer: Customer) {
@@ -78,13 +77,24 @@ export default new Vuex.Store({
     setAccountTo(state: State, account: Account) {
       state.transfer.AccountTo = account;
     },
+    setAccountFrom(state: State, account: Account) {
+      state.transfer.AccountFrom = account;
+    },
   },
   actions: {
-    init(context) {
-      context.dispatch('getBanks');
-      context.dispatch('getBranches');
-      context.dispatch('getCustomers');
-      context.dispatch('getAccounts');
+    init({dispatch}) {
+      dispatch('getBanks');
+      dispatch('getBranches');
+      dispatch('getCustomers');
+      dispatch('getAccounts');
+    },
+    login({commit, state, dispatch}, customer) {
+      commit('authenticate', customer);
+      const account = state.accounts.find((a) => a.customerId === customer.id);
+      if (account !== undefined) {
+        commit('setAccountFrom', account);
+        dispatch('getBalance', account.id);
+      }
     },
     getBanks(context) {
       axios.get('http://localhost:3000/banks').then((res) => {

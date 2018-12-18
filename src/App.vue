@@ -1,19 +1,45 @@
 <template lang="pug">
   v-app
-    transition(name="router" mode="out-in")
-      router-view
+    v-navigation-drawer(app)
+    v-toolbar(app)
+      v-btn(flat icon @click="home")
+        v-icon home
+      v-toolbar-title {{ bankName }}
+      v-spacer
+      UserInfo
+    v-content
+      v-container(fluid fill-height)
+        v-layout(align-start justify-center)
+          v-flex(xs12 sm12 md8 lg8 x8)
+            transition(name="router" mode="out-in")
+              router-view
+    v-footer(app)
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Menu from '@/views/Menu.vue';
+import UserInfo from '@/components/UserInfo.vue';
 
 @Component({
-  components: { Menu },
+  components: {
+    Menu,
+    UserInfo,
+  },
 })
 export default class App extends Vue {
   private mounted(): void {
     this.$store.dispatch('init');
+  }
+  get bankName(): string {
+    if (this.$store.state.bank !== undefined) {
+      return this.$store.state.bank.name;
+    } else {
+      return '';
+    }
+  }
+  private home(): void {
+    this.$router.push('/');
   }
 }
 </script>

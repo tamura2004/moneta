@@ -1,26 +1,25 @@
 <template lang="pug">
-  LeafPageToolbar
-    v-card.elevation-12.mt-4
-      v-toolbar(dark color="primary")
-        v-toolbar-title 金額をご入力下さい
-      v-card-text
-        h2 {{ bank.name }}
-        h2 {{ branch.name }}
-        h2 {{ customer.name }}
-        h2 {{ account.kind + account.num }}
-        hr
-        v-form
-          v-text-field(
-            prepend-icon="money"
-            name="金額"
-            label="金額 "
-            type="number"
-            v-model="amount"
-          )
-          p.red--text(v-if="error") 残高が不足しています
-      v-card-actions
-        v-spacer
-        v-btn(color="primary" @click="exec" :disabled="ready") 振込実行
+  v-card.elevation-12.mt-4
+    v-toolbar(dark color="primary")
+      v-toolbar-title 金額をご入力下さい
+    v-card-text
+      h2 {{ bank.name }}
+      h2 {{ branch.name }}
+      h2 {{ customer.name }}
+      h2 {{ account.kind + account.num }}
+      hr
+      v-form
+        v-text-field(
+          prepend-icon="money"
+          name="金額"
+          label="金額 "
+          type="number"
+          v-model="amount"
+        )
+        p.red--text(v-if="error") 残高が不足しています
+    v-card-actions
+      v-spacer
+      v-btn(color="primary" @click="exec" :disabled="empty") 振込実行
 </template>
 
 <script lang="ts">
@@ -38,7 +37,7 @@ import axios from 'axios';
   },
 })
 export default class ExecTransfer extends Vue {
-  private amount: Number | null = null;
+  private amount: string = '';
   private error: boolean = false;
 
   private exec(): void {
@@ -47,14 +46,14 @@ export default class ExecTransfer extends Vue {
     } else {
       const idFrom = this.$store.state.account.id;
       const idTo = this.$store.state.transfer.AccountTo.id;
-      const url = `accounts/${idFrom}/account_to/${idTo}/amount/${this.amount}/transfer`
+      const url = `accounts/${idFrom}/account_to/${idTo}/amount/${this.amount}/transfer`;
       axios.get(`http://localhost:3000/${url}`).then((res) => {
-        this.$router.push('/statements')
+        this.$router.push('/statements');
       });
     }
   }
-  get ready(): boolean {
-    return this.amount === null || this.amount === '';
+  get empty(): boolean {
+    return this.amount === '';
   }
   get balance(): string {
     return this.$store.getters.balance;

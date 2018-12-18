@@ -1,24 +1,20 @@
 <template lang="pug">
-  v-content
-    v-container(fluid fill-height)
-      v-layout(align-center justify-center)
-        v-flex(xs8 sm6 md4 lg3 xl2)
-          v-card.elevation-12
-            v-toolbar(dark color="primary")
-              v-toolbar-title ログイン
-            v-card-text
-              v-form
-                v-select(
-                  prepend-icon="person"
-                  :items="customerNames"
-                  v-model="id"
-                )
-                //- v-text-field(prepend-icon="person" name="ID" label="ID" type="text" v-model="id")
-                v-text-field(id="password" prepend-icon="lock" name="password" label="password" type="password" v-model="pass")
-                p.red--text(v-if="error") IDまたはパスワードが違います
-            v-card-actions
-              v-spacer
-              v-btn(color="primary" @click="login") ログイン
+  v-card.elevation-12
+    v-toolbar(dark color="primary")
+      v-toolbar-title ログイン
+    v-card-text
+      v-form
+        v-select(
+          prepend-icon="person"
+          :items="customerNames"
+          v-model="id"
+        )
+        //- v-text-field(prepend-icon="person" name="ID" label="ID" type="text" v-model="id")
+        v-text-field(id="password" prepend-icon="lock" name="password" label="password" type="password" v-model="pass")
+        p.red--text(v-if="error") IDまたはパスワードが違います
+    v-card-actions
+      v-spacer
+      v-btn(color="primary" @click="login") ログイン
 </template>
 
 <script lang="ts">
@@ -40,7 +36,8 @@ export default class Login extends Vue {
 
     // if (customer !== undefined && md5(this.pass) === customer.hashedPassword) {
     if (customer !== undefined) {
-      this.$store.commit('authenticate', customer);
+      this.$store.dispatch('login', customer);
+      // this.$store.commit('authenticate', customer);
       this.$router.push('/');
     } else {
       this.id = '';

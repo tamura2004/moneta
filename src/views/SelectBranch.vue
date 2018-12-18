@@ -1,22 +1,21 @@
 <template lang="pug">
-  LeafPageToolbar
-    v-card.elevation-12.mt-4
-      v-toolbar(dark color="primary")
-        v-toolbar-title 支店を選択して下さい
-      v-card-text
-        h2 {{ bank.name }}
-        v-form
-          v-select(
-            prepend-icon="account_balance"
-            :items="branches"
-            item-text="name"
-            item-value="id"
-            v-model="branchId"
-          )
-          p.red--text(v-if="error") 支店を選択して下さい
-      v-card-actions
-        v-spacer
-        v-btn(color="primary" @click="select") 選択
+  v-card.elevation-12.mt-4
+    v-toolbar(dark color="primary")
+      v-toolbar-title 支店を選択して下さい
+    v-card-text
+      h2 {{ bank.name }}
+      v-form
+        v-select(
+          prepend-icon="account_balance"
+          :items="branches"
+          item-text="name"
+          item-value="id"
+          v-model="branchId"
+        )
+        p.red--text(v-if="error") 支店を選択して下さい
+    v-card-actions
+      v-spacer
+      v-btn(color="primary" @click="select") 選択
 </template>
 
 <script lang="ts">
@@ -43,7 +42,7 @@ export default class SelectBranch extends Vue {
         this.error = true;
       } else {
         this.$store.commit('setBranchTo', branch);
-        this.$router.push('/selectCustomer')
+        this.$router.push('/selectCustomer');
       }
     }
   }
