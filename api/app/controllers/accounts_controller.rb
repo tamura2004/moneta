@@ -5,12 +5,18 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
 
-    render json: @accounts
+    # render json: @accounts
+    render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
   # GET /accounts/1
   def show
-    render json: @account
+    render 'show', formats: 'json', handlers: 'jbuilder'
+  end
+
+  # GET /accounts/:id/balance
+  def balance
+    render json: @account.statements.balance
   end
 
   # POST /accounts
@@ -46,6 +52,6 @@ class AccountsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def account_params
-      params.require(:account).permit(:num, :type, :customer_id)
+      params.require(:account).permit(:name, :kind, :num, :login_id, :hashed_password, :branch_id)
     end
 end

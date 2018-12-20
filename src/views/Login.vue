@@ -6,7 +6,9 @@
       v-form
         v-select(
           prepend-icon="person"
-          :items="customerNames"
+          :items="accounts"
+          item-text="name"
+          item-value="id"
           v-model="id"
         )
         //- v-text-field(prepend-icon="person" name="ID" label="ID" type="text" v-model="id")
@@ -19,8 +21,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import Customer from '@/models/Customer';
-// import Account from '@/models/Account';
+import { Account } from '@/models/Account';
 import md5 from 'md5';
 
 @Component
@@ -29,15 +30,16 @@ export default class Login extends Vue {
   private pass: string = '';
   private error: boolean = false;
 
+  private get accounts() {
+    return this.$store.state.accounts;
+  }
   private login(): void {
-    const customer: Customer | undefined = this.$store.state.customers.find((c: Customer) => {
-      return (c.name === this.id);
+    const account: Account | undefined = this.$store.state.accounts.find((a: Account) => {
+      return (a.id === Number(this.id));
     });
 
-    // if (customer !== undefined && md5(this.pass) === customer.hashedPassword) {
-    if (customer !== undefined) {
-      this.$store.dispatch('login', customer);
-      // this.$store.commit('authenticate', customer);
+    if (account !== undefined) {
+      this.$store.dispatch('login', account);
       this.$router.push('/');
     } else {
       this.id = '';
@@ -45,12 +47,9 @@ export default class Login extends Vue {
       this.error = true;
     }
   }
-  get customerNames(): string[] {
-    return this.$store.state.customers.map((c: Customer) => c.name);
+  private created(): void {
+    this.$store.dispatch('getAccounts');
   }
-  // private created(): void {
-  //   this.$store.dispatch('getCustomers');
-  // }
 }
 </script>
 

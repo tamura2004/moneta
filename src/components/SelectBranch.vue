@@ -3,7 +3,6 @@
     v-toolbar(dark color="primary")
       v-toolbar-title 支店を選択して下さい
     v-card-text
-      h2 {{ bank.name }}
       v-form
         v-select(
           prepend-icon="account_balance"
@@ -20,15 +19,10 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
-import Bank from '@/models/Bank';
-import Branch from '@/models/Branch';
+import { Bank } from '@/models/Bank';
+import { Branch } from '@/models/Branch';
 
-@Component({
-  components: {
-    LeafPageToolbar,
-  },
-})
+@Component
 export default class SelectBranch extends Vue {
   private branchId: number = 0;
   private error: boolean = false;
@@ -42,19 +36,11 @@ export default class SelectBranch extends Vue {
         this.error = true;
       } else {
         this.$store.commit('setBranchTo', branch);
-        this.$router.push('/selectCustomer');
       }
     }
   }
-  get bank(): Bank {
-    return this.$store.state.transfer.BankTo;
-  }
-
   get branches(): Branch[] {
-    const allBranch = this.$store.state.branches;
-    const bankId = this.bank.id;
-    const branches = allBranch.filter((b: Branch) => b.bankId === bankId);
-    return branches;
+    return this.$store.getters.branchesTo;
   }
 }
 </script>

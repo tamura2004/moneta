@@ -4,38 +4,59 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import State from '@/models/State';
-import Bank from '@/models/Bank';
-import Branch from '@/models/Branch';
-import Customer from '@/models/Customer';
-import Account from '@/models/Account';
+import { Bank } from '@/models/Bank';
+import { Branch } from '@/models/Branch';
+import { Account } from '@/models/Account';
 import Statement from '@/models/Statement';
-import axios from 'axios';
+import { Transfer } from '@/models/Transfer';
+import API from '@/services/API';
 
 export default new Vuex.Store({
   state: new State(),
   getters: {
-    balance: (state) => {
-      if (state.balance === undefined) {
-        return '---';
-      } else {
-        return '￥' + state.balance.toLocaleString() + ' -';
-      }
+    progress(state: State): 'BANK' | 'BRANCH' | 'ACCOUNT' | 'AMOUNT' {
+      return state.transfer.progress;
+    },
+    branchesTo(state: State): Branch[] {
+      return state.branches.filter((b: Branch) => {
+        if (state.transfer !== undefined) {
+          if (state.transfer.bankTo !== undefined) {
+            return b.bank_id === state.transfer.bankTo.id;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    accountsTo(state: State): Account[] {
+      return state.accounts.filter((a: Account) => {
+        if (state.transfer !== undefined) {
+          if (state.transfer.branchTo !== undefined) {
+            return a.branch_id === state.transfer.branchTo.id;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
     },
   },
   mutations: {
-    authenticate(state: State, customer: Customer) {
-      state.authenticated = true;
-      state.customer = customer;
-      const branch = state.branches.find((b) => b.id === customer.branchId);
-      if (branch) {
-        state.branch = branch;
-        state.bank = state.banks.find((b) => b.id === branch.bankId);
+    login(state: State, account: Account) {
+      state.account = account;
+    },
+    setBalance(state: State, account: Account) {
+      if (state.account !== undefined) {
+        state.account.balance = account.balance;
+      } else {
+        state.account = account;
       }
-      state.account = state.accounts.find((a) => a.customerId === customer.id);
     },
     logoff(state: State) {
-      state.authenticated = false;
-      state.customer = undefined;
+      state.account = undefined;
     },
     setBanks(state: State, data) {
       state.banks = data.map((init: any) => {
@@ -45,11 +66,6 @@ export default new Vuex.Store({
     setBranches(state: State, data) {
       state.branches = data.map((init: any) => {
         return new Branch(init);
-      });
-    },
-    setCustomers(state: State, data) {
-      state.customers = data.map((init: any) => {
-        return new Customer(init);
       });
     },
     setAccounts(state: State, data) {
@@ -62,68 +78,53 @@ export default new Vuex.Store({
         return new Statement(init);
       });
     },
-    setBalance(state: State, data) {
-      state.balance = Number(data);
+    newTransfer(state: State) {
+      state.transfer = new Transfer();
     },
     setBankTo(state: State, bank: Bank) {
-      state.transfer.BankTo = bank;
+      state.transfer.bankTo = bank;
     },
     setBranchTo(state: State, branch: Branch) {
-      state.transfer.BranchTo = branch;
-    },
-    setCustomerTo(state: State, customer: Customer) {
-      state.transfer.CustomerTo = customer;
+      state.transfer.branchTo = branch;
     },
     setAccountTo(state: State, account: Account) {
-      state.transfer.AccountTo = account;
-    },
-    setAccountFrom(state: State, account: Account) {
-      state.transfer.AccountFrom = account;
+      state.transfer.accountTo = account;
     },
   },
   actions: {
     init({dispatch}) {
       dispatch('getBanks');
       dispatch('getBranches');
-      dispatch('getCustomers');
       dispatch('getAccounts');
     },
-    login({commit, state, dispatch}, customer) {
-      commit('authenticate', customer);
-      const account = state.accounts.find((a) => a.customerId === customer.id);
-      if (account !== undefined) {
-        commit('setAccountFrom', account);
-        dispatch('getBalance', account.id);
-      }
-    },
-    getBanks(context) {
-      axios.get('http://localhost:3000/banks').then((res) => {
-        context.commit('setBanks', res.data);
+    login({commit, dispatch}, account) {
+      API.get(`accounts/${account.id}`).then((res) => {
+        commit('login', new Account(res.data));
       });
     },
-    getBranches(context) {
-      axios.get('http://localhost:3000/branches').then((res) => {
-        context.commit('setBranches', res.data);
+    getBanks({commit}) {
+      API.get('banks').then((res) => {
+        commit('setBanks', res.data);
       });
     },
-    getCustomers(context) {
-      axios.get('http://localhost:3000/customers').then((res) => {
-        context.commit('setCustomers', res.data);
+    getBranches({commit}) {
+      API.get('branches').then((res) => {
+        commit('setBranches', res.data);
       });
     },
-    getAccounts(context) {
-      axios.get('http://localhost:3000/accounts').then((res) => {
-        context.commit('setAccounts', res.data);
+    getAccounts({commit}) {
+      API.get('accounts').then((res) => {
+        commit('setAccounts', res.data);
       });
     },
-    getStatements(context, AccountId) {
-      axios.get(`http://localhost:3000/accounts/${AccountId}/statements`).then((res) => {
-        context.commit('setStatements', res.data);
+    getStatements({commit}, accountId) {
+      API.get(`accounts/${accountId}/statements`).then((res) => {
+        commit('setStatements', res.data);
       });
     },
-    getBalance(context, AccountId) {
-      axios.get(`http://localhost:3000/accounts/${AccountId}/balance`).then((res) => {
-        context.commit('setBalance', res.data);
+    updateBalance({commit}, account) {
+      API.get(`accounts/${account.id}`).then((res) => {
+        commit('setBalance', res.data);
       });
     },
   },

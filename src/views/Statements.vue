@@ -2,23 +2,20 @@
   v-card
     v-toolbar(color="primary" dark)
       v-toolbar-title 入出金明細
-    v-list
-      v-list-tile
-        v-layout
-          v-flex(xs3): v-list-tile-content.font-weight-bold 日付
-          v-flex(xs1): v-list-tile-content.font-weight-bold 種別
-          v-flex(xs2): v-list-tile-content.font-weight-bold 金額
-          v-flex(xs3): v-list-tile-content.font-weight-bold 適用
-          v-flex(xs3): v-list-tile-content.font-weight-bold 残高
+    v-list(two-line)
       div(v-for="row in rows")
         v-divider
-        v-list-tile
-          v-layout
-            v-flex(xs3): v-list-tile-content {{ row.date }}
-            v-flex(xs1): v-list-tile-content {{ row.kind }}
-            v-flex(xs2): v-list-tile-content {{ row.monetaryAmount() }}
-            v-flex(xs3): v-list-tile-content {{ row.memo }}
-            v-flex(xs3): v-list-tile-content {{ row.monetaryTotal() }}
+        v-list-tile-content.pa-1
+          v-list-tile-title
+            v-layout
+              v-flex(xs4) {{ row.date }}
+              v-flex(xs8) {{ row.memo }}
+          v-list-tile-sub-title
+            v-layout
+              v-flex(xs4) {{ row.kind }}
+              v-flex(xs4) {{ row.monetaryAmount() }}
+              v-flex(xs4) {{ row.monetaryTotal() }}
+
 </template>
 
 <script lang="ts">

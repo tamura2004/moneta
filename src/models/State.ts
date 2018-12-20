@@ -1,21 +1,15 @@
-import Customer from './Customer';
-import Bank from './Bank';
-import Branch from './Branch';
-import Account from './Account';
-import Statement from './Statement';
-import Transfer from './Transfer';
+import { Bank } from '@/models/Bank';
+import { Branch } from '@/models/Branch';
+import { Account } from '@/models/Account';
+import Statement from '@/models/Statement';
+import { Transfer } from '@/models/Transfer';
 
 export default class State {
-  public authenticated: boolean = false;
-  public bank?: Bank = undefined;
-  public branch?: Branch = undefined;
-  public customer?: Customer = undefined;
+  // public authenticated: boolean = false;
   public account?: Account = undefined;
-  public balance?: number = undefined;
   public transfer: Transfer = new Transfer();
   public banks: Bank[] = [];
   public branches: Branch[] = [];
-  public customers: Customer[] = [];
   public accounts: Account[] = [];
   public statements: Statement[] = [];
 }

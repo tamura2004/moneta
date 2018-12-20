@@ -1,6 +1,11 @@
 <template lang="pug">
   div
-    MenuButton(v-for="menu in menues" :to="menu.to" :label="menu.label")
+    MenuButton(
+      v-for="menu in menues"
+      :to="menu.to"
+      :label="menu.label"
+      :key="menu.label"
+    )
 </template>
 
 <script lang="ts">
@@ -18,7 +23,7 @@ export default class Menu extends Vue {
   private menues = [
     {to: '/balance', label: '残高照会'},
     {to: '/statements', label: '入出金明細'},
-    {to: '/selectBank', label: '振込'},
+    {to: '/transfer', label: '振込'},
   ];
 
   private get bank(): string {

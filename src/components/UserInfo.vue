@@ -10,13 +10,11 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class UserInfo extends Vue {
   get authenticated(): boolean {
-    return this.$store.state.authenticated;
+    return this.$store.state.account !== undefined;
   }
-
   get username(): string {
-    return this.$store.state.customer.name;
+    return this.$store.state.account.name;
   }
-
   private login() {
     this.$router.push({name: 'login'});
   }

@@ -9,8 +9,10 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@types/humps": "^1.1.2",
     "@types/md5": "^2.1.33",
     "axios": "^0.18.0",
+    "humps": "^2.0.1",
     "md5": "^2.2.1",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",

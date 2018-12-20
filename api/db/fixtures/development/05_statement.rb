@@ -1,6 +1,6 @@
 STATEMENTS_PER_ACCOUNT = 3
 
-KIND = ['入', '出']
+KIND = ['入金', '出金']
 MEMO_OUT = [
   '東京ガス',
   '東京電力',
@@ -22,12 +22,12 @@ Account.all.each do |account|
   STATEMENTS_PER_ACCOUNT.times do |i|
     if i == 0
       date = (rand(30)+10).days.before.to_date
-      total = rand(100)*1_000 + 100_000
+      total = account.balance
     end
     date += rand(10)
-    amount = rand(100)*100 + 100
+    amount = (rand(100)+1)*1000
     kind = KIND.sample
-    if kind == '入'
+    if kind == '入金'
       total += amount
       memo = MEMO_IN.sample
     else

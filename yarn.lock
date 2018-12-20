@@ -684,6 +684,11 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/humps@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/humps/-/humps-1.1.2.tgz#fbcaf596d20ff2ed78f8f511c5d6a943b51101d6"
+  integrity sha1-+8r1ltIP8u14+PURxdapQ7URAdY=
+
 "@types/jest@^23.1.4":
   version "23.3.10"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
@@ -4301,6 +4306,11 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+  integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
 
 iconv-lite@0.4.23:
   version "0.4.23"

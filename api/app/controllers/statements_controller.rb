@@ -18,27 +18,27 @@ class StatementsController < ApplicationController
   def balance
     render json: @account.statements.balance
   end
-  
+
   # GET /accounts/:account_id/account_to/:to/amount/:amount/transfer
   def transfer
     amount = params[:amount].to_i
     balance_from = @account.statements.balance
+    account_to = Account.find(params[:to])
+    balance_to = account_to.statements.balance
     
     @statement_from = @account.statements.build(
       date: Time.new.to_date,
-      kind: "出",
+      kind: "出金",
       amount: amount,
-      memo: "振込",
+      memo: "振込：" + account_to.name,
       total: balance_from - amount
       )
       
-    account_to = Account.find(params[:to])
-    balance_to = account_to.statements.balance
     @statement_to = account_to.statements.build(
       date: Date.new.to_date,
-      kind: "入",
+      kind: "入金",
       amount: amount,
-      memo: "振込",
+      memo: "振込：" + @account.name,
       total: balance_to + amount
     )
 

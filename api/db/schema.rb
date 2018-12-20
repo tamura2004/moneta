@@ -13,12 +13,16 @@
 ActiveRecord::Schema.define(version: 2018_12_12_033410) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string "num"
+    t.string "name"
     t.string "kind"
-    t.integer "customer_id"
+    t.string "num"
+    t.integer "balance"
+    t.string "login_id"
+    t.string "hashed_password"
+    t.integer "branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_accounts_on_customer_id"
+    t.index ["branch_id"], name: "index_accounts_on_branch_id"
   end
 
   create_table "banks", force: :cascade do |t|
@@ -35,17 +39,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_033410) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bank_id"], name: "index_branches_on_bank_id"
-  end
-
-  create_table "customers", force: :cascade do |t|
-    t.string "num"
-    t.string "name"
-    t.string "login_id"
-    t.string "hashed_password"
-    t.integer "branch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["branch_id"], name: "index_customers_on_branch_id"
   end
 
   create_table "statements", force: :cascade do |t|

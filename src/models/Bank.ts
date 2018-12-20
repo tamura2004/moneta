@@ -1,19 +1,21 @@
-const isBank = (init: Required<Bank>): init is Required<Bank> =>
+type IBank = Required<Bank>;
+
+const isIBank = (init: IBank): init is IBank =>
   init.id !== undefined &&
   init.num !== undefined &&
   init.name !== undefined;
 
-export default class Bank {
-  public id: number;
-  public num: string;
-  public name: string;
+class Bank {
+  public id!: number;
+  public num!: string;
+  public name!: string;
 
-  constructor(init: Required<Bank>) {
-    if (!isBank(init)) {
+  constructor(init: IBank) {
+    if (!isIBank(init)) {
       throw new Error('Bad bank data:' + JSON.stringify(init));
     }
-    this.id = init.id;
-    this.num = init.num;
-    this.name = init.name;
+    Object.assign(this, init);
   }
 }
+
+export { Bank, IBank, isIBank };

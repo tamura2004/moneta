@@ -1,4 +1,4 @@
 class Account < ApplicationRecord
-  belongs_to :customer
+  belongs_to :branch
   has_many :statements
 end

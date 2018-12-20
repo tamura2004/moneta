@@ -21,7 +21,7 @@ export default class Balance extends Vue {
     this.$router.push({name: 'statements'});
   }
   private get balance(): string {
-    return this.$store.getters.balance;
+    return this.$store.state.account.balanceFormatted;
   }
   private get kind(): string {
     return this.$store.state.account.kind;
@@ -30,7 +30,7 @@ export default class Balance extends Vue {
     return this.$store.state.account.num;
   }
   private mounted(): void {
-    this.$store.dispatch('getBalance', this.$store.state.account.id);
+    this.$store.dispatch('updateBalance', this.$store.state.account);
   }
 }
 </script>
