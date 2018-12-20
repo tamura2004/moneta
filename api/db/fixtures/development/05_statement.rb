@@ -22,10 +22,10 @@ Account.all.each do |account|
   STATEMENTS_PER_ACCOUNT.times do |i|
     if i == 0
       date = (rand(30)+10).days.before.to_date
-      total = account.balance
+      total = 1_000_000
     end
     date += rand(10)
-    amount = (rand(100)+1)*1000
+    amount = (rand(200)+1)*1000
     kind = KIND.sample
     if kind == '入金'
       total += amount

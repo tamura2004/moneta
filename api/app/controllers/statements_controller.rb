@@ -35,7 +35,7 @@ class StatementsController < ApplicationController
       )
       
     @statement_to = account_to.statements.build(
-      date: Date.new.to_date,
+      date: Time.new.to_date,
       kind: "入金",
       amount: amount,
       memo: "振込：" + @account.name,

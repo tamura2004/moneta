@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_033410) do
     t.string "name"
     t.string "kind"
     t.string "num"
-    t.integer "balance"
     t.string "login_id"
     t.string "hashed_password"
     t.integer "branch_id"

@@ -32,8 +32,12 @@ export default class App extends Vue {
     this.$store.dispatch('init');
   }
   get bankName(): string {
-    if (this.$store.state.bank !== undefined) {
-      return this.$store.state.bank.name;
+    if (this.$store.state.account !== undefined) {
+      if (this.$store.state.account.bank !== undefined) {
+        return this.$store.state.account.bank.name;
+      } else {
+        return '';
+      }
     } else {
       return '';
     }
@@ -50,9 +54,7 @@ export default class App extends Vue {
   
   .router-enter
     transform translateX(100%)
-    // opacity 0
   
   .router-leave-active
-    // opacity 0
     transform translateX(-100%)
 </style>
