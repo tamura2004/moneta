@@ -38,7 +38,7 @@ class Account {
       this.branch = undefined;
     }
   }
-  public get balanceFormatted(): string {
+  public get monetary(): string {
     if (this.balance !== undefined) {
       return '￥' + this.balance.toLocaleString() + ' -';
     } else {

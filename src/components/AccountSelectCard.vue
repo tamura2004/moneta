@@ -24,7 +24,7 @@ import { Branch } from '@/models/Branch';
 import { Account } from '@/models/Account';
 
 @Component
-export default class SelectAccount extends Vue {
+export default class AccountSelectCard extends Vue {
   private accountId: number = 0;
   private error: boolean = false;
 

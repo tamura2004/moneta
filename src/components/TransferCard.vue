@@ -12,7 +12,7 @@
             v-flex(xs2) {{ account.kind }}
             v-flex(xs4) {{ account.num }}
             v-flex(xs2) 残高
-            v-flex(xs4) {{ account.balanceFormatted }}
+            v-flex(xs4) {{ account.monetary }}
     v-divider
     v-subheader.header  振込先
     v-list-tile

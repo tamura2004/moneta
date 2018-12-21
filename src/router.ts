@@ -5,6 +5,7 @@ import Balance from '@/views/Balance.vue';
 import Statements from '@/views/Statements.vue';
 import Transfer from '@/views/Transfer.vue';
 import Login from '@/views/Login.vue';
+import Signin from '@/views/Signin.vue';
 
 Vue.use(Router);
 
@@ -48,6 +49,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: Signin,
     },
   ],
 });

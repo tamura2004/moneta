@@ -1,36 +1,26 @@
 <template lang="pug">
   div#page
-    v-btn#btn.ma-0.orange(fab dark large) {{ balance }}
+    v-btn#btn.ma-0.orange(fab dark large) {{ account.monetary }}
     div#inner-page
       h2#label 残高
-      h2#account {{ kind }}預金 {{ num }}
-      v-btn#statement-btn(round large color="white" @click="gotoStatements") 明細
+      h2#account {{ account.kind }}預金 {{ account.num }}
+      v-btn#statement-btn(round large color="white" @click="statements") 明細
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
+import { Account } from '@/models/Account';
 
-@Component({
-  components: {
-    LeafPageToolbar,
-  },
-})
+@Component
 export default class Balance extends Vue {
-  private gotoStatements($event: Event): void {
-    this.$router.push({name: 'statements'});
+  private statements($event: Event): void {
+    this.$router.push('/statements');
   }
-  private get balance(): string {
-    return this.$store.state.account.balanceFormatted;
+  private get account(): Account {
+    return this.$store.state.account;
   }
-  private get kind(): string {
-    return this.$store.state.account.kind;
-  }
-  private get num(): string {
-    return this.$store.state.account.num;
-  }
-  private mounted(): void {
-    this.$store.dispatch('updateBalance', this.$store.state.account);
+  private created(): void {
+    this.$store.dispatch('updateBalance');
   }
 }
 </script>

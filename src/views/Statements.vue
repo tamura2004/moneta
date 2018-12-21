@@ -32,8 +32,8 @@ export default class Statements extends Vue {
   private get rows(): Statement[] {
     return this.$store.state.statements;
   }
-  private mounted(): void {
-    this.$store.dispatch('getStatements', this.$store.state.account.id);
+  private created(): void {
+    this.$store.dispatch('getStatements');
   }
 }
 </script>

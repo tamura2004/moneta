@@ -1,17 +1,10 @@
 <template lang="pug">
-  v-card.elevation-12.mt-2
+  v-card.elevation-12.mt-4
     v-toolbar(dark color="primary")
       v-toolbar-title 振込先銀行を選択して下さい
     v-card-text
       v-form
-        v-select(
-          prepend-icon="account_balance"
-          :items="banks"
-          item-text="name"
-          item-value="id"
-          v-model="bankId"
-        )
-        p.red--text(v-if="error") 銀行を選択して下さい
+        BankSelect(v-model="bankId")
     v-card-actions
       v-spacer
       v-btn(color="primary" @click="select") 選択
@@ -20,9 +13,14 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Bank } from '@/models/Bank';
+import BankSelect from '@/components/BankSelect.vue';
 
-@Component
-export default class SelectBank extends Vue {
+@Component({
+  components: {
+    BankSelect,
+  },
+})
+export default class BankSelectCard extends Vue {
   private bankId: number = 0;
   private error: boolean = false;
 

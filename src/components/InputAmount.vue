@@ -11,7 +11,7 @@
           type="number"
           v-model="amount"
         )
-        p.red--text(v-if="error") 残高が不足しています
+        p.red--text(v-if="error !== null") {{ error }}
     v-card-actions
       v-spacer
       v-btn(color="primary" @click="exec" :disabled="empty") 振込実行
@@ -24,11 +24,11 @@ import API from '@/services/API';
 @Component
 export default class InputAmount extends Vue {
   private amount: string = '';
-  private error: boolean = false;
+  private error: null | string = null;
 
   private exec(): void {
     if (Number(this.amount) > Number(this.$store.state.account.balance)) {
-      this.error = true;
+      this.error = '残高が不足しています';
     } else {
       const idFrom = this.$store.state.account.id;
       const idTo = this.$store.state.transfer.accountTo.id;

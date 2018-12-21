@@ -23,7 +23,7 @@ import { Bank } from '@/models/Bank';
 import { Branch } from '@/models/Branch';
 
 @Component
-export default class SelectBranch extends Vue {
+export default class BranchSelectCard extends Vue {
   private branchId: number = 0;
   private error: boolean = false;
 

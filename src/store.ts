@@ -8,13 +8,13 @@ import { Bank } from '@/models/Bank';
 import { Branch } from '@/models/Branch';
 import { Account } from '@/models/Account';
 import Statement from '@/models/Statement';
-import { Transfer } from '@/models/Transfer';
+import { Transfer, TransferProgress } from '@/models/Transfer';
 import API from '@/services/API';
 
 export default new Vuex.Store({
   state: new State(),
   getters: {
-    progress(state: State): 'BANK' | 'BRANCH' | 'ACCOUNT' | 'AMOUNT' {
+    progress(state: State): TransferProgress {
       return state.transfer.progress;
     },
     branchesTo(state: State): Branch[] {
@@ -45,14 +45,12 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    login(state: State, account: Account) {
+    setAccount(state: State, account: Account) {
       state.account = account;
     },
     setBalance(state: State, account: Account) {
       if (state.account !== undefined) {
         state.account.balance = account.balance;
-      } else {
-        state.account = account;
       }
     },
     logoff(state: State) {
@@ -97,9 +95,9 @@ export default new Vuex.Store({
       dispatch('getBranches');
       dispatch('getAccounts');
     },
-    login({commit, dispatch}, account) {
+    login({commit}, account: Account) {
       API.get(`accounts/${account.id}`).then((res) => {
-        commit('login', new Account(res.data));
+        commit('setAccount', new Account(res.data));
       });
     },
     getBanks({commit}) {
@@ -117,15 +115,19 @@ export default new Vuex.Store({
         commit('setAccounts', res.data);
       });
     },
-    getStatements({commit}, accountId) {
-      API.get(`accounts/${accountId}/statements`).then((res) => {
-        commit('setStatements', res.data);
-      });
+    getStatements({commit, state}) {
+      if (state.account !== undefined) {
+        API.get(`accounts/${state.account.id}/statements`).then((res) => {
+          commit('setStatements', res.data);
+        });
+      }
     },
-    updateBalance({commit}, account) {
-      API.get(`accounts/${account.id}`).then((res) => {
-        commit('setBalance', res.data);
-      });
+    updateBalance({commit, state}, account: Account) {
+      if (state.account !== undefined) {
+        API.get(`accounts/${state.account.id}`).then((res) => {
+          commit('setBalance', res.data);
+        });
+      }
     },
   },
 });

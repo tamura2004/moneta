@@ -1,9 +1,16 @@
 <template lang="pug">
   v-card.elevation-12
     v-toolbar(dark color="primary")
-      v-toolbar-title ログイン
+      v-toolbar-title 口座開設
     v-card-text
       v-form
+        v-select(
+          prepend-icon="account_balance"
+          :items="banks"
+          item-text="name"
+          item-value="id"
+          v-model="bankId"
+        )
         v-select(
           prepend-icon="person"
           :items="accounts"
@@ -16,8 +23,7 @@
         p.red--text(v-if="error") IDまたはパスワードが違います
     v-card-actions
       v-spacer
-      v-btn(color="success" @click="signin") 口座開設
-      v-btn(color="primary" @click="login") ログイン
+      v-btn(color="primary" @click="signin") 開設
 </template>
 
 <script lang="ts">
@@ -26,7 +32,7 @@ import { Account } from '@/models/Account';
 import md5 from 'md5';
 
 @Component
-export default class Login extends Vue {
+export default class Signin extends Vue {
   private id: string = '';
   private pass: string = '';
   private error: boolean = false;
