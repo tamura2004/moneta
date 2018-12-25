@@ -129,5 +129,11 @@ export default new Vuex.Store({
         });
       }
     },
+    createAccount({ commit }, form: {bankId: number, branchId: number, pass: string, name: string}) {
+      API.post('accounts', {
+        name: form.name,
+        branch_id: form.branchId,
+      });
+    },
   },
 });

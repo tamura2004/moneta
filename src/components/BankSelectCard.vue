@@ -4,7 +4,15 @@
       v-toolbar-title 振込先銀行を選択して下さい
     v-card-text
       v-form
-        BankSelect(v-model="bankId")
+        v-select(
+          prepend-icon="account_balance"
+          :items="banks"
+          item-text="name"
+          item-value="id"
+          v-model="bankId"
+          @input="select"
+        )
+        p.red--text(v-if="error") 銀行を選択して下さい
     v-card-actions
       v-spacer
       v-btn(color="primary" @click="select") 選択
@@ -13,13 +21,8 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Bank } from '@/models/Bank';
-import BankSelect from '@/components/BankSelect.vue';
 
-@Component({
-  components: {
-    BankSelect,
-  },
-})
+@Component
 export default class BankSelectCard extends Vue {
   private bankId: number = 0;
   private error: boolean = false;

@@ -22,6 +22,13 @@ class AccountsController < ApplicationController
   # POST /accounts
   def create
     @account = Account.new(account_params)
+    @account.statements.build({
+      date: Time.now.to_date,
+      kind: '入金',
+      amount: 1_000_000,
+      memo: '新規開設',
+      total: 1_000_000,
+    })
 
     if @account.save
       render json: @account, status: :created, location: @account

@@ -18,7 +18,7 @@ import { Bank } from '@/models/Bank';
 @Component
 export default class BankSelect extends Vue {
   @Prop() private value!: string;
-  @Prop() private error!: boolean = false;
+  private error: boolean = false;
 
   get banks(): Bank[] {
     return this.$store.state.banks;
