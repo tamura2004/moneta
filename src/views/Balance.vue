@@ -1,6 +1,6 @@
 <template lang="pug">
   div#page
-    v-btn#btn.ma-0.orange(fab dark large) {{ account.monetary }}
+    v-btn#btn.ma-0.orange(fab dark large) {{ account.balance | threeDigitedYen }}
     div#inner-page
       h2#label 残高
       h2#account {{ account.kind }}預金 {{ account.num }}

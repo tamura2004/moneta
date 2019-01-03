@@ -38,13 +38,6 @@ class Account {
       this.branch = undefined;
     }
   }
-  public get monetary(): string {
-    if (this.balance !== undefined) {
-      return '￥' + this.balance.toLocaleString() + ' -';
-    } else {
-      return 'no balance data';
-    }
-  }
 }
 
 export { Account, IAccount, isIAccount };

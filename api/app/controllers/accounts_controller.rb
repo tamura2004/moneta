@@ -22,6 +22,8 @@ class AccountsController < ApplicationController
   # POST /accounts
   def create
     @account = Account.new(account_params)
+    @account.kind = '普通'
+    @account.num = sprintf("%06d",rand(1000000))
     @account.statements.build({
       date: Time.now.to_date,
       kind: '入金',

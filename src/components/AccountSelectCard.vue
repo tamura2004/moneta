@@ -10,11 +10,8 @@
           :item-text="accountName"
           item-value="id"
           v-model="accountId"
+          @input="select"
         )
-        p.red--text(v-if="error") 口座を選択して下さい
-    v-card-actions
-      v-spacer
-      v-btn(color="primary" @click="select") 選択
 </template>
 
 <script lang="ts">
@@ -26,18 +23,13 @@ import { Account } from '@/models/Account';
 @Component
 export default class AccountSelectCard extends Vue {
   private accountId: number = 0;
-  private error: boolean = false;
 
   private select(): void {
-    if (this.accountId === 0) {
-      this.error = true;
+    const account: Account | undefined = this.accounts.find((b: Account) => b.id === this.accountId);
+    if (account === undefined) {
+      throw new Error(`bad account id: ${this.accountId}`);
     } else {
-      const account: Account | undefined = this.accounts.find((b: Account) => b.id === this.accountId);
-      if (account === undefined) {
-        this.error = true;
-      } else {
-        this.$store.commit('setAccountTo', account);
-      }
+      this.$store.commit('setAccountTo', account);
     }
   }
   private accountName(account: Account): string {

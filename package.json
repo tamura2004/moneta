@@ -6,13 +6,16 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "inspect": "vue-cli-service inspect",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@mdi/font": "^3.3.92",
     "@types/humps": "^1.1.2",
     "@types/md5": "^2.1.33",
     "axios": "^0.18.0",
     "humps": "^2.0.1",
+    "material-design-icons-iconfont": "^4.0.3",
     "md5": "^2.2.1",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",
@@ -39,5 +42,8 @@
     "vue-cli-plugin-vuetify": "^0.4.6",
     "vue-template-compiler": "^2.5.17",
     "vuetify-loader": "^1.0.5"
+  },
+  "vue": {
+    "outputDir": "api/public"
   }
 }

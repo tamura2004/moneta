@@ -12,10 +12,6 @@
           v-model="bankId"
           @input="select"
         )
-        p.red--text(v-if="error") 銀行を選択して下さい
-    v-card-actions
-      v-spacer
-      v-btn(color="primary" @click="select") 選択
 </template>
 
 <script lang="ts">
@@ -25,18 +21,14 @@ import { Bank } from '@/models/Bank';
 @Component
 export default class BankSelectCard extends Vue {
   private bankId: number = 0;
-  private error: boolean = false;
 
   private select(): void {
-    if (this.bankId === undefined) {
-      this.error = true;
+    const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);
+
+    if (bank === undefined) {
+      throw new Error(`bad bank id: ${this.bankId}`);
     } else {
-      const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);
-      if (bank === undefined) {
-        this.error = true;
-      } else {
-        this.$store.commit('setBankTo', bank);
-      }
+      this.$store.commit('setBankTo', bank);
     }
   }
   get banks(): Bank[] {

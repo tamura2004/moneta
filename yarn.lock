@@ -659,6 +659,11 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@mdi/font@^3.3.92":
+  version "3.3.92"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-3.3.92.tgz#9434b92f9810e41d34dd7936e8e1578cd46bebfd"
+  integrity sha512-Ux6iPfRjT9gHtejfss7aHBjgedLx8OrnX7Q+DuqgGYVkr9Amhi7cWFd745znrj7Y74pnjrs+uAbpohPK3ue5Ew==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -5722,6 +5727,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+material-design-icons-iconfont@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/material-design-icons-iconfont/-/material-design-icons-iconfont-4.0.3.tgz#b2fbcc9828f96e6418b8e475060f866296b714ef"
+  integrity sha512-AB0MlNhhEm4W3M/kejsjZkLUq/HenHJ8fq5TXa7cpnXg8IXWLzO5MCBWTokk8eQ447EbbQnCqUP+xQnVCZ2SZg==
 
 math-random@^1.0.1:
   version "1.0.1"

@@ -26,7 +26,7 @@ export default class Signin extends Vue {
     branchId: 0,
     pass: '',
     name: '',
-  }
+  };
 
   private get banks(): Bank[] {
     return this.$store.state.banks;

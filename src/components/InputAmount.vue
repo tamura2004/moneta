@@ -3,18 +3,20 @@
     v-toolbar(dark color="primary")
       v-toolbar-title 金額をご入力下さい
     v-card-text
-      v-form
+      v-form(v-model="valid")
         v-text-field(
           prepend-icon="money"
           name="金額"
           label="金額 "
           type="number"
           v-model="amount"
+          :rules="amountRules"
+          requied
         )
         p.red--text(v-if="error !== null") {{ error }}
     v-card-actions
       v-spacer
-      v-btn(color="primary" @click="exec" :disabled="empty") 振込実行
+      v-btn(color="primary" @click="exec" :disabled="!valid") 振込実行
 </template>
 
 <script lang="ts">
@@ -25,10 +27,15 @@ import API from '@/services/API';
 export default class InputAmount extends Vue {
   private amount: string = '';
   private error: null | string = null;
+  private valid: boolean = false;
+
+  private amountRules = [
+    (v: number) => v <= Number(this.$store.state.account.balance) || '残高が不足しています',
+  ];
 
   private exec(): void {
-    if (Number(this.amount) > Number(this.$store.state.account.balance)) {
-      this.error = '残高が不足しています';
+    if (!this.valid) {
+      throw new Error(`bad amount: ${this.amount}`);
     } else {
       const idFrom = this.$store.state.account.id;
       const idTo = this.$store.state.transfer.accountTo.id;
@@ -36,9 +43,6 @@ export default class InputAmount extends Vue {
         this.$router.push('/statements');
       });
     }
-  }
-  get empty(): boolean {
-    return this.amount === '';
   }
 }
 </script>

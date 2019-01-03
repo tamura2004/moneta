@@ -10,11 +10,8 @@
           item-text="name"
           item-value="id"
           v-model="branchId"
+          @input="select"
         )
-        p.red--text(v-if="error") 支店を選択して下さい
-    v-card-actions
-      v-spacer
-      v-btn(color="primary" @click="select") 選択
 </template>
 
 <script lang="ts">
@@ -25,18 +22,13 @@ import { Branch } from '@/models/Branch';
 @Component
 export default class BranchSelectCard extends Vue {
   private branchId: number = 0;
-  private error: boolean = false;
 
   private select(): void {
-    if (this.branchId === undefined) {
-      this.error = true;
+    const branch: Branch | undefined = this.branches.find((b: Branch) => b.id === this.branchId);
+    if (branch === undefined) {
+      throw new Error(`bad branch id: ${this.branchId}`);
     } else {
-      const branch: Branch | undefined = this.branches.find((b: Branch) => b.id === this.branchId);
-      if (branch === undefined) {
-        this.error = true;
-      } else {
-        this.$store.commit('setBranchTo', branch);
-      }
+      this.$store.commit('setBranchTo', branch);
     }
   }
   get branches(): Branch[] {

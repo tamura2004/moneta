@@ -13,8 +13,8 @@
           v-list-tile-sub-title
             v-layout
               v-flex(xs4) {{ row.kind }}
-              v-flex(xs4) {{ row.monetaryAmount() }}
-              v-flex(xs4) {{ row.monetaryTotal() }}
+              v-flex(xs4) {{ row.amount | threeDigitedYen }}
+              v-flex(xs4) {{ row.total | threeDigitedYen }}
 
 </template>
 

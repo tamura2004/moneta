@@ -42,13 +42,4 @@ export default class Statement {
     this.total = init.total;
     this.accountId = init.account_id;
   }
-
-  public monetaryTotal(): string {
-    return Statement.monetary(this.total);
-  }
-
-  public monetaryAmount(): string {
-    return Statement.monetary(this.amount);
-  }
 }
-
