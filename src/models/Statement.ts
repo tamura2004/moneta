@@ -18,10 +18,6 @@ interface IStatement {
 }
 
 export default class Statement {
-  private static monetary(value: number): string {
-    return '￥' + value.toLocaleString() + ' -';
-  }
-
   public id: number;
   public accountId: number;
   public date: string;
