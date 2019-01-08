@@ -45,7 +45,7 @@ $ sudo su - postgres
 $ psql
 $ create user tamura with password 'tamura' createdb;
 
-$ export SECRET_KEY_BASE=$(bundle exec rails secret)
+$ export RAILS_MASTER_KEY=<master.key>
 
 $ RAILS_ENV=production bundle exec rails db:create
 $ RAILS_ENV=production bundle exec rails db:migrate
@@ -63,10 +63,7 @@ $ sudo ln -sf  /home/ubuntu/moneta/api/nginx.conf /etc/nginx/conf.d/nginx.conf
 $ sudo nginx -s reload
 
 $ sudo ln -sf /home/ubuntu/moneta/api/puma.service /etc/systemd/system/puma.service
-$ sudo systemctl daemon-reload
-$ sudo systemctl enable puma.service
-$ sudo systemctl start puma.service
-$ sudo systemctl status puma.service
+$ sudo systemctl daemon-reload && sudo systemctl enable puma.service && sudo systemctl start puma.service && sudo systemctl status puma.service
 
 ```
 

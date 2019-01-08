@@ -5,7 +5,7 @@
 # and maximum, this matches the default thread size of Active Record.
 #
 path = File.expand_path("../..",__FILE__)
-name = File.basename(path)
+name = "moneta"
 home = ENV.fetch("HOME"){"/home/ubuntu"}
 
 pidfile "#{home}/run/#{name}.pid"
