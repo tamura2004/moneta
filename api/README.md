@@ -1,24 +1,72 @@
-# README
+# Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements:
 
-Things you may want to cover:
+- ruby 2.5+
+- postgresql
 
-* Ruby version
+## Getting Started:
 
-* System dependencies
+- Ubuntu 18.04 LTS 
 
-* Configuration
+```
+$ cd
+$ pwd
+/home/ubuntu/
 
-* Database creation
+$ mkdir run
 
-* Database initialization
+$ cat /etc/issue
+Ubuntu 18.04 LTS
 
-* How to run the test suite
+$ git clone https://github.com/tamura2004/vue_handsontable.git moneta
+$ cd moneta
+$ sudo apt-get update
+$ sudo apt-get install -y --no-install-recommends ruby ruby-dev
+$ ruby -v
+ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux-gnu]
 
-* Services (job queues, cache servers, search engines, etc.)
+$ gem -v
+2.7.6
 
-* Deployment instructions
+$ sudo gem install bundler
+$ bundle -v
+Bundler version 1.16.2
 
-* ...
+$ sudo apt-get install -y --no-install-recommends libgdbm-dev build-essential postgresql libpq-dev
+$ psql --version
+psql (PostgreSQL) 10.3 (Ubuntu 10.4-0ubuntu0.18.04)
+
+$ sudo apt-get install zlib1g-dev
+$ rm Gemfile.lock
+$ bundle install --without test development --path vendor/bundle
+
+$ sudo su - postgres
+$ psql
+$ create user tamura with password 'tamura' createdb;
+
+$ export SECRET_KEY_BASE=$(bundle exec rails secret)
+
+$ RAILS_ENV=production bundle exec rails db:create
+$ RAILS_ENV=production bundle exec rails db:migrate
+$ RAILS_ENV=production bundle exec rails db:seed_fu
+
+$ bundle exec rails -v
+Rails 5.0.7
+
+$ sudo apt-get install nginx
+$ nginx -v
+nginx version: nginx/1.14.0 (Ubuntu)
+
+$ sudo rm /etc/nginx/sites-enabled/default
+$ sudo ln -sf  /home/ubuntu/moneta/nginx.conf /etc/nginx/conf.d/nginx.conf
+$ sudo nginx -s reload
+
+$ sudo cp /home/ubuntu/moneta/puma.service /etc/systemd/system/puma.service
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable puma.service
+$ sudo systemctl start puma.service
+$ sudo systemctl status puma.service
+
+```
+
