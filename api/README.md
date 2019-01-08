@@ -59,10 +59,10 @@ $ nginx -v
 nginx version: nginx/1.14.0 (Ubuntu)
 
 $ sudo rm /etc/nginx/sites-enabled/default
-$ sudo ln -sf  /home/ubuntu/moneta/nginx.conf /etc/nginx/conf.d/nginx.conf
+$ sudo ln -sf  /home/ubuntu/moneta/api/nginx.conf /etc/nginx/conf.d/nginx.conf
 $ sudo nginx -s reload
 
-$ sudo cp /home/ubuntu/moneta/puma.service /etc/systemd/system/puma.service
+$ sudo cp /home/ubuntu/moneta/api/puma.service /etc/systemd/system/puma.service
 $ sudo systemctl daemon-reload
 $ sudo systemctl enable puma.service
 $ sudo systemctl start puma.service

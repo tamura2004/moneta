@@ -7,7 +7,7 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/home/ubuntu/moneta
 Environment="RAILS_ENV=production"
-ExecStart=/usr/local/bin/bundle exec puma -C /home/ubuntu/moneta/config/puma.rb
+ExecStart=/usr/local/bin/bundle exec puma -C /home/ubuntu/moneta/api/config/puma.rb
 TimeoutSec=300
 Restart=always
 
