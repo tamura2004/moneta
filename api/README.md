@@ -19,7 +19,7 @@ $ mkdir run
 $ cat /etc/issue
 Ubuntu 18.04 LTS
 
-$ git clone https://github.com/tamura2004/vue_handsontable.git moneta
+$ git clone https://github.com/tamura2004/moneta.git
 $ cd moneta
 $ sudo apt-get update
 $ sudo apt-get install -y --no-install-recommends ruby ruby-dev
