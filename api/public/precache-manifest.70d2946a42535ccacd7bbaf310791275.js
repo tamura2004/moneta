@@ -52,7 +52,7 @@ self.__precacheManifest = [
     "url": "/fonts/MaterialIcons-Regular.55242ea5.ttf"
   },
   {
-    "revision": "2051cae059f55dcbedf72b58498e900a",
+    "revision": "30efd164f33e28cd438a9913e780050e",
     "url": "/index.html"
   },
   {
