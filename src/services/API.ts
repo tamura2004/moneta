@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  // baseURL: 'http://localhost:3000/',
+  // baseURL: 'http://moneta.sofia3dd.net',
+  baseURL: '/api',
 });
 
 export default API;

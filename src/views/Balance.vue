@@ -1,10 +1,12 @@
 <template lang="pug">
   div#page
-    v-btn#btn.ma-0.orange(fab dark large) {{ account.balance | threeDigitedYen }}
     div#inner-page
       h2#label 残高
       h2#account {{ account.kind }}預金 {{ account.num }}
       v-btn#statement-btn(round large color="white" @click="statements") 明細
+    v-btn#btn.ma-0.orange(fab dark large) {{ account.balance | threeDigitedYen }}
+    //- v-btn#btn.ma-0.orange(dark large) {{ account.balance | threeDigitedYen }}
+    //- v-btn#btn.ma-0.blue(fab dark large) {{ account.balance | threeDigitedYen }}
 </template>
 
 <script lang="ts">

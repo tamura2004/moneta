@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2018_12_12_033410) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string "name"
     t.string "kind"
     t.string "num"
     t.string "login_id"
     t.string "hashed_password"
-    t.integer "branch_id"
+    t.bigint "branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_accounts_on_branch_id"
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_033410) do
   create_table "branches", force: :cascade do |t|
     t.string "num"
     t.string "name"
-    t.integer "bank_id"
+    t.bigint "bank_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bank_id"], name: "index_branches_on_bank_id"
@@ -46,10 +49,13 @@ ActiveRecord::Schema.define(version: 2018_12_12_033410) do
     t.integer "amount"
     t.string "memo"
     t.integer "total"
-    t.integer "account_id"
+    t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_statements_on_account_id"
   end
 
+  add_foreign_key "accounts", "branches"
+  add_foreign_key "branches", "banks"
+  add_foreign_key "statements", "accounts"
 end

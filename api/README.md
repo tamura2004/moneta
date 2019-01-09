@@ -69,7 +69,9 @@ Environment="RAILS_MASTER_KEY=<master.key>"
 [Esc]
 :wq[Return]
 
-$ sudo systemctl daemon-reload && sudo systemctl enable puma.service && sudo systemctl start puma.service && sudo systemctl status puma.service
-
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable puma.service
+$ sudo systemctl start puma.service
+$ sudo systemctl status puma.service
 ```
 

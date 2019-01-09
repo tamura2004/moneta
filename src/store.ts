@@ -33,8 +33,9 @@ export default new Vuex.Store({
     accountsTo(state: State): Account[] {
       return state.accounts.filter((a: Account) => {
         if (state.transfer !== undefined) {
-          if (state.transfer.branchTo !== undefined) {
+          if (state.transfer.branchTo !== undefined && state.account !== undefined) {
             return a.branch_id === state.transfer.branchTo.id;
+            // return a.branch_id === state.transfer.branchTo.id && a.id !== state.account.id;
           } else {
             return false;
           }
