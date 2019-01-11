@@ -14,6 +14,32 @@ class AccountsController < ApplicationController
     render 'show', formats: 'json', handlers: 'jbuilder'
   end
 
+  # GET /talk
+  def talk
+    text = params[:text]
+    msg = "こんにちは、私はmonetaです。"
+    case text
+    when /銀行/
+      msg += "私の利用可能銀行は"
+      msg += Bank.all.pluck(:name).join("と")
+      msg += "です。"
+    when /支店/
+      msg += "私の利用可能支店は"
+      Bank.all.each do |bank|
+        msg += "、#{bank.name}銀行の"
+        msg += bank.branches.pluck(:name).join("と")
+      end
+      msg += "です。"
+    else
+      accounts = Account.where("name like ?", "%#{text}%")
+      accounts.each do |account|
+        msg += "#{account.name}さんの現在の預金残高は、"
+        msg += "#{account.statements.balance.to_s(:delimited)}円です。"
+      end
+    end
+    render plain: msg
+  end
+
   # GET /accounts/:id/balance
   def balance
     render json: @account.statements.balance

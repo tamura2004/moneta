@@ -7,6 +7,7 @@
     v-btn#btn.ma-0.orange(fab dark large) {{ account.balance | threeDigitedYen }}
     //- v-btn#btn.ma-0.orange(dark large) {{ account.balance | threeDigitedYen }}
     //- v-btn#btn.ma-0.blue(fab dark large) {{ account.balance | threeDigitedYen }}
+    //- img#under.my-3(src="../assets/pipo-gwspinitem002sample.gif")
 </template>
 
 <script lang="ts">
@@ -40,6 +41,11 @@ export default class Balance extends Vue {
     height 320px
     width 320px
     z-index 1
+
+  #under
+    grid-row 2
+    grid-column 2
+    margin auto
 
   #inner-page
     grid-row 1
