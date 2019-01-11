@@ -1,18 +1,16 @@
 <template lang="pug">
   v-app
-    v-navigation-drawer(app)
-    v-toolbar(app)
+    v-toolbar(app fixed)
       v-btn(flat icon @click="home")
         v-icon home
       v-toolbar-title {{ bankName }}
       v-spacer
       UserInfo
     v-content
-      v-container(fluid fill-height)
-        v-layout(align-start justify-center)
-          v-flex(xs12 sm12 md8 lg8 x8)
-            transition(name="router" mode="out-in")
-              router-view
+      v-layout(align-start justify-center)
+        v-flex(xs12 sm12 md8 lg8 x8)
+          transition(name="router" mode="out-in")
+            router-view
     v-footer(app)
 </template>
 

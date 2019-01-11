@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.0404ee3d6fa883976ad78a37dd4f18f7.js"
+  "/precache-manifest.4413d5b1601f0b2d21ad415ba29518e9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "moneta"});
