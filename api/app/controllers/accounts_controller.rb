@@ -23,6 +23,7 @@ class AccountsController < ApplicationController
       msg += "私の利用可能銀行は"
       msg += Bank.all.pluck(:name).join("と")
       msg += "です。"
+
     when /支店/
       msg += "私の利用可能支店は"
       Bank.all.each do |bank|
@@ -30,8 +31,14 @@ class AccountsController < ApplicationController
         msg += bank.branches.pluck(:name).join("と")
       end
       msg += "です。"
-    else
-      accounts = Account.where("name like ?", "%#{text}%")
+
+    when /残高/
+      account = Account.all.sample
+      msg += "#{account.name}さんの現在の預金残高は、"
+      msg += "#{account.statements.balance.to_s(:delimited)}円です。"
+
+    when /[^\s]+/
+      accounts = Account.where("name like ?", "#{text}%")
       accounts.each do |account|
         msg += "#{account.name}さんの現在の預金残高は、"
         msg += "#{account.statements.balance.to_s(:delimited)}円です。"
