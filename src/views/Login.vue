@@ -23,7 +23,6 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Account } from '@/models/Account';
-import md5 from 'md5';
 
 @Component
 export default class Login extends Vue {

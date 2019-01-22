@@ -6,7 +6,7 @@
       v-toolbar-title {{ bankName }}
       v-spacer
       UserInfo
-    v-content.mt-5
+    v-content
       v-container(fluid)
         v-layout(align-start justify-center)
           v-flex(xs12 sm12 md8 lg8 x8)

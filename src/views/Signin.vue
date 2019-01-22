@@ -17,7 +17,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Bank } from '@/models/Bank';
 import { Branch } from '@/models/Branch';
-import md5 from 'md5';
 
 @Component
 export default class Signin extends Vue {
