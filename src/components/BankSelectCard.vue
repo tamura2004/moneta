@@ -20,7 +20,7 @@ import { Bank } from '@/models/Bank';
 
 @Component
 export default class BankSelectCard extends Vue {
-  private bankId: number = 0;
+  private bankId: string = '';
 
   private select(): void {
     const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);

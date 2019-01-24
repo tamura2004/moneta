@@ -10,6 +10,7 @@ import { Account } from '@/models/Account';
 import Statement from '@/models/Statement';
 import { Transfer, TransferProgress } from '@/models/Transfer';
 import API from '@/services/API';
+import { DB } from './plugins/firebase';
 
 export default new Vuex.Store({
   state: new State(),
@@ -21,7 +22,7 @@ export default new Vuex.Store({
       return state.branches.filter((b: Branch) => {
         if (state.transfer !== undefined) {
           if (state.transfer.bankTo !== undefined) {
-            return b.bank_id === state.transfer.bankTo.id;
+            return b.bankId === state.transfer.bankTo.id;
           } else {
             return false;
           }
@@ -34,8 +35,8 @@ export default new Vuex.Store({
       return state.accounts.filter((a: Account) => {
         if (state.transfer !== undefined) {
           if (state.transfer.branchTo !== undefined && state.account !== undefined) {
-            return a.branch_id === state.transfer.branchTo.id;
-            // return a.branch_id === state.transfer.branchTo.id && a.id !== state.account.id;
+            return a.branchId === state.transfer.branchTo.id;
+            // return a.branchId === state.transfer.branchTo.id && a.id !== state.account.id;
           } else {
             return false;
           }
@@ -49,32 +50,43 @@ export default new Vuex.Store({
     setAccount(state: State, account: Account) {
       state.account = account;
     },
-    setBalance(state: State, account: Account) {
-      if (state.account !== undefined) {
-        state.account.balance = account.balance;
-      }
-    },
     logoff(state: State) {
       state.account = undefined;
     },
-    setBanks(state: State, data) {
-      state.banks = data.map((init: any) => {
-        return new Bank(init);
+    setBanks(state: State, query) {
+      state.banks = [];
+      query.forEach((bankRef: any) => {
+        state.banks.push(new Bank({
+          id: bankRef.id,
+          ...bankRef.data(),
+        }));
       });
     },
-    setBranches(state: State, data) {
-      state.branches = data.map((init: any) => {
-        return new Branch(init);
+    setBranches(state: State, query) {
+      state.branches = [];
+      query.forEach((branchRef: any) => {
+        state.branches.push(new Branch({
+          id: branchRef.id,
+          ...branchRef.data(),
+        }));
       });
     },
-    setAccounts(state: State, data) {
-      state.accounts = data.map((init: any) => {
-        return new Account(init);
+    setAccounts(state: State, query) {
+      state.accounts = [];
+      query.forEach((accountRef: any) => {
+        state.accounts.push(new Account({
+          id: accountRef.id,
+          ...accountRef.data(),
+        }));
       });
     },
-    setStatements(state: State, data) {
-      state.statements = data.map((init: any) => {
-        return new Statement(init);
+    setStatements(state: State, query) {
+      state.statements = [];
+      query.forEach((statementRef: any) => {
+        state.statements.push(new Statement({
+          id: statementRef.id,
+          ...statementRef.data(),
+        }));
       });
     },
     newTransfer(state: State) {
@@ -97,44 +109,39 @@ export default new Vuex.Store({
       dispatch('getAccounts');
     },
     login({commit}, account: Account) {
-      API.get(`accounts/${account.id}`).then((res) => {
-        commit('setAccount', new Account(res.data));
-      });
+      commit('setAccount', account);
     },
     getBanks({commit}) {
-      API.get('banks').then((res) => {
-        commit('setBanks', res.data);
-      });
+      DB.collection('banks').get()
+        .then((query) => {
+          commit('setBanks', query);
+        })
+        .catch((e) => alert(e));
     },
     getBranches({commit}) {
-      API.get('branches').then((res) => {
-        commit('setBranches', res.data);
-      });
+      DB.collection('branches').get()
+        .then((query) => {
+          commit('setBranches', query);
+        })
+        .catch((e) => alert(e));
     },
     getAccounts({commit}) {
-      API.get('accounts').then((res) => {
-        commit('setAccounts', res.data);
-      });
+      DB.collection('accounts').get()
+        .then((query) => {
+          commit('setAccounts', query);
+        })
+        .catch((e) => alert(e));
     },
     getStatements({commit, state}) {
-      if (state.account !== undefined) {
-        API.get(`accounts/${state.account.id}/statements`).then((res) => {
-          commit('setStatements', res.data);
-        });
-      }
+      DB.collection('statements').get()
+        .then((query) => {
+          commit('setStatements', query);
+        })
+        .catch((e) => alert(e));
     },
-    updateBalance({commit, state}, account: Account) {
-      if (state.account !== undefined) {
-        API.get(`accounts/${state.account.id}`).then((res) => {
-          commit('setBalance', res.data);
-        });
-      }
-    },
-    createAccount({ commit }, form: {bankId: number, branchId: number, pass: string, name: string}) {
-      API.post('accounts', {
-        name: form.name,
-        branch_id: form.branchId,
-      });
+    async createAccount({ commit, dispatch }, form: Partial<Account>) {
+      await API.post('createAccount', form);
+      dispatch('getAccounts');
     },
   },
 });

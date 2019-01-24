@@ -4,7 +4,7 @@
       h2#label 残高
       h2#account {{ account.kind }}預金 {{ account.num }}
       v-btn#statement-btn(round large color="white" @click="statements") 明細
-    v-btn#btn.ma-0.orange(fab dark large) {{ account.balance | threeDigitedYen }}
+    v-btn#btn.ma-0.orange(fab dark large) {{ account.total | threeDigitedYen }}
     //- v-btn#btn.ma-0.orange(dark large) {{ account.balance | threeDigitedYen }}
     //- v-btn#btn.ma-0.blue(fab dark large) {{ account.balance | threeDigitedYen }}
     //- img#under.my-3(src="../assets/pipo-gwspinitem002sample.gif")
@@ -16,14 +16,11 @@ import { Account } from '@/models/Account';
 
 @Component
 export default class Balance extends Vue {
-  private statements($event: Event): void {
+  private statements(): void {
     this.$router.push('/statements');
   }
   private get account(): Account {
     return this.$store.state.account;
-  }
-  private created(): void {
-    this.$store.dispatch('updateBalance');
   }
 }
 </script>

@@ -3,7 +3,8 @@
     v-toolbar(app fixed)
       v-btn(flat icon @click="home")
         v-icon home
-      v-toolbar-title {{ bankName }}
+      v-toolbar-title {{ account && account.bankName }}
+      v-toolbar-title {{ account && account.branchName }}
       v-spacer
       UserInfo
     v-content
@@ -17,8 +18,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Account } from '@/models/Account';
 import Menu from '@/views/Menu.vue';
 import UserInfo from '@/components/UserInfo.vue';
+import { DB } from '@/plugins/firebase';
 
 @Component({
   components: {
@@ -27,19 +30,11 @@ import UserInfo from '@/components/UserInfo.vue';
   },
 })
 export default class App extends Vue {
-  private mounted(): void {
-    this.$store.dispatch('init');
+  private get account(): Account | undefined {
+    return this.$store.state.account;
   }
-  get bankName(): string {
-    if (this.$store.state.account !== undefined) {
-      if (this.$store.state.account.bank !== undefined) {
-        return this.$store.state.account.bank.name;
-      } else {
-        return '';
-      }
-    } else {
-      return '';
-    }
+  private created(): void {
+    this.$store.dispatch('init');
   }
   private home(): void {
     this.$router.push('/');

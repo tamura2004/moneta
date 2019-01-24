@@ -4,13 +4,13 @@ const isIBranch = (init: IBranch): init is IBranch =>
   init.id !== undefined &&
   init.num !== undefined &&
   init.name !== undefined &&
-  init.bank_id !== undefined;
+  init.bankId !== undefined;
 
 class Branch {
-  public id!: number;
+  public id!: string;
   public num!: string;
   public name!: string;
-  public bank_id!: number;
+  public bankId!: string;
 
   constructor(init: IBranch) {
     if (!isIBranch(init)) {

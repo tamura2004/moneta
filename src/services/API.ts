@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://moneta.sofia3dd.net/api',
-  // baseURL: '/api',
+  baseURL: 'https://us-central1-moneta-f39eb.cloudfunctions.net',
 });
 
 export default API;

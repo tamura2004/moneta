@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "firebase": "^5.8.0",
+    "firebase-admin": "^6.5.1",
+    "firebase-functions": "^2.1.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",

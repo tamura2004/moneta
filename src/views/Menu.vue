@@ -6,7 +6,6 @@
       :label="menu.label"
       :key="menu.label"
     )
-    h1(v-for="bank in banks") {{ bank.name }}
 </template>
 
 <script lang="ts">
@@ -28,18 +27,5 @@ export default class Menu extends Vue {
     {to: '/statements', label: '入出金明細'},
     {to: '/transfer', label: '振込'},
   ];
-  private banks = [];
-
-  private created(): void {
-    this.$bind('banks', DB.collection('banks'));
-  }
-
-  private get bank(): string {
-    return this.$store.state.bank.name;
-  }
-
-  private get branch(): string {
-    return this.$store.state.branch.name;
-  }
 }
 </script>

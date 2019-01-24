@@ -15,6 +15,9 @@
               v-flex(xs4) {{ row.kind }}
               v-flex(xs4) {{ row.amount | threeDigitedYen }}
               v-flex(xs4) {{ row.total | threeDigitedYen }}
+    v-list
+      v-btn(absolute dark fab right color="primary" @click="home")
+        v-icon home
 
 </template>
 
@@ -30,7 +33,12 @@ import Statement from '@/models/Statement';
 })
 export default class Statements extends Vue {
   private get rows(): Statement[] {
-    return this.$store.state.statements;
+    return this.$store.state.statements.filter((statement: Statement) => {
+      return statement.accountId === this.$store.state.account.id;
+    });
+  }
+  private home(): void {
+    this.$router.push('/');
   }
   private created(): void {
     this.$store.dispatch('getStatements');

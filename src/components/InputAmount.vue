@@ -31,7 +31,7 @@ export default class InputAmount extends Vue {
   private valid: boolean = false;
 
   private amountRules = [
-    (v: number) => v <= Number(this.$store.state.account.balance) || '残高が不足しています',
+    (v: number) => v <= Number(this.$store.state.account.total) || '残高が不足しています',
     // (v: number) => v === 0 || '振込金額を指定して下さい',
     // (v: number) => v < 0 || '振込金額はマイナスを指定できません',
   ];
@@ -44,11 +44,19 @@ export default class InputAmount extends Vue {
     if (!this.valid) {
       throw new Error(`bad amount: ${this.amount}`);
     } else {
-      const idFrom = this.$store.state.account.id;
-      const idTo = this.$store.state.transfer.accountTo.id;
-      API.get(`accounts/${idFrom}/account_to/${idTo}/amount/${this.amount}/transfer`).then((res) => {
-        this.$router.push('/statements');
-      });
+      API.post('transfer', {
+        idFrom: this.$store.state.account.id,
+        idTo: this.$store.state.transfer.accountTo.id,
+        amount: this.amount,
+      })
+        .then(() => {
+          this.$store.dispatch('getAccounts');
+          this.$store.dispatch('getStatements');
+          this.$router.push('/statements');
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   }
 }

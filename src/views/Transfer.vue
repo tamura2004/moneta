@@ -32,7 +32,7 @@ export default class Transfer extends Vue {
   }
   private created(): void {
     this.$store.commit('newTransfer');
-    this.$store.dispatch('updateBalance');
+    // this.$store.dispatch('updateBalance');
   }
 }
 </script>

@@ -5,21 +5,21 @@ const isStatement = (init: IStatement): init is IStatement =>
   init.amount !== undefined &&
   init.memo !== undefined &&
   init.total !== undefined &&
-  init.account_id !== undefined;
+  init.accountId !== undefined;
 
 interface IStatement {
-  id: number;
+  id: string;
+  accountId: string;
   date: string;
   kind: string;
   amount: number;
   memo: string;
   total: number;
-  account_id: number;
 }
 
 export default class Statement {
-  public id: number;
-  public accountId: number;
+  public id: string;
+  public accountId: string;
   public date: string;
   public kind: string;
   public amount: number;
@@ -36,6 +36,6 @@ export default class Statement {
     this.amount = init.amount;
     this.memo = init.memo;
     this.total = init.total;
-    this.accountId = init.account_id;
+    this.accountId = init.accountId;
   }
 }

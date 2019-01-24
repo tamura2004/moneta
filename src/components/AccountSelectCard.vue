@@ -22,7 +22,7 @@ import { Account } from '@/models/Account';
 
 @Component
 export default class AccountSelectCard extends Vue {
-  private accountId: number = 0;
+  private accountId: string = '';
 
   private select(): void {
     const account: Account | undefined = this.accounts.find((b: Account) => b.id === this.accountId);

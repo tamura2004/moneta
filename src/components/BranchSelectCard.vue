@@ -21,7 +21,7 @@ import { Branch } from '@/models/Branch';
 
 @Component
 export default class BranchSelectCard extends Vue {
-  private branchId: number = 0;
+  private branchId: string = '';
 
   private select(): void {
     const branch: Branch | undefined = this.branches.find((b: Branch) => b.id === this.branchId);

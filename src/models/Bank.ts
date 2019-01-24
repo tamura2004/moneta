@@ -1,3 +1,5 @@
+import { Branch } from '@/models/Branch';
+
 type IBank = Required<Bank>;
 
 const isIBank = (init: IBank): init is IBank =>
@@ -6,9 +8,10 @@ const isIBank = (init: IBank): init is IBank =>
   init.name !== undefined;
 
 class Bank {
-  public id!: number;
+  public id!: string;
   public num!: string;
   public name!: string;
+  public branches: Branch[] = [];
 
   constructor(init: IBank) {
     if (!isIBank(init)) {

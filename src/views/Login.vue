@@ -9,7 +9,7 @@
           :items="accounts"
           item-text="name"
           item-value="id"
-          v-model="id"
+          v-model="accountId"
         )
         //- v-text-field(prepend-icon="person" name="ID" label="ID" type="text" v-model="id")
         v-text-field(id="password" prepend-icon="lock" name="password" label="password" type="password" v-model="pass")
@@ -23,36 +23,37 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Account } from '@/models/Account';
+import { DB } from '@/plugins/firebase';
 
-@Component
+@Component({
+  firestore: {
+    accounts: DB.collection('accounts'),
+  },
+})
 export default class Login extends Vue {
-  private id: string = '';
+  private accountId: string = '';
   private pass: string = '';
   private error: boolean = false;
-
-  private get accounts() {
-    return this.$store.state.accounts;
-  }
+  // private accounts: Array<Partial<Account>> = [];
   private login(): void {
-    const account: Account | undefined = this.$store.state.accounts.find((a: Account) => {
-      return (a.id === Number(this.id));
-    });
-
+    const account = this.$store.state.accounts.find((a: Partial<Account>) => a.id === this.accountId);
     if (account !== undefined) {
       this.$store.dispatch('login', account);
       this.$router.push('/');
     } else {
-      this.id = '';
+      this.accountId = '';
       this.pass = '';
       this.error = true;
     }
   }
   private signin(): void {
     this.$router.push('/signin');
-
   }
-  private created(): void {
-    this.$store.dispatch('getAccounts');
+  private get accounts(): Array<Partial<Account>> {
+    return this.$store.state.accounts.map((account: Account) => ({
+      id: account.id,
+      name: `${account.bankName} ${account.branchName} ${account.name}`,
+    }));
   }
 }
 </script>
