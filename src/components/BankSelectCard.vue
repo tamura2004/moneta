@@ -5,8 +5,9 @@
     v-card-text
       v-form
         v-select(
-          prepend-icon="account_balance"
+          prepend-icon="business"
           :items="banks"
+          label="銀行"
           item-text="name"
           item-value="id"
           v-model="bankId"
@@ -23,13 +24,14 @@ export default class BankSelectCard extends Vue {
   private bankId: string = '';
 
   private select(): void {
-    const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);
+    this.$store.commit('setBankTo', this.bankId);
+    // const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);
 
-    if (bank === undefined) {
-      throw new Error(`bad bank id: ${this.bankId}`);
-    } else {
-      this.$store.commit('setBankTo', bank);
-    }
+    // if (bank === undefined) {
+    //   throw new Error(`bad bank id: ${this.bankId}`);
+    // } else {
+    //   this.$store.commit('setBankTo', bank);
+    // }
   }
   get banks(): Bank[] {
     return this.$store.state.banks;

@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     v-select(
-      prepend-icon="account_balance"
+      prepend-icon="business"
       :items="banks"
       item-text="name"
       item-value="id"

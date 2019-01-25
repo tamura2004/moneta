@@ -5,9 +5,10 @@
     v-card-text
       v-form
         v-select(
-          prepend-icon="money"
+          prepend-icon="person"
           :items="accounts"
-          :item-text="accountName"
+          label="口座"
+          :item-text="itemText"
           item-value="id"
           v-model="accountId"
           @input="select"
@@ -24,19 +25,14 @@ import { Account } from '@/models/Account';
 export default class AccountSelectCard extends Vue {
   private accountId: string = '';
 
-  private select(): void {
-    const account: Account | undefined = this.accounts.find((b: Account) => b.id === this.accountId);
-    if (account === undefined) {
-      throw new Error(`bad account id: ${this.accountId}`);
-    } else {
-      this.$store.commit('setAccountTo', account);
-    }
-  }
-  private accountName(account: Account): string {
-    return (account.name + ' ' + account.kind + ' ' + account.num);
-  }
   get accounts(): Account[] {
     return this.$store.getters.accountsTo;
+  }
+  private itemText(account: Account): string {
+    return (account.name + ' ' + account.kind + ' ' + account.num);
+  }
+  private select(): void {
+    this.$store.commit('setAccountTo', this.accountId);
   }
 }
 </script>

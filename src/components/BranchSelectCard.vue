@@ -7,6 +7,7 @@
         v-select(
           prepend-icon="account_balance"
           :items="branches"
+          label="支店"
           item-text="name"
           item-value="id"
           v-model="branchId"
@@ -24,12 +25,7 @@ export default class BranchSelectCard extends Vue {
   private branchId: string = '';
 
   private select(): void {
-    const branch: Branch | undefined = this.branches.find((b: Branch) => b.id === this.branchId);
-    if (branch === undefined) {
-      throw new Error(`bad branch id: ${this.branchId}`);
-    } else {
-      this.$store.commit('setBranchTo', branch);
-    }
+    this.$store.commit('setBranchTo', this.branchId);
   }
   get branches(): Branch[] {
     return this.$store.getters.branchesTo;

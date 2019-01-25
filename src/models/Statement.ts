@@ -5,6 +5,7 @@ const isStatement = (init: IStatement): init is IStatement =>
   init.amount !== undefined &&
   init.memo !== undefined &&
   init.total !== undefined &&
+  init.createdAt !== undefined &&
   init.accountId !== undefined;
 
 interface IStatement {
@@ -15,6 +16,7 @@ interface IStatement {
   amount: number;
   memo: string;
   total: number;
+  createdAt: number;
 }
 
 export default class Statement {
@@ -25,6 +27,7 @@ export default class Statement {
   public amount: number;
   public memo: string;
   public total: number;
+  public createdAt: number;
 
   constructor(init: IStatement) {
     if (!isStatement(init)) {
@@ -37,5 +40,6 @@ export default class Statement {
     this.memo = init.memo;
     this.total = init.total;
     this.accountId = init.accountId;
+    this.createdAt = init.createdAt;
   }
 }

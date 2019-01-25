@@ -1,6 +1,6 @@
 <template lang="pug">
   v-toolbar-items
-    v-btn.user(flat v-if="authenticated" @click="logoff") {{ username }}様
+    v-btn.user(flat v-if="!!account" @click="logoff") {{ account && account.name }}様
     v-btn.user(flat v-else @click="login") Login
 </template>
 
@@ -9,11 +9,8 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class UserInfo extends Vue {
-  get authenticated(): boolean {
-    return this.$store.state.account !== undefined;
-  }
-  get username(): string {
-    return this.$store.state.account.name;
+  private get account(): Account | undefined {
+    return this.$store.getters.account;
   }
   private login() {
     this.$router.push({name: 'login'});

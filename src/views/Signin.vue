@@ -41,11 +41,7 @@ export default class Signin extends Vue {
     const branch = this.branches.find((b) => b.id === this.form.branchId);
     this.form.branchName = branch ? branch.name : '';
     this.$store.dispatch('createAccount', this.form);
-    this.$router.push('/login');
-  }
-
-  private created(): void {
-    this.$store.dispatch('getAccounts');
+    this.$router.push('/');
   }
 }
 </script>

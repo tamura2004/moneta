@@ -6,10 +6,11 @@ import { Transfer } from '@/models/Transfer';
 
 export default class State {
   // public authenticated: boolean = false;
-  public account?: Account = undefined;
+  public accountId?: string = undefined;
   public transfer: Transfer = new Transfer();
   public banks: Bank[] = [];
   public branches: Branch[] = [];
   public accounts: Account[] = [];
   public statements: Statement[] = [];
+  public progress: boolean = false;
 }

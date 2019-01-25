@@ -3,19 +3,18 @@
     v-toolbar(color="primary" dark)
       v-toolbar-title 入出金明細
     v-list(two-line)
-      div(v-for="row in rows")
+      div(v-for="statement in statements")
         v-divider
         v-list-tile-content.pa-1
           v-list-tile-title
             v-layout
-              v-flex(xs4) {{ row.date }}
-              v-flex(xs8) {{ row.memo }}
+              v-flex(xs4) {{ statement.date }}
+              v-flex(xs8) {{ statement.memo }}
           v-list-tile-sub-title
             v-layout
-              v-flex(xs4) {{ row.kind }}
-              v-flex(xs4) {{ row.amount | threeDigitedYen }}
-              v-flex(xs4) {{ row.total | threeDigitedYen }}
-    v-list
+              v-flex(xs4) {{ statement.kind }}
+              v-flex(xs4) {{ statement.amount | threeDigitedYen }}
+              v-flex(xs4) {{ statement.total | threeDigitedYen }}
       v-btn(absolute dark fab right color="primary" @click="home")
         v-icon home
 
@@ -32,16 +31,11 @@ import Statement from '@/models/Statement';
   },
 })
 export default class Statements extends Vue {
-  private get rows(): Statement[] {
-    return this.$store.state.statements.filter((statement: Statement) => {
-      return statement.accountId === this.$store.state.account.id;
-    });
+  private get statements(): Statement[] {
+    return this.$store.getters.statements;
   }
   private home(): void {
     this.$router.push('/');
-  }
-  private created(): void {
-    this.$store.dispatch('getStatements');
   }
 }
 </script>

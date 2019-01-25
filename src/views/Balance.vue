@@ -20,7 +20,7 @@ export default class Balance extends Vue {
     this.$router.push('/statements');
   }
   private get account(): Account {
-    return this.$store.state.account;
+    return this.$store.getters.account;
   }
 }
 </script>

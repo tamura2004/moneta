@@ -16,12 +16,14 @@ Vue.filter('threeDigitedYen', (value: number | undefined) => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requireAuth) && store.state.account === undefined) {
+  if (to.matched.some((record) => record.meta.requireAuth) && store.state.accountId === undefined) {
     next({ path: '/login' });
   } else {
     next();
   }
 });
+
+store.dispatch('init');
 
 new Vue({
   router,

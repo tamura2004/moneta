@@ -5,27 +5,27 @@
       v-list-tile-content
         v-list-tile-title
           v-layout
-            v-flex(xs6) {{ bank }}
-            v-flex(xs6) {{ branch }}
+            v-flex(xs6) {{ account && account.bankName }}
+            v-flex(xs6) {{ account && account.branchName }}
         v-list-tile-title
           v-layout
-            v-flex(xs2) {{ account.kind }}
-            v-flex(xs4) {{ account.num }}
+            v-flex(xs2) {{ account && account.kind }}
+            v-flex(xs4) {{ account && account.num }}
             v-flex(xs2) 残高
-            v-flex(xs4) {{ account.total | threeDigitedYen }}
+            v-flex(xs4) {{ account && account.total | threeDigitedYen }}
     v-divider
     v-subheader.header  振込先
     v-list-tile
       v-list-tile-content
         v-list-tile-title
           v-layout
-            v-flex(xs6) {{ transfer.bankName }}
-            v-flex(xs6) {{ transfer.branchName }}
+            v-flex(xs6) {{ transfer.bankTo && transfer.bankTo.name }}
+            v-flex(xs6) {{ transfer.branchTo && transfer.branchTo.name }}
         v-list-tile-title
           v-layout
-            v-flex(xs2) {{ transfer.accountKind }}
-            v-flex(xs4) {{ transfer.accountNum }}
-            v-flex(xs6) {{ transfer.accountName }}
+            v-flex(xs2) {{ transfer.accountTo && transfer.accountTo.kind }}
+            v-flex(xs4) {{ transfer.accountTo && transfer.accountTo.num }}
+            v-flex(xs6) {{ transfer.accountTo && transfer.accountTo.name }}
 </template>
 
 <script lang="ts">
@@ -38,26 +38,11 @@ import { DB } from '@/plugins/firebase';
 
 @Component
 export default class TransferCard extends Vue {
-  private bank: string = '';
-  private branch: string = '';
-
   private get transfer(): Transfer {
     return this.$store.state.transfer;
   }
-  private get account(): Account {
-    return this.$store.state.account;
-  }
-  private created(): void {
-    this.$store.state.branches.forEach((branch: Branch) => {
-      if (branch.id === this.account.branchId) {
-        this.branch = branch.name;
-        this.$store.state.banks.forEach((bank: Bank) => {
-          if (bank.id === branch.bankId) {
-            this.bank = bank.name;
-          }
-        });
-      }
-    });
+  private get account(): Account | undefined {
+    return this.$store.getters.account;
   }
 }
 </script>

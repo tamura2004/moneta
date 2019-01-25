@@ -12,8 +12,8 @@
           v-model="amount"
           :rules="amountRules"
           requied
+          
         )
-        p.red--text(v-if="error !== null") {{ error }}
     v-card-actions
       v-spacer
       //- v-btn(color="warning" @click="back") 戻る
@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { Account } from '@/models/Account';
 import API from '@/services/API';
 
 @Component
@@ -30,8 +31,13 @@ export default class InputAmount extends Vue {
   private error: null | string = null;
   private valid: boolean = false;
 
+  private get account(): Account {
+    return this.$store.getters.account;
+  }
+
   private amountRules = [
-    (v: number) => v <= Number(this.$store.state.account.total) || '残高が不足しています',
+    (v: string) => v !== '' || '金額を入力して下さい',
+    (v: string) => Number(v) <= Number(this.account.total) || '残高が不足しています',
     // (v: number) => v === 0 || '振込金額を指定して下さい',
     // (v: number) => v < 0 || '振込金額はマイナスを指定できません',
   ];
@@ -41,23 +47,16 @@ export default class InputAmount extends Vue {
   // }
 
   private exec(): void {
-    if (!this.valid) {
-      throw new Error(`bad amount: ${this.amount}`);
-    } else {
-      API.post('transfer', {
-        idFrom: this.$store.state.account.id,
-        idTo: this.$store.state.transfer.accountTo.id,
-        amount: this.amount,
+    this.$store.commit('setProgress');
+    this.$store.commit('setTransferAmount', Number(this.amount));
+    this.$store.dispatch('execTransfer')
+      .then(() => {
+        // this.$store.commit('clearProgress');
+        this.$router.push('/statements');
       })
-        .then(() => {
-          this.$store.dispatch('getAccounts');
-          this.$store.dispatch('getStatements');
-          this.$router.push('/statements');
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+      .catch((err) => {
+        alert(err);
+      });
   }
 }
 </script>
