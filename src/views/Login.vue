@@ -6,6 +6,7 @@
       v-form(v-model="valid")
         v-select(
           prepend-icon="person"
+          label="userid"
           :items="$store.state.accounts"
           item-text="name"
           item-value="id"

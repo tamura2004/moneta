@@ -21,10 +21,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Account } from '@/models/Account';
 import Menu from '@/views/Menu.vue';
 import UserInfo from '@/components/UserInfo.vue';
-import { DB } from '@/plugins/firebase';
 
 @Component({
   components: {
