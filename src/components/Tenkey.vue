@@ -17,20 +17,26 @@
           v-flex(xs4 v-for="n in NUMS" :key="n")
             v-card
               v-card-text.headline(@click="add(n)") {{ n }}
+          v-flex(xs8)
+            v-card
+              v-card-text.headline(@click="add(0)") 0
+          v-flex(xs4)
+            v-card
+              v-card-text.headline(@click="add('.')") .
       v-flex(xs3)
         v-layout(row wrap)
           v-flex(xs12)
             v-card(dark color="primary")
-              v-card-text.headline(@click="num=''") C
+              v-card-text.headline(@click="num=''") Ｃ
           v-flex(xs12)
             v-card(dark color="primary" @click="operator='-'")
-              v-card-text.headline -
+              v-card-text.headline ー
           v-flex(xs12)
             v-card(dark color="primary" @click="operator='+'")
-              v-card-text.headline +
+              v-card-text.headline ＋
           v-flex(xs12)
             v-card(dark color="primary")
-              v-card-text.headline =
+              v-card-text.headline ＝
 </template>
 
 <script lang="ts">
@@ -41,7 +47,7 @@ export default class Tenkey extends Vue {
   @Prop() private value!: number;
   private operator: string = '-';
   private num: string = '0';
-  private NUMS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.'];
+  private NUMS = ['7', '8', '9', '4', '5', '6', '1', '2', '3'];
 
   private get target(): number {
     if (this.operator === '+') {
