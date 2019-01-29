@@ -1,31 +1,36 @@
 <template lang="pug">
-  v-container(grid-list-md text-xs-center)
-    v-layout.ma-1(row wrap style="border: grey solid 1px")
+  v-container(grid-list-md text-xs-center style="width: 350px")
+    v-layout.ma-0(row wrap style="border: grey solid 1px")
       v-flex(xs3)
         h1 {{ value }}
-      v-flex(xs2)
+      v-flex(xs1)
         h1 {{ operator }}
-      v-flex(xs7)
+      v-flex(xs4)
         h1 {{ num }}
+      v-flex(xs1)
+        h1 =
+      v-flex(xs3)
+        h1 {{ target }}
     v-layout(row wrap)
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '7'") 7
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '8'") 8
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '9'") 9
-      v-flex(xs3): v-card(dark color="primary"): v-card-text.px-0(@click="num=''") C
-    v-layout
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '4'") 4
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '5'") 5
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '6'") 6
-      v-flex(xs3): v-card(dark color="primary" @click="operator='-'"): v-card-text.px-0 -
-    v-layout
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '1'") 1
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '2'") 2
-      v-flex(xs3): v-card: v-card-text.px-0(@click="num += '3'") 3
-      v-flex(xs3): v-card(dark color="primary" @click="operator='+'"): v-card-text.px-0 +
-    v-layout
-      v-flex(xs6): v-card: v-card-text.px-0(@click="num += '0'") 0
-      v-flex(xs3): v-card: v-card-text.px-0 .
-      v-flex(xs3): v-card(dark color="primary"): v-card-text.px-0 =
+      v-flex(xs9)
+        v-layout(row wrap)
+          v-flex(xs4 v-for="n in NUMS" :key="n")
+            v-card
+              v-card-text.headline(@click="add(n)") {{ n }}
+      v-flex(xs3)
+        v-layout(row wrap)
+          v-flex(xs12)
+            v-card(dark color="primary")
+              v-card-text.headline(@click="num=''") C
+          v-flex(xs12)
+            v-card(dark color="primary" @click="operator='-'")
+              v-card-text.headline -
+          v-flex(xs12)
+            v-card(dark color="primary" @click="operator='+'")
+              v-card-text.headline +
+          v-flex(xs12)
+            v-card(dark color="primary")
+              v-card-text.headline =
 </template>
 
 <script lang="ts">
@@ -35,6 +40,25 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 export default class Tenkey extends Vue {
   @Prop() private value!: number;
   private operator: string = '-';
-  private num: string = '';
+  private num: string = '0';
+  private NUMS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.'];
+
+  private get target(): number {
+    if (this.operator === '+') {
+      return Number(this.value) + Number(this.num);
+    } else if (this.operator === '-') {
+      return Number(this.value) - Number(this.num);
+    } else {
+      return 0;
+    }
+  }
+
+  private add(n: string): void {
+    if (n === '.') {
+      this.num = this.num + n;
+    } else {
+      this.num = Number(this.num + n).toString();
+    }
+  }
 }
 </script>
