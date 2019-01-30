@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    Tenkey(v-model="num")
+    //- Tenkey(v-model="num")
     MenuButton(
       v-for="menu in menues"
       :to="menu.to"

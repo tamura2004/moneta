@@ -1,13 +1,41 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const { dialogflow } = require('actions-on-google');
 
 admin.initializeApp();
 const db = admin.firestore();
 db.settings({
   timestampsInSnapshots: true,
 });
-// const timestamp = db.FieldValue.serverTimestamp();
 const cors = require('cors')({origin: true});
+
+const app = dialogflow();
+
+app.intent('get-balance', async (conv, params) => {
+  try {
+    console.log(params);
+    const { number } = params;
+    const query = await db.collection('accounts').where('num', '==', number).get();
+    if (query.empty) {
+      const splitAccountNumber = number.split('').join('、');
+      const msg = `申し上げます。口座番号${number}が違います。`;
+      conv.close(msg);
+    } else {
+      const accountRef = query.docs[0];
+      const { bankName, branchName, name, kind, num, total } = accountRef.data();
+      const splitNum = num.split('').join('、');
+      const msg = `申し上げます。${bankName}、${branchName}、${name}様の、${kind}預金${splitNum}の残高は、${total}円です。`;
+      conv.close(msg);
+    }
+  }
+  catch(err) {
+    console.log('ERROR');
+    console.log(err);
+    conv.close('申し上げます。不明なエラーです。');
+  }
+});
+
+exports.getBalance = functions.https.onRequest(app);
 
 exports.createAccount = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
