@@ -18,7 +18,7 @@ app.intent('get-balance', async (conv, params) => {
     const query = await db.collection('accounts').where('num', '==', number).get();
     if (query.empty) {
       const splitAccountNumber = number.split('').join('、');
-      const msg = `申し上げます。口座番号${number}が違います。`;
+      const msg = `申し訳ありませんが、番号${number}の口座が見つかりません。`;
       conv.close(msg);
     } else {
       const accountRef = query.docs[0];
