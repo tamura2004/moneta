@@ -19,7 +19,7 @@ app.intent('get-balance', async (conv, params) => {
     if (query.empty) {
       const splitAccountNumber = number.split('').join('、');
       const msg = `口座番号${number}の残高は1億円です。嘘です。その口座は見つかりません。`;
-      conv.close(msg);
+      conv.ask(msg);
     } else {
       const accountRef = query.docs[0];
       const { bankName, branchName, name, kind, num, total } = accountRef.data();
@@ -31,7 +31,7 @@ app.intent('get-balance', async (conv, params) => {
   catch(err) {
     console.log('ERROR');
     console.log(err);
-    conv.close('申し上げます。不明なエラーです。');
+    conv.close('大変です。システムエラーが発生しています。');
   }
 });
 
