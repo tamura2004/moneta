@@ -11,6 +11,36 @@ const cors = require('cors')({origin: true});
 
 const app = dialogflow();
 
+app.intent('whoishere', async (conv, params) => {
+  try {
+    console.log(params);
+    const now = new Date();
+    const startOfDate = now.setHours(0,0,0,0);
+    // const query = await db.collection('accounts').where('createdAt', '>', startOfDate).get();
+    const query = await db.collection('accounts').get();
+    if (query.empty) {
+      conv.close('あなたしかいません');
+    } else {
+      const names = [];
+      query.forEach((accountRef) => {
+        const name = accountRef.data().name;
+        const head = name.slice(0, 1);
+        if (head !== '赤' && head !== '青' && head !== '白' && head !== '緑') {
+          names.push(name);
+        }
+      });
+      const who = names.join('さんと、');
+      msg = `今ここには${who}さんがいます。ああ、講師の田村さんもいましたね。そういえば。`;
+      conv.close(msg);
+    }
+  }
+  catch(err) {
+    console.log('ERROR');
+    console.log(err);
+    conv.close('誰もいません。');
+  }
+});
+
 app.intent('get-balance', async (conv, params) => {
   try {
     console.log(params);
