@@ -47,8 +47,9 @@ exports.createAccount = functions.https.onRequest((request, response) => {
         branchName: request.body.branchName,
         kind: '普通',
         name: request.body.name,
-        num: Math.floor(Math.random() * 8000000 + 1000000),
+        num: Math.floor(Math.random() * 900 + 100),
         total: 1000000,
+        createdAt: new Date(),
       });
       const statementRef = await db.collection('statements').add({
         accountId: accountRef.id,
