@@ -30,7 +30,7 @@ app.intent('whoishere', async (conv, params) => {
         }
       });
       const who = names.join('さんと、');
-      msg = `今ここには${who}さんがいます。ああ、講師の田村さんもいましたね。そういえば。`;
+      msg = `今ここには${who}さんがいます。あ、講師の田村さんもいますね。`;
       conv.close(msg);
     }
   }
