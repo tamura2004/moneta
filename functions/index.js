@@ -24,8 +24,8 @@ app.intent('whoishere', async (conv, params) => {
       const names = [];
       query.forEach((accountRef) => {
         const name = accountRef.data().name;
-        const head = name.slice(0, 1);
-        if (head !== '赤' && head !== '青' && head !== '白' && head !== '緑') {
+        const head = name.slice(0, 2);
+        if (head !== '赤城' && head !== '青木' && head !== '白井' && head !== '緑川') {
           names.push(name);
         }
       });
@@ -77,7 +77,7 @@ exports.createAccount = functions.https.onRequest((request, response) => {
         branchName: request.body.branchName,
         kind: '普通',
         name: request.body.name,
-        num: Math.floor(Math.random() * 900 + 100),
+        num: Math.floor(Math.random() * 9000 + 1000).toString(),
         total: 1000000,
         createdAt: new Date(),
       });
