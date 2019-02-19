@@ -5,7 +5,6 @@ import Statement from '@/models/Statement';
 import { Transfer } from '@/models/Transfer';
 
 export default class State {
-  // public authenticated: boolean = false;
   public accountId?: string = undefined;
   public transfer: Transfer = new Transfer();
   public banks: Bank[] = [];

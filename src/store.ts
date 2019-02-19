@@ -59,17 +59,8 @@ export default new Vuex.Store({
     logoff(state: State) {
       state.accountId = undefined;
     },
-    setBanks(state: State, banks: Bank[]) {
-      state.banks = banks;
-    },
-    setBranches(state: State, branches: Branch[]) {
-      state.branches = branches;
-    },
-    setAccounts(state: State, accounts: Account[]) {
-      state.accounts = accounts;
-    },
-    setStatements(state: State, statements: Statement[]) {
-      state.statements = statements;
+    set(state, {name, collection}) {
+      Vue.set(state, name, collection);
     },
     newTransfer(state: State) {
       state.transfer = new Transfer();
@@ -88,51 +79,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    init({dispatch}) {
-      dispatch('listenBanks');
-      dispatch('listenBranches');
-      dispatch('listenAccounts');
-      dispatch('listenStatements');
-    },
     login({commit}, accountId: string) {
       commit('setAccountId', accountId);
-    },
-    listenBanks({commit}) {
-      DB.collection('banks').onSnapshot((query) => {
-        const banks: Bank[] = [];
-        query.forEach((doc: any) => {
-          banks.push(new Bank({id: doc.id, ...doc.data()}));
-        });
-        commit('setBanks', banks);
-      });
-    },
-    listenBranches({commit}) {
-      DB.collection('branches').onSnapshot((query) => {
-        const branches: Branch[] = [];
-        query.forEach((doc: any) => {
-          branches.push(new Branch({id: doc.id, ...doc.data()}));
-        });
-        commit('setBranches', branches);
-      });
-    },
-    listenAccounts({commit}) {
-      DB.collection('accounts').onSnapshot((query) => {
-        const accounts: Account[] = [];
-        query.forEach((doc: any) => {
-          accounts.push(new Account({id: doc.id, ...doc.data()}));
-        });
-        commit('setAccounts', accounts);
-      });
-    },
-    listenStatements({commit}) {
-      DB.collection('statements').orderBy('createdAt').onSnapshot((query) => {
-        const statements: Statement[] = [];
-        query.forEach((doc: any) => {
-          statements.push(new Statement({id: doc.id, ...doc.data()}));
-        });
-        commit('setStatements', statements);
-        commit('clearProgress');
-      });
     },
     createAccount({commit}, form: Partial<Account>) {
       API.post('createAccount', form)

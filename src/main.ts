@@ -4,6 +4,11 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+import { listen } from '@/plugins/firebase';
+import { Bank } from '@/models/Bank';
+import { Branch } from '@/models/Branch';
+import { Account } from '@/models/Account';
+import Statement from '@/models/Statement';
 
 Vue.config.productionTip = false;
 
@@ -23,7 +28,11 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-store.dispatch('init');
+// store.dispatch('init');
+listen<Bank>(store, Bank);
+listen<Branch>(store, Branch);
+listen<Account>(store, Account);
+listen<Statement>(store, Statement);
 
 new Vue({
   router,
