@@ -16,7 +16,7 @@
         )
     v-card-actions
       v-spacer
-      //- v-btn(color="warning" @click="back") 戻る
+      // v-btn(color="warning" @click="back") 戻る
       v-btn(color="primary" @click="exec" :disabled="!valid") 振込実行
 </template>
 
@@ -38,8 +38,9 @@ export default class InputAmount extends Vue {
   private amountRules = [
     (v: string) => v !== '' || '金額を入力して下さい',
     (v: string) => Number(v) <= Number(this.account.total) || '残高が不足しています',
+    (v: string) => v.indexOf('.') === (-1) || '少数が含まれています',
     // (v: number) => v === 0 || '振込金額を指定して下さい',
-    // (v: number) => v < 0 || '振込金額はマイナスを指定できません',
+    (v: number) => v > 0 || '振込金額はマイナスを指定できません',
   ];
 
   // private back(): void {
@@ -48,7 +49,7 @@ export default class InputAmount extends Vue {
 
   private exec(): void {
     this.$store.commit('setProgress');
-    this.$store.commit('setTransferAmount', Number(this.amount));
+    this.$store.commit('setTransferAmount', Number(101010));
     this.$store.dispatch('execTransfer')
       .then(() => {
         // this.$store.commit('clearProgress');
