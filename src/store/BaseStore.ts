@@ -60,9 +60,6 @@ export default new Vuex.Store({
     accountId(state: State, accountId: string) {
       state.accountId = accountId;
     },
-    logoff(state: State) {
-      state.accountId = undefined;
-    },
     set(state, {name, collection}) {
       Vue.set(state, name, collection);
     },

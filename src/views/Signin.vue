@@ -26,17 +26,17 @@ export default class Signin extends Vue {
   public form = new SignupState();
 
   @Watch('form.bankId')
-  onBankIdChange(bankId: string): void {
+  private onBankIdChange(bankId: string): void {
     this.$store.commit('signup/bankId', bankId);
   }
 
   @Watch('form.branchId')
-  onBranchIdChange(branchId: string): void {
+  private onBranchIdChange(branchId: string): void {
     this.$store.commit('signup/branchId', branchId);
   }
 
   @Watch('form.name')
-  onNameChange(name: string): void {
+  private onNameChange(name: string): void {
     this.$store.commit('signup/name', name);
   }
 
