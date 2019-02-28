@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Account } from '@/models/Account';
+import Account from '@/models/Account';
 
 @Component
 export default class Balance extends Vue {
@@ -30,7 +30,7 @@ export default class Balance extends Vue {
     display grid
     grid-template-rows 320px 1fr
     grid-template-columns 1fr 320px 1fr
- 
+
   #btn
     grid-row 1
     grid-column 2

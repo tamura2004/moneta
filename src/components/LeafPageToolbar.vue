@@ -6,7 +6,7 @@
           v-icon arrow_back
           span 戻る
       v-spacer
-      UserInfo
+      TheUserInfo
     v-content
       v-container(fluid fill-height)
         v-layout(align-start justify-center)
@@ -15,11 +15,11 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import UserInfo from '@/components/UserInfo.vue';
+import TheUserInfo from '@/components/TheUserInfo.vue';
 
 @Component({
   components: {
-    UserInfo,
+    TheUserInfo,
   },
 })
 export default class LeafPageToolbar extends Vue {

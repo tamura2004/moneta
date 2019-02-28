@@ -11,27 +11,21 @@
           item-text="name"
           item-value="id"
           v-model="bankId"
-          @input="select"
+          @input="input"
         )
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Bank } from '@/models/Bank';
+import Bank from '@/models/Bank';
 
 @Component
 export default class BankSelectCard extends Vue {
   private bankId: string = '';
 
-  private select(): void {
+  private input(): void {
     this.$store.commit('setBankTo', this.bankId);
-    // const bank: Bank | undefined = this.banks.find((b) => b.id === this.bankId);
-
-    // if (bank === undefined) {
-    //   throw new Error(`bad bank id: ${this.bankId}`);
-    // } else {
-    //   this.$store.commit('setBankTo', bank);
-    // }
+    this.$router.push('/transfer/branch');
   }
   get banks(): Bank[] {
     return this.$store.state.banks;

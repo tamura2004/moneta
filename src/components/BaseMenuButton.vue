@@ -7,7 +7,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
-export default class MenuButton extends Vue {
+export default class BaseMenuButton extends Vue {
   @Prop() private to!: string;
   @Prop() private label!: string;
 }

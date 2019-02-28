@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    MenuButton(
+    BaseMenuButton(
       v-for="menu in menues"
       :to="menu.to"
       :label="menu.label"
@@ -10,24 +10,19 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import MenuButton from '@/components/MenuButton.vue';
-import UserInfo from '@/components/UserInfo.vue';
+import BaseMenuButton from '@/components/BaseMenuButton.vue';
 import { DB } from '@/plugins/firebase';
-import Tenkey from '@/components/Tenkey.vue';
 
 @Component({
   components: {
-    MenuButton,
-    UserInfo,
-    Tenkey,
+    BaseMenuButton,
   },
 })
 export default class Menu extends Vue {
-  private num: number = 90;
   private menues = [
     {to: '/balance', label: '残高照会'},
     {to: '/statements', label: '入出金明細'},
-    {to: '/transfer', label: '振込'},
+    {to: '/transfer/bank', label: '振込'},
   ];
 }
 </script>

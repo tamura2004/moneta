@@ -30,14 +30,14 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Bank } from '@/models/Bank';
-import { Branch } from '@/models/Branch';
-import { Account } from '@/models/Account';
-import { Transfer } from '@/models/Transfer';
+import Bank from '@/models/Bank';
+import Branch from '@/models/Branch';
+import Account from '@/models/Account';
+import Transfer from '@/models/Transfer';
 import { DB } from '@/plugins/firebase';
 
 @Component
-export default class TransferCard extends Vue {
+export default class TransferInfo extends Vue {
   private get transfer(): Transfer {
     return this.$store.state.transfer;
   }

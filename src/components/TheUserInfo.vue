@@ -16,21 +16,23 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 
-@Component
-export default class UserInfo extends Vue {
+@Component({
+  computed: {
+    ...mapGetters(['account']),
+  },
+})
+export default class TheUserInfo extends Vue {
   private dialog: boolean = false;
 
-  private get account(): Account | undefined {
-    return this.$store.getters.account;
-  }
   private login() {
-    this.$router.push({name: 'login'});
+    this.$router.push('/login');
   }
   private logoff() {
     this.dialog = false;
     this.$store.commit('logoff');
-    this.$router.push({name: 'login'});
+    this.$router.push('/login');
   }
 }
 </script>

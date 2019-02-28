@@ -1,24 +1,8 @@
-import { Branch } from '@/models/Branch';
+import BaseCollection from '@/models/BaseCollection';
 
-type IBank = Required<Bank>;
+export default class Bank extends BaseCollection {
+  public static collectionName = 'branches';
 
-const isIBank = (init: IBank): init is IBank =>
-  init.id !== undefined &&
-  init.num !== undefined &&
-  init.name !== undefined;
-
-class Bank {
-  public id!: string;
   public num!: string;
   public name!: string;
-  public branches: Branch[] = [];
-
-  constructor(init: IBank) {
-    if (!isIBank(init)) {
-      throw new Error('Bad bank data:' + JSON.stringify(init));
-    }
-    Object.assign(this, init);
-  }
 }
-
-export { Bank, IBank, isIBank };

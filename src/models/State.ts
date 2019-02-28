@@ -1,15 +1,12 @@
-import { Bank } from '@/models/Bank';
-import { Branch } from '@/models/Branch';
-import { Account } from '@/models/Account';
+import Bank from '@/models/Bank';
+import Branch from '@/models/Branch';
+import Account from '@/models/Account';
 import Statement from '@/models/Statement';
-import { Transfer } from '@/models/Transfer';
 
 export default class State {
   public accountId?: string = undefined;
-  public transfer: Transfer = new Transfer();
-  public banks: Bank[] = [];
-  public branches: Branch[] = [];
-  public accounts: Account[] = [];
-  public statements: Statement[] = [];
-  public progress: boolean = false;
+  public banks: Map<string, Bank> = new Map<string, Bank>();
+  public branches: Map<string, Branch> = new Map<string, Branch>();
+  public accounts: Map<string, Account> = new Map<string, Account>();
+  public statements: Map<string, Statement> = new Map<string, Statement>();
 }

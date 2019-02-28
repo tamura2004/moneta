@@ -12,17 +12,17 @@
           v-model="amount"
           :rules="amountRules"
           requied
-          
+
         )
     v-card-actions
       v-spacer
-      //- v-btn(color="warning" @click="back") 戻る
+      //- v-btn(color="warning" @click="$router.push('/transfer/account')") 戻る
       v-btn(color="primary" @click="exec" :disabled="!valid") 振込実行
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Account } from '@/models/Account';
+import Account from '@/models/Account';
 import API from '@/services/API';
 
 @Component
@@ -38,20 +38,15 @@ export default class InputAmount extends Vue {
   private amountRules = [
     (v: string) => v !== '' || '金額を入力して下さい',
     (v: string) => Number(v) <= Number(this.account.total) || '残高が不足しています',
-    // (v: number) => v === 0 || '振込金額を指定して下さい',
-    // (v: number) => v < 0 || '振込金額はマイナスを指定できません',
+    // (v: number) => v > 0 || '振込金額は1円以上の金額を指定して下さい',
   ];
-
-  // private back(): void {
-  //   this.$store.commit('newTransfer');
-  // }
 
   private exec(): void {
     this.$store.commit('setProgress');
     this.$store.commit('setTransferAmount', Number(this.amount));
     this.$store.dispatch('execTransfer')
       .then(() => {
-        // this.$store.commit('clearProgress');
+        this.$store.commit('clearProgress');
         this.$router.push('/statements');
       })
       .catch((err) => {

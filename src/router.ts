@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import Menu from '@/views/Menu.vue';
 import Balance from '@/views/Balance.vue';
 import Statements from '@/views/Statements.vue';
@@ -7,53 +8,42 @@ import Transfer from '@/views/Transfer.vue';
 import Login from '@/views/Login.vue';
 import Signin from '@/views/Signin.vue';
 
+import TransferBankSelect from '@/views/TransferBankSelect.vue';
+import TransferBranchSelect from '@/views/TransferBranchSelect.vue';
+import TransferAccountSelect from '@/views/TransferAccountSelect.vue';
+import TransferAmountInput from '@/views/TransferAmountInput.vue';
+
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'menu',
-      component: Menu,
-      meta: {
-        requireAuth: false,
-      },
-    },
-    {
-      path: '/balance',
-      name: 'balance',
-      component: Balance,
-      meta: {
-        requireAuth: true,
-      },
-    },
-    {
-      path: '/statements',
-      name: 'statements',
-      component: Statements,
-      meta: {
-        requireAuth: true,
-      },
-    },
+    { path: '/', component: Menu },
+    { path: '/balance', component: Balance },
+    { path: '/statements', component: Statements },
     {
       path: '/transfer',
-      name: 'transfer',
       component: Transfer,
-      meta: {
-        requireAuth: true,
-      },
+      children: [
+        { path: 'bank', component: TransferBankSelect },
+        { path: 'branch', component: TransferBranchSelect },
+        { path: 'account', component: TransferAccountSelect },
+        { path: 'amount', component: TransferAmountInput },
+      ],
     },
-    {
-      path: '/login',
-      name: 'login',
+    { path: '/login',
       component: Login,
+      meta: {
+        guestAccess: true,
+      },
     },
     {
       path: '/signin',
-      name: 'signin',
       component: Signin,
+      meta: {
+        guestAccess: true,
+      },
     },
   ],
 });

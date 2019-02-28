@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Store } from 'vuex';
 import State from '@/models/State';
+import BaseCollection from '@/models/BaseCollection';
 
 Vue.use(VueFire);
 
@@ -16,24 +17,17 @@ const firebaseApp = firebase.initializeApp({
   messagingSenderId: '450912157988',
 });
 
-const conv = new Map<string, string>([
-    ['Bank', 'banks'],
-    ['Branch', 'branches'],
-    ['Account', 'accounts'],
-    ['Statement', 'statements'],
-  ],
-);
-
 export const DB = firebaseApp.firestore();
 
-export function listen<T>(store: Store<State>, fn: new(init: any) => T) {
-  const name =  conv.get(fn.name);
-  if (name === undefined) { return; }
-
+export function listen<T extends BaseCollection>(
+  store: Store<State>,
+  fn: (new(init: Partial<T>) => T) & { collectionName: string },
+) {
+  const name = fn.collectionName;
   DB.collection(name).onSnapshot((query) => {
-    const collection: T[] = [];
+    const collection: Map<string, T> = new Map<string, T>();
     query.forEach((doc: any) => {
-      collection.push(new fn({id: doc.id, ...doc.data()}));
+      collection.set(doc.id, new fn({...doc.data()}));
     });
     store.commit({
       type: 'set',

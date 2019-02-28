@@ -11,15 +11,15 @@
           :item-text="itemText"
           item-value="id"
           v-model="accountId"
-          @input="select"
+          @input="input"
         )
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Bank } from '@/models/Bank';
-import { Branch } from '@/models/Branch';
-import { Account } from '@/models/Account';
+import Bank from '@/models/Bank';
+import Branch from '@/models/Branch';
+import Account from '@/models/Account';
 
 @Component
 export default class AccountSelectCard extends Vue {
@@ -31,8 +31,9 @@ export default class AccountSelectCard extends Vue {
   private itemText(account: Account): string {
     return (account.name + ' ' + account.kind + ' ' + account.num);
   }
-  private select(): void {
+  private input(): void {
     this.$store.commit('setAccountTo', this.accountId);
+    this.$router.push('/transfer/amount');
   }
 }
 </script>

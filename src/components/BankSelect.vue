@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { Bank } from '@/models/Bank';
+import Bank from '@/models/Bank';
 
 @Component
 export default class BankSelect extends Vue {

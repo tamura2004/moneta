@@ -7,7 +7,7 @@
         v-select(
           prepend-icon="person"
           label="userid"
-          :items="$store.state.accounts"
+          :items="accounts"
           item-text="name"
           item-value="id"
           v-model="accountId"
@@ -23,14 +23,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Account } from '@/models/Account';
+import Account from '@/models/Account';
 import { DB } from '@/plugins/firebase';
 
-@Component({
-  firestore: {
-    accounts: DB.collection('accounts'),
-  },
-})
+interface Item {
+  id: string;
+  name: string;
+}
+
+@Component
 export default class Login extends Vue {
   private accountId: string = '';
   private pass: string = '';
@@ -39,6 +40,14 @@ export default class Login extends Vue {
   private rules = [
     (v: string) => v !== '' || 'IDまたはパスワードが違います',
   ];
+
+  private get accounts(): Item[] {
+    const items = [];
+    for (const [key, account] of this.$store.state.accounts) {
+      items.push({ id: key, name: account.name });
+    }
+    return items;
+  }
 
   private login(): void {
     this.$store.dispatch('login', this.accountId);
