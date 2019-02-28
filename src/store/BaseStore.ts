@@ -74,12 +74,5 @@ export default new Vuex.Store({
     logoff({commit}) {
       commit('accountId', undefined);
     },
-    createAccount({commit}, form: Partial<Account>) {
-      API.post('createAccount', form)
-        .then((doc: any) => {
-          commit('accountId', doc.id);
-        })
-        .catch((err) => alert(err));
-    },
   },
 });

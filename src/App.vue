@@ -10,7 +10,7 @@
       TheUserInfo
     v-content
       v-container(fluid)
-        v-layout(align-start justify-center v-if="!progress")
+        v-layout(align-start justify-center v-if="!processing")
           v-flex(xs12 sm12 md8 lg8 x8)
             transition(name="router" mode="out-in")
               router-view
@@ -30,7 +30,6 @@ import TheUserInfo from '@/components/TheUserInfo.vue';
     TheUserInfo,
   },
   computed: {
-    ...mapState(['progress']),
     ...mapGetters(['account']),
   },
 })
@@ -39,12 +38,9 @@ export default class App extends Vue {
     this.$router.push('/');
   }
 
-// private get account(): Account | undefined {
-  //   return this.$store.getters.account;
-  // }
-  // private get progress(): boolean {
-  //   return this.$store.state.progress;
-  // }
+  private get processing(): boolean {
+    return this.$store.state.transfer.processing;
+  }
 
 }
 </script>

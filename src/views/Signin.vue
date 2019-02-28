@@ -14,43 +14,51 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Item from '@/models/Item';
+import SignupState from '@/models/SignupState';
 
 @Component
 export default class Signin extends Vue {
-  public form = {
-    bankId: '',
-    branchId: '',
-    name: '',
-    bankName: '',
-    branchName: '',
-    // password: '',
-  };
+  public form = new SignupState();
+
+  @Watch('form.bankId')
+  onBankIdChange(bankId: string): void {
+    this.$store.commit('signup/bankId', bankId);
+  }
+
+  @Watch('form.branchId')
+  onBranchIdChange(branchId: string): void {
+    this.$store.commit('signup/branchId', branchId);
+  }
+
+  @Watch('form.name')
+  onNameChange(name: string): void {
+    this.$store.commit('signup/name', name);
+  }
 
   private get banks() {
     return this.$store.getters.bankItems;
   }
 
   private get branches(): Item[] {
-    const items = [];
-    for (const [key, branch] of this.$store.state.branches) {
-      if (branch.bankId === this.form.bankId) {
-        items.push({ id: key, name: branch.name });
-      }
-    }
-    return items;
+    return this.$store.getters['signup/branchItems'];
   }
 
   private signin(): void {
     const bank = this.$store.state.banks.get(this.form.bankId);
     this.form.bankName = bank ? bank.name : '';
-    const branch = this.$store.state.branch.get(this.form.branchId);
+    const branch = this.$store.state.branches.get(this.form.branchId);
     this.form.branchName = branch ? branch.name : '';
-    this.$store.dispatch('createAccount', this.form);
+
+    this.$store.dispatch('signup/create', this.form)
+      .then((doc: any) => {
+        this.$store.commit('accountId', doc.id);
+      })
+      .catch((err) => alert('signin:61:' + err));
     this.$router.push('/');
   }
 }

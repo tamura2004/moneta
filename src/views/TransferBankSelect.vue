@@ -18,17 +18,18 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import Bank from '@/models/Bank';
+import Item from '@/models/Item';
 
 @Component
 export default class BankSelectCard extends Vue {
   private bankId: string = '';
 
   private input(): void {
-    this.$store.commit('setBankTo', this.bankId);
+    this.$store.commit('transfer/bankId', this.bankId);
     this.$router.push('/transfer/branch');
   }
-  get banks(): Bank[] {
-    return this.$store.state.banks;
+  get banks(): Item[] {
+    return this.$store.getters.bankItems;
   }
 }
 </script>

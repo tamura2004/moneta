@@ -25,11 +25,11 @@ export default class BranchSelectCard extends Vue {
   private branchId: string = '';
 
   private input(): void {
-    this.$store.commit('setBranchTo', this.branchId);
+    this.$store.commit('transfer/branchId', this.branchId);
     this.$router.push('/transfer/account');
   }
   get branches(): Branch[] {
-    return this.$store.getters.branchesTo;
+    return this.$store.getters['transfer/branchItems'];
   }
 }
 </script>

@@ -1,15 +1,9 @@
+import API from '@/services/API';
+
 import State from '@/models/State';
 import Branch from '@/models/Branch';
 import Item from '@/models/Item';
-
-class SignupState {
-  public bankid: string = '';
-  public branchid: string = '';
-  public name: string = '';
-  public bankName: string = '';
-  public branchName: string = '';
-  public password: string = '';
-}
+import SignupState from '@/models/SignupState';
 
 export default {
   namespaced: true,
@@ -18,7 +12,7 @@ export default {
     branches(state: SignupState, getters: any, rootState: State): Map<string, Branch> {
       const collection = new Map<string, Branch>();
       for (const [key, branch] of rootState.branches) {
-        if (state.bankid === branch.bankId) {
+        if (state.bankId === branch.bankId) {
           collection.set(key, branch);
         }
       }
@@ -33,7 +27,24 @@ export default {
     },
   },
   mutations: {
+    bankId(state: SignupState, bankId: string) {
+      state.bankId = bankId;
+    },
+    branchId(state: SignupState, branchId: string) {
+      state.branchId = branchId;
+    },
+    name(state: SignupState, name: string) {
+      state.name = name;
+    },
   },
   actions: {
+    async create(context: any) {
+      const {commit, state, rootState} = context;
+      API.post('createAccount', {...state})
+        .then((doc: any) => {
+          return doc;
+        });
+        // .catch((err) => alert(err));
+    },
   },
 };

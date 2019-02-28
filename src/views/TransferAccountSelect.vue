@@ -8,7 +8,7 @@
           prepend-icon="person"
           :items="accounts"
           label="口座"
-          :item-text="itemText"
+          item-text="name"
           item-value="id"
           v-model="accountId"
           @input="input"
@@ -26,13 +26,10 @@ export default class AccountSelectCard extends Vue {
   private accountId: string = '';
 
   get accounts(): Account[] {
-    return this.$store.getters.accountsTo;
-  }
-  private itemText(account: Account): string {
-    return (account.name + ' ' + account.kind + ' ' + account.num);
+    return this.$store.getters['transfer/accountItems'];
   }
   private input(): void {
-    this.$store.commit('setAccountTo', this.accountId);
+    this.$store.commit('transfer/accountId', this.accountId);
     this.$router.push('/transfer/amount');
   }
 }

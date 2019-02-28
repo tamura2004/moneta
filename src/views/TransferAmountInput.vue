@@ -42,11 +42,11 @@ export default class InputAmount extends Vue {
   ];
 
   private exec(): void {
-    this.$store.commit('setProgress');
-    this.$store.commit('setTransferAmount', Number(this.amount));
-    this.$store.dispatch('execTransfer')
+    this.$store.commit('transfer/processing', true);
+    this.$store.commit('transfer/amount', Number(this.amount));
+    this.$store.dispatch('transfer/exec')
       .then(() => {
-        this.$store.commit('clearProgress');
+        this.$store.commit('transfer/processing', false);
         this.$router.push('/statements');
       })
       .catch((err) => {

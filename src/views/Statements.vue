@@ -32,7 +32,7 @@ import State from '@/models/State';
   },
 })
 export default class Statements extends Vue {
-  private get statements(): [string, Statement][] {
+  private get statements(): Array<[string, Statement]> {
     return [...this.$store.getters.statements];
   }
   private home(): void {

@@ -16,7 +16,7 @@ import TransferInfo from '@/components/TransferInfo.vue';
 })
 export default class Transfer extends Vue {
   private created(): void {
-    this.$store.commit('clear');
+    this.$store.commit('transfer/clear');
   }
 }
 </script>
