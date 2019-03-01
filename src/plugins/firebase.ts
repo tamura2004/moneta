@@ -3,7 +3,7 @@ import VueFire from 'vuefire';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Store } from 'vuex';
-import State from '@/models/State';
+import BaseState from '@/store/BaseState';
 import BaseCollection from '@/models/BaseCollection';
 
 Vue.use(VueFire);
@@ -20,7 +20,7 @@ const firebaseApp = firebase.initializeApp({
 export const DB = firebaseApp.firestore();
 
 export function listen<T extends BaseCollection>(
-  store: Store<State>,
+  store: Store<BaseState>,
   fn: (new(init: Partial<T>) => T) & { collectionName: string },
 ) {
   const name = fn.collectionName;

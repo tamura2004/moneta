@@ -5,21 +5,21 @@ Vue.use(Vuex);
 
 import API from '@/services/API';
 
-import State from '@/models/State';
-import Account from '@/models/Account';
-import Statement from '@/models/Statement';
+import BaseState from '@/store/BaseState';
 import Item from '@/models/Item';
 import TransferStore from '@/store/TransferStore';
 import SignupStore from '@/store/SignupStore';
+import SessionStore from './SessionStore';
 
 export default new Vuex.Store({
   modules: {
     transfer: TransferStore,
     signup: SignupStore,
+    session: SessionStore,
   },
-  state: new State(),
+  state: new BaseState(),
   getters: {
-    bankItems(state: State): Item[] {
+    bankItems(state: BaseState): Item[] {
       const items = [];
       for (const [key, bank] of state.banks) {
         items.push({
@@ -29,7 +29,7 @@ export default new Vuex.Store({
       }
       return items;
     },
-    branchItems(state: State, bankId: string): Item[] {
+    branchItems(state: BaseState, bankId: string): Item[] {
       const items = [];
       for (const [key, branch] of state.branches) {
         if (branch.bankId === bankId) {
@@ -41,25 +41,8 @@ export default new Vuex.Store({
       }
       return items;
     },
-    account(state: State): Account | undefined {
-      if (state.accountId !== undefined) {
-        return state.accounts.get(state.accountId);
-      }
-    },
-    statements(state: State, getters): Map<string, Statement> {
-      const collection: Map<string, Statement> = new Map<string, Statement>();
-      for (const [key, value] of state.statements) {
-        if (value.accountId === state.accountId) {
-          collection.set(key, value);
-        }
-      }
-      return collection;
-    },
   },
   mutations: {
-    accountId(state: State, accountId: string) {
-      state.accountId = accountId;
-    },
     set(state, {name, collection}) {
       Vue.set(state, name, collection);
     },

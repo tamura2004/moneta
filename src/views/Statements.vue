@@ -24,7 +24,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
 import Statement from '@/models/Statement';
-import State from '@/models/State';
+import BaseState from '@/store/BaseState';
 
 @Component({
   components: {

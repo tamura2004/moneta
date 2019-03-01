@@ -19,7 +19,7 @@ import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Item from '@/models/Item';
-import SignupState from '@/models/SignupState';
+import SignupState from '@/store/SignupState';
 
 @Component
 export default class Signin extends Vue {

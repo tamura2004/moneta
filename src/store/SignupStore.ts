@@ -1,15 +1,15 @@
 import API from '@/services/API';
 
-import State from '@/models/State';
+import BaseState from '@/store/BaseState';
 import Branch from '@/models/Branch';
 import Item from '@/models/Item';
-import SignupState from '@/models/SignupState';
+import SignupState from '@/store/SignupState';
 
 export default {
   namespaced: true,
   state: new SignupState(),
   getters: {
-    branches(state: SignupState, getters: any, rootState: State): Map<string, Branch> {
+    branches(state: SignupState, getters: any, rootState: BaseState): Map<string, Branch> {
       const collection = new Map<string, Branch>();
       for (const [key, branch] of rootState.branches) {
         if (state.bankId === branch.bankId) {

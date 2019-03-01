@@ -33,12 +33,12 @@ import { Vue, Component } from 'vue-property-decorator';
 import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
-import Transfer from '@/models/Transfer';
+import TransferState from '@/store/TransferState';
 import { DB } from '@/plugins/firebase';
 
 @Component
 export default class TransferInfo extends Vue {
-  private get transfer(): Transfer {
+  private get transfer(): TransferState {
     return this.$store.state.transfer;
   }
   private get account(): Account | undefined {

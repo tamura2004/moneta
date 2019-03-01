@@ -3,8 +3,7 @@ import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Statement from '@/models/Statement';
 
-export default class State {
-  public accountId?: string = undefined;
+export default class BaseState {
   public banks: Map<string, Bank> = new Map<string, Bank>();
   public branches: Map<string, Branch> = new Map<string, Branch>();
   public accounts: Map<string, Account> = new Map<string, Account>();

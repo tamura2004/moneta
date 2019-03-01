@@ -27,9 +27,7 @@ export default class Transfer extends Vue {
 
   .transfer-enter
     transform translateX(100%)
-    opacity 0
 
   .transfer-leave-to
     transform translateX(-100%)
-    opacity 0
 </style>

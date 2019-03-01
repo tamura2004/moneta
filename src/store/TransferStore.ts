@@ -1,16 +1,17 @@
 import API from '@/services/API';
 
-import Transfer from '@/models/Transfer';
-import State from '@/models/State';
+import TransferState from '@/store/TransferState';
+import BaseState from '@/store/BaseState';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Item from '@/models/Item';
+import { Module } from 'vuex';
 
-export default {
+const transferStore: Module<TransferState, BaseState> = {
   namespaced: true,
-  state: new Transfer(),
+  state: new TransferState(),
   getters: {
-    branches(state: Transfer, getters: any, rootState: State): Map<string, Branch> {
+    branches(state: TransferState, getters: any, rootState: BaseState): Map<string, Branch> {
       const collection = new Map<string, Branch>();
       for (const [key, branch] of rootState.branches) {
         if (state.bankId === branch.bankId) {
@@ -19,14 +20,14 @@ export default {
       }
       return collection;
     },
-    branchItems(state: Transfer, getters: any): Item[] {
+    branchItems(state: TransferState, getters: any): Item[] {
       const items = [];
       for (const [id, branch] of getters.branches) {
         items.push({ id, name: branch.name });
       }
       return items;
     },
-    accounts(state: Transfer, getters: any, rootState: State): Map<string, Account> {
+    accounts(state: TransferState, getters: any, rootState: BaseState): Map<string, Account> {
       const collection = new Map<string, Account>();
       for (const [key, account] of rootState.accounts) {
         if (state.branchId === account.branchId) {
@@ -35,7 +36,7 @@ export default {
       }
       return collection;
     },
-    accountItems(state: Transfer, getters: any): Item[] {
+    accountItems(state: TransferState, getters: any): Item[] {
       const items = [];
       for (const [id, account] of getters.accounts) {
         const name = account.name + ' ' + account.kind + ' ' + account.num;
@@ -45,22 +46,22 @@ export default {
     },
   },
   mutations: {
-    processing(state: Transfer, payload: boolean) {
+    processing(state: TransferState, payload: boolean) {
       state.processing = payload;
     },
-    clear(state: Transfer) {
+    clear(state: TransferState) {
       state.clear();
     },
-    bankId(state: Transfer, bankId: string) {
+    bankId(state: TransferState, bankId: string) {
       state.bankId = bankId;
     },
-    branchId(state: Transfer, branchId: string) {
+    branchId(state: TransferState, branchId: string) {
       state.branchId = branchId;
     },
-    accountId(state: Transfer, accountId: string) {
+    accountId(state: TransferState, accountId: string) {
       state.accountId = accountId;
     },
-    amount(state: Transfer, amount: number) {
+    amount(state: TransferState, amount: number) {
       state.amount = amount;
     },
   },

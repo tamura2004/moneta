@@ -48,7 +48,7 @@ app.intent('get-balance', async (conv, params) => {
     const query = await db.collection('accounts').where('num', '==', number).get();
     if (query.empty) {
       const splitAccountNumber = number.split('').join('、');
-      const msg = `口座番号${number}の残高は1億円です。嘘です。その口座は見つかりません。`;
+      const msg = `口座番号${splitAccountNumber}の残高は1億円です。嘘です。その口座は見つかりません。`;
       conv.ask(msg);
     } else {
       const accountRef = query.docs[0];
@@ -67,6 +67,7 @@ app.intent('get-balance', async (conv, params) => {
 
 exports.getBalance = functions.https.onRequest(app);
 
+// 口座開設処理
 exports.createAccount = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     try {
@@ -75,8 +76,9 @@ exports.createAccount = functions.https.onRequest((request, response) => {
         bankName: request.body.bankName,
         branchId: request.body.branchId,
         branchName: request.body.branchName,
-        kind: '普通',
         name: request.body.name,
+
+        kind: '普通',
         num: Math.floor(Math.random() * 9000 + 1000).toString(),
         total: 1000000,
         createdAt: new Date(),
@@ -96,30 +98,36 @@ exports.createAccount = functions.https.onRequest((request, response) => {
       const msg = 'bad account params:' + JSON.stringify(request.body);
       console.log(msg);
       response.status(403).send(msg);
-      
+
     }
   });
 });
 
+// 振込処理
 exports.transfer = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     try {
       const { idFrom, idTo, amount } = request.body;
 
+      // 振込元、振込先の口座情報をDBから取得
       const accountFromRef = db.collection('accounts').doc(idFrom);
       const accountToRef = db.collection('accounts').doc(idTo);
       const accountFrom = await accountFromRef.get();
       const accountTo = await accountToRef.get();
+
+      // それぞれの残高を取得し＊同時に＊振込後残高を計算
       const totalFrom = accountFrom.data().total;
       const totalTo = accountTo.data().total;
       const newTotalFrom = totalFrom - Number(amount);
       const newTotalTo = totalTo + Number(amount);
+
+      // 上の計算結果に基づき残高を更新
       await accountFromRef.update({total: newTotalFrom});
       console.log('accountFrom total update');
-
       await accountToRef.update({total: newTotalTo});
       console.log('accountTo total update');
 
+      // 振込元口座に明細を作成
       const statementRef = db.collection('statements');
       await statementRef.add({
         accountId: accountFrom.id,
@@ -131,6 +139,8 @@ exports.transfer = functions.https.onRequest((request, response) => {
         createdAt: new Date(),
       });
       console.log('accountFrom statement add');
+
+      // 振込先口座に明細を作成
       await statementRef.add({
         accountId: accountTo.id,
         amount: amount,

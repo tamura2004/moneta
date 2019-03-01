@@ -6,7 +6,7 @@
       v-toolbar-title(v-if="account")
         p.body-2.my-0 {{ account.bankName }}
         p.body-1.my-0 {{ account.branchName }}
-      v-spacer.spc
+      v-spacer.debug
       TheUserInfo(:account="account")
     v-content
       v-container(fluid)
@@ -22,7 +22,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState, mapGetters } from 'vuex';
-import State from '@/models/State';
+import BaseState from '@/store/BaseState';
 import TheUserInfo from '@/components/TheUserInfo.vue';
 
 @Component({
@@ -45,16 +45,18 @@ export default class App extends Vue {
 </script>
 
 <style lang="stylus">
-  .spc
-    border 1px solid red
-  *
-    border 1px solid black
+  // .debug
+  //   border 1px solid red
+
+  // *
+  //   border 1px solid black
+
   .router-enter-active, .router-leave-active
-    transition all 3s ease
+    transition all 0.3s ease
 
   .router-enter
-    transform translateY(100%)
+    transform translateX(90%)
 
   .router-leave-active
-    transform translateY(-100%)
+    transform translateX(-90%)
 </style>
