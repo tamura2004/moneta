@@ -1,3 +1,7 @@
+import Bank from '@/models/Bank';
+import Branch from '@/models/Branch';
+import BaseState from '@/store/BaseState';
+
 interface Named {
   name: string;
 }
@@ -15,10 +19,24 @@ export default class Item {
     return items;
   }
 
+  public static branches(state: BaseState, bankId?: string): Item[] {
+    return this.convertFromMap(
+      state.branches,
+      (branch: Branch) => branch.bankId === bankId,
+    );
+  }
+
+  public static banks(state: BaseState): Item[] {
+    return this.convertFromMap(
+      state.banks,
+      (bank: Bank) => true,
+    );
+  }
+
   public id!: string;
   public name!: string;
 
-  constructor(init: Required<Item>){
+  constructor(init: Required<Item>) {
     Object.assign(this, init);
   }
 }

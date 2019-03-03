@@ -28,8 +28,9 @@ export default class BankSelectCard extends Vue {
     this.$store.commit('transfer/bankId', this.bankId);
     this.$router.push('/transfer/branch');
   }
-  get banks(): Item[] {
-    return this.$store.getters.bankItems;
+
+  private get banks(): Item[] {
+    return Item.banks(this.$store.state);
   }
 }
 </script>

@@ -49,7 +49,7 @@ export default class TheUserInfo extends Vue {
   }
   private logoff() {
     this.dialog = false;
-    this.$store.dispatch('logoff');
+    this.$store.dispatch('session/logoff');
     this.$router.push('/login');
   }
 }

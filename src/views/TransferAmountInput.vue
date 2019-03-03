@@ -24,15 +24,16 @@
 import { Vue, Component } from 'vue-property-decorator';
 import Account from '@/models/Account';
 import API from '@/services/API';
+import { mapGetters } from 'vuex';
 
 @Component
-export default class InputAmount extends Vue {
+export default class TransferAmountInput extends Vue {
   private amount: string = '';
   private error: null | string = null;
   private valid: boolean = false;
 
   private get account(): Account {
-    return this.$store.getters.account;
+    return this.$store.getters['session/account'];
   }
 
   private amountRules = [

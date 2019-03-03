@@ -19,6 +19,8 @@
 import { Vue, Component } from 'vue-property-decorator';
 import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
+import Item from '@/models/Item';
+import { mapState } from 'vuex';
 
 @Component
 export default class BranchSelectCard extends Vue {
@@ -28,8 +30,13 @@ export default class BranchSelectCard extends Vue {
     this.$store.commit('transfer/branchId', this.branchId);
     this.$router.push('/transfer/account');
   }
-  get branches(): Branch[] {
-    return this.$store.getters['transfer/branchItems'];
+
+  private get bankId(): string | undefined {
+    return this.$store.state.transfer.bankId;
+  }
+
+  private get branches(): Item[] {
+    return Item.branches(this.$store.state, this.bankId);
   }
 }
 </script>

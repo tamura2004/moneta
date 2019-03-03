@@ -13,14 +13,16 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import Account from '@/models/Account';
+import { mapGetters } from 'vuex';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('session', ['account']),
+  },
+})
 export default class Balance extends Vue {
   private statements(): void {
     this.$router.push('/statements');
-  }
-  private get account(): Account {
-    return this.$store.getters.account;
   }
 }
 </script>

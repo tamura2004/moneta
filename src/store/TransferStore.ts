@@ -2,6 +2,7 @@ import API from '@/services/API';
 
 import TransferState from '@/store/TransferState';
 import BaseState from '@/store/BaseState';
+import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Item from '@/models/Item';
@@ -44,6 +45,21 @@ const transferStore: Module<TransferState, BaseState> = {
       }
       return items;
     },
+    bank(state: TransferState, getters: any, rootState: BaseState): Bank | undefined {
+      if (state.bankId !== undefined) {
+        return rootState.banks.get(state.bankId);
+      }
+    },
+    branch(state: TransferState, getters: any, rootState: BaseState): Branch | undefined {
+      if (state.branchId !== undefined) {
+        return rootState.branches.get(state.branchId);
+      }
+    },
+    account(state: TransferState, getters: any, rootState: BaseState): Account | undefined {
+      if (state.accountId !== undefined) {
+        return rootState.accounts.get(state.accountId);
+      }
+    },
   },
   mutations: {
     processing(state: TransferState, payload: boolean) {
@@ -78,3 +94,5 @@ const transferStore: Module<TransferState, BaseState> = {
     },
   },
 };
+
+export default transferStore;

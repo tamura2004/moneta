@@ -23,42 +23,18 @@ import SignupState from '@/store/SignupState';
 
 @Component
 export default class Signin extends Vue {
-  public form = new SignupState();
-
-  @Watch('form.bankId')
-  private onBankIdChange(bankId: string): void {
-    this.$store.commit('signup/bankId', bankId);
-  }
-
-  @Watch('form.branchId')
-  private onBranchIdChange(branchId: string): void {
-    this.$store.commit('signup/branchId', branchId);
-  }
-
-  @Watch('form.name')
-  private onNameChange(name: string): void {
-    this.$store.commit('signup/name', name);
-  }
+  private form = new SignupState();
 
   private get banks() {
-    return this.$store.getters.bankItems;
+    return Item.banks(this.$store.state);
   }
 
   private get branches(): Item[] {
-    return this.$store.getters['signup/branchItems'];
+    return Item.branches(this.$store.state, this.form.bankId);
   }
 
   private signin(): void {
-    const bank = this.$store.state.banks.get(this.form.bankId);
-    this.form.bankName = bank ? bank.name : '';
-    const branch = this.$store.state.branches.get(this.form.branchId);
-    this.form.branchName = branch ? branch.name : '';
-
-    this.$store.dispatch('signup/create', this.form)
-      .then((doc: any) => {
-        this.$store.commit('accountId', doc.id);
-      })
-      .catch((err) => alert('signin:61:' + err));
+    this.$store.dispatch('session/signup', this.form);
     this.$router.push('/');
   }
 }

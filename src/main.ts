@@ -5,6 +5,7 @@ import './registerServiceWorker';
 import App from './App.vue';
 import router from './router';
 import store from '@/store/BaseStore';
+import SessionStore from '@/store/SessionStore';
 
 import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
@@ -24,7 +25,7 @@ Vue.filter('threeDigitedYen', (value: number | undefined) => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.guestAccess) || store.state.accountId !== undefined) {
+  if (to.matched.some((record) => record.meta.guestAccess) || store.getters['session/account'] !== undefined) {
     next();
   } else {
     next({ path: '/login' });

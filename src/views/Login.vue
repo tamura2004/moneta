@@ -50,7 +50,7 @@ export default class Login extends Vue {
   }
 
   private login(): void {
-    this.$store.dispatch('login', this.accountId);
+    this.$store.dispatch('session/login', this.accountId);
     this.$router.push('/');
   }
   private signin(): void {

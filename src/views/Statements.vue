@@ -3,7 +3,7 @@
     v-toolbar(color="primary" dark)
       v-toolbar-title 入出金明細
     v-list(two-line)
-      div(v-for="[key, statement] in statements" :key="key")
+      div(v-for="[key, statement] in Array.from(statements)" :key="key")
         v-divider
         v-list-tile-content.pa-1
           v-list-tile-title
@@ -25,16 +25,17 @@ import { Vue, Component } from 'vue-property-decorator';
 import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
 import Statement from '@/models/Statement';
 import BaseState from '@/store/BaseState';
+import { mapGetters } from 'vuex';
 
 @Component({
   components: {
     LeafPageToolbar,
   },
+  computed: {
+    ...mapGetters('session', ['statements']),
+  },
 })
 export default class Statements extends Vue {
-  private get statements(): Array<[string, Statement]> {
-    return [...this.$store.getters.statements];
-  }
   private home(): void {
     this.$router.push('/');
   }

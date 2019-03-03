@@ -4,4 +4,5 @@ export default class FormState {
   public accountId: string = '';
   public name: string = '';
   public password: string = '';
+  public processing: boolean = false;
 }

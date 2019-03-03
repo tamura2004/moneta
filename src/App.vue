@@ -4,8 +4,8 @@
       v-btn(flat icon @click="home")
         v-icon home
       v-toolbar-title(v-if="account")
-        p.body-2.my-0 {{ account.bankName }}
-        p.body-1.my-0 {{ account.branchName }}
+        p.body-2.my-0 {{ bank.name }}
+        p.body-1.my-0 {{ branch.name }}
       v-spacer.debug
       TheUserInfo(:account="account")
     v-content
@@ -30,16 +30,13 @@ import TheUserInfo from '@/components/TheUserInfo.vue';
     TheUserInfo,
   },
   computed: {
-    ...mapGetters(['account']),
+    ...mapGetters('session', ['account', 'bank', 'branch']),
+    ...mapState('session', ['processing']),
   },
 })
 export default class App extends Vue {
   private home(): void {
     this.$router.push('/');
-  }
-
-  private get processing(): boolean {
-    return this.$store.state.transfer.processing;
   }
 }
 </script>

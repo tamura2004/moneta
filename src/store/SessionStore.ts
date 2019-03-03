@@ -1,10 +1,12 @@
 import SessionState from './SessionState';
+import SignupState from './SignupState';
 import BaseState from './BaseState';
 import Bank from '@/models/Bank';
 import Branch from '@/models/Branch';
 import Account from '@/models/Account';
 import Statement from '@/models/Statement';
 import { Module } from 'vuex';
+import API from '@/services/API';
 
 const sessionStore: Module<SessionState, BaseState> = {
   namespaced: true,
@@ -36,16 +38,26 @@ const sessionStore: Module<SessionState, BaseState> = {
     },
   },
   mutations: {
-    accoundId(state: SessionState, accoundId: string): void {
+    accountId(state: SessionState, accoundId: string): void {
       state.accountId = accoundId;
+    },
+    processing(state: SessionState, active: boolean): void {
+      state.processing = active;
     },
   },
   actions: {
     login({commit}, accoundId: string): void {
       commit('accountId', accoundId);
     },
-    logout({commit}): void {
+    logoff({commit}): void {
       commit('accountId', undefined);
+    },
+    signup({commit}, form: SignupState): void {
+      API.post('createAccount', {...form})
+        .then((doc: any) => {
+          commit('accountId', doc.id);
+        })
+        .catch((err) => alert(err));
     },
   },
 };
