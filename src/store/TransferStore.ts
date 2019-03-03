@@ -62,9 +62,6 @@ const transferStore: Module<TransferState, BaseState> = {
     },
   },
   mutations: {
-    processing(state: TransferState, payload: boolean) {
-      state.processing = payload;
-    },
     clear(state: TransferState) {
       state.clear();
     },
@@ -82,11 +79,10 @@ const transferStore: Module<TransferState, BaseState> = {
     },
   },
   actions: {
-    async exec(context: any) {
-      const {state, getters, rootState} = context;
-      if (rootState.accountId !== undefined) {
+    async exec({ state, getters, rootState, rootGetters}) {
+      if (rootState.session.accountId !== undefined) {
         API.post('transfer', {
-          idFrom: rootState.accountId,
+          idFrom: rootState.session.accountId,
           idTo: state.accountId,
           amount: state.amount,
         });

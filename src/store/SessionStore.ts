@@ -59,6 +59,9 @@ const sessionStore: Module<SessionState, BaseState> = {
         })
         .catch((err) => alert(err));
     },
+    toggle({commit, state}): void {
+      commit('processing', !state.processing);
+    },
   },
 };
 

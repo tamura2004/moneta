@@ -7,6 +7,7 @@
         p.body-2.my-0 {{ bank.name }}
         p.body-1.my-0 {{ branch.name }}
       v-spacer.debug
+      //- v-btn(@click="toggle") toggle
       TheUserInfo(:account="account")
     v-content
       v-container(fluid)
@@ -35,6 +36,9 @@ import TheUserInfo from '@/components/TheUserInfo.vue';
   },
 })
 export default class App extends Vue {
+  // private toggle(): void {
+  //   this.$store.dispatch('session/toggle');
+  // }
   private home(): void {
     this.$router.push('/');
   }
