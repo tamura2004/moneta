@@ -22,15 +22,10 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import LeafPageToolbar from '@/components/LeafPageToolbar.vue';
-import Statement from '@/models/Statement';
-import BaseState from '@/store/BaseState';
 import { mapGetters } from 'vuex';
+import Statement from '@/models/Statement';
 
 @Component({
-  components: {
-    LeafPageToolbar,
-  },
   computed: {
     ...mapGetters('session', ['statements']),
   },
