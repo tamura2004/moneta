@@ -71,11 +71,10 @@ exports.getBalance = functions.https.onRequest(app);
 exports.createAccount = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     try {
-      const { bankId, branchId, name, password } = request.body;
+      const { branchId, name, password } = request.body;
       console.log(request.body);
 
       const accountRef = await db.collection('accounts').add({
-        bankId,
         branchId,
         name,
         password,

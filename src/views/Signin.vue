@@ -33,9 +33,12 @@ export default class Signin extends Vue {
     return Item.branches(this.$store.state, this.form.bankId);
   }
 
-  private signin(): void {
-    this.$store.dispatch('session/signup', this.form);
+  private async signin() {
+    this.$store.commit('session/processing', true);
+    const accountId = await this.$store.dispatch('session/signup', this.form);
+    this.$store.commit('session/accountId', accountId);
     this.$router.push('/');
+    this.$store.commit('session/processing', false);
   }
 }
 </script>
