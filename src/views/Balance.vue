@@ -3,8 +3,8 @@
     div#inner-page
       h2#label 残高
       h2#account {{ account.kind }}預金 {{ account.num }}
-      v-btn#statement-btn(round large color="white" @click="statements") 明細
-    v-btn#btn.ma-0.orange(fab dark large) {{ account.total | threeDigitedYen }}
+      v-btn#statement-btn(round large color="white" @click="transfer") 振り込み
+    v-btn#btn.ma-0.red(dark large) {{ account.total | threeDigitedYen }}
     //- v-btn#btn.ma-0.orange(dark large) {{ account.balance | threeDigitedYen }}
     //- v-btn#btn.ma-0.blue(fab dark large) {{ account.balance | threeDigitedYen }}
     //- img#under.my-3(src="../assets/pipo-gwspinitem002sample.gif")
@@ -16,8 +16,8 @@ import { Account } from '@/models/Account';
 
 @Component
 export default class Balance extends Vue {
-  private statements(): void {
-    this.$router.push('/statements');
+  private transfer(): void {
+    this.$router.push('/transfer');
   }
   private get account(): Account {
     return this.$store.getters.account;
@@ -34,7 +34,7 @@ export default class Balance extends Vue {
   #btn
     grid-row 1
     grid-column 2
-    font-size 48px
+    font-size 50px
     height 320px
     width 320px
     z-index 1

@@ -6,6 +6,7 @@
       v-toolbar-title
         p.body-2.my-0 {{ account && account.bankName }}
         p.body-1.my-0 {{ account && account.branchName }}
+        p.body-1.my-0 {{ account && account.num}}
       v-spacer
       UserInfo
     v-content

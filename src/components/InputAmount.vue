@@ -16,7 +16,8 @@
         )
     v-card-actions
       v-spacer
-      //- v-btn(color="warning" @click="back") 戻る
+      v-btn(color="warning" @click="add1000") 1000
+      v-btn(color="warning" @click="add10000") 10000
       v-btn(color="primary" @click="exec" :disabled="!valid") 振込実行
 </template>
 
@@ -36,16 +37,21 @@ export default class InputAmount extends Vue {
   }
 
   private amountRules = [
-    (v: string) => v !== '' || '金額を入力して下さい',
+    (v:string) => v !== '' || '金額を入力して下さい',
     (v: string) => Number(v) <= Number(this.account.total) || '残高が不足しています',
+    (v:string) => v.indexOf('.')==(-1)||'少数が含まれています',
     // (v: number) => v === 0 || '振込金額を指定して下さい',
-    // (v: number) => v < 0 || '振込金額はマイナスを指定できません',
+    (v:number) => v > 0 || '振込金額はマイナスを指定できません',
+
   ];
 
-  // private back(): void {
-  //   this.$store.commit('newTransfer');
-  // }
+  private add1000(): void {
+    this.amount += '000';
+  }
 
+  private add10000(): void {
+    this.amount += '0000';
+  }
   private exec(): void {
     this.$store.commit('setProgress');
     this.$store.commit('setTransferAmount', Number(this.amount));

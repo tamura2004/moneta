@@ -21,6 +21,7 @@ export default class UserInfo extends Vue {
       this.$router.push({name: 'login'});
     }
   }
+  
 }
 </script>
 
