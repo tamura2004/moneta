@@ -7,6 +7,7 @@ import Account from '@/models/Account';
 import Statement from '@/models/Statement';
 import { Module } from 'vuex';
 import API from '@/services/API';
+import { AxiosResponse } from 'axios';
 
 const sessionStore: Module<SessionState, BaseState> = {
   namespaced: true,
@@ -52,12 +53,9 @@ const sessionStore: Module<SessionState, BaseState> = {
     logoff({commit}): void {
       commit('accountId', undefined);
     },
-    signup({commit}, form: SignupState): void {
-      API.post('createAccount', {...form})
-        .then((doc: any) => {
-          commit('accountId', doc.id);
-        })
-        .catch((err) => alert(err));
+    async signup({commit}, form: SignupState): Promise<string> {
+      const response = await API.post('createAccount', {...form});
+      return response.data;
     },
     toggle({commit, state}): void {
       commit('processing', !state.processing);
