@@ -11,7 +11,8 @@ Pathname("src").find do |path|
   next unless path.file?
 
   path.each_line do |line|
-    line = line.toutf8
+    line.force_encoding('UTF-8')
+    line = line.scrub('?')
     line.chomp.split(/[\s\(]/).each do |word|
       if word =~ /^v\-[\w\-]+$/
         $dic.add(word)
