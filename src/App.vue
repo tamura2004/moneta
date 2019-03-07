@@ -6,7 +6,7 @@
       v-toolbar-title(v-if="account")
         p.body-2.my-0 {{ bank.name }}
         p.body-1.my-0 {{ branch.name }}
-      v-spacer.debug
+      //- v-spacer.debug
       //- v-btn(@click="toggle") toggle
       TheUserInfo(:account="account")
     v-content

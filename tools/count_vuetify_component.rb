@@ -20,4 +20,4 @@ Pathname("src").find do |path|
     end
   end
 end
-p $dic.to_a.sort
+puts $dic.to_a.sort
