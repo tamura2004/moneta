@@ -28,14 +28,11 @@ const sessionStore: Module<SessionState, BaseState> = {
         return rootState.banks.get(getters.branch.bankId);
       }
     },
-    statements(state: SessionState, getters: any, rootState: BaseState, rootGetters: any): Map<string, Statement> {
-      const collection: Map<string, Statement> = new Map<string, Statement>();
-      for (const [key, statement] of rootState.statements) {
-        if (statement.accountId === state.accountId) {
-          collection.set(key, statement);
-        }
-      }
-      return collection;
+    statements(state: SessionState, getters: any, rootState: BaseState, rootGetters: any): Statement[] {
+      return [...rootState.statements]
+        .filter(([key, statement]) => statement.accountId === state.accountId)
+        .sort(([, a], [, b]) => a.createdAt.seconds - b.createdAt.seconds)
+        .map(([, c]) => c);
     },
   },
   mutations: {

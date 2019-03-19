@@ -9,5 +9,8 @@ export default class Statement extends BaseCollection {
   public amount!: number;
   public memo!: string;
   public total!: number;
-  public createdAt!: number;
+  public createdAt!: {
+    seconds: number;
+    nanoseconds: number;
+  };
 }

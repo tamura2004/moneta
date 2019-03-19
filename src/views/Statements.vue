@@ -3,7 +3,7 @@
     v-toolbar(color="primary" dark)
       v-toolbar-title 入出金明細
     v-list(two-line)
-      div(v-for="[key, statement] in Array.from(statements)" :key="key")
+      div(v-for="statement in statements" :key="statement.createdAt.secounds")
         v-divider
         v-list-tile-content.pa-1
           v-list-tile-title
