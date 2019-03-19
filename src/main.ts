@@ -25,7 +25,7 @@ Vue.filter('threeDigitedYen', (value: number | undefined) => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.guestAccess) || store.getters['session/account'] !== undefined) {
+  if (to.matched.some((record) => record.meta.guestAccess) || store.state.session.accountId !== undefined) {
     next();
   } else {
     next({ path: '/login' });
