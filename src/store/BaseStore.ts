@@ -18,6 +18,7 @@ export default new Vuex.Store({
   mutations: {
     set(state, {name, collection}) {
       Vue.set(state, name, collection);
+      state.session.processing = false;
     },
   },
 });

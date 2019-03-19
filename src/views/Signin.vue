@@ -38,7 +38,6 @@ export default class Signin extends Vue {
     const accountId = await this.$store.dispatch('session/signup', this.form);
     this.$store.commit('session/accountId', accountId);
     this.$router.push('/');
-    this.$store.commit('session/processing', false);
   }
 }
 </script>

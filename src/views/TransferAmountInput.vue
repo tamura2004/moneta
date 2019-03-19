@@ -42,17 +42,12 @@ export default class TransferAmountInput extends Vue {
     // (v: number) => v > 0 || '振込金額は1円以上の金額を指定して下さい',
   ];
 
-  private exec(): void {
-    this.$store.dispatch('session/toggle');
+  private async exec() {
+    this.$store.commit('session/processing', true);
+    await new Promise((res) => setTimeout(res, 1000));
     this.$store.commit('transfer/amount', Number(this.amount));
-    this.$store.dispatch('transfer/exec')
-      .then(() => {
-        this.$store.dispatch('session/toggle');
-        this.$router.push('/statements');
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    await this.$store.dispatch('transfer/exec');
+    this.$router.push('/statements');
   }
 }
 </script>
