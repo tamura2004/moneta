@@ -44,7 +44,7 @@ export default class TransferAmountInput extends Vue {
 
   private async exec() {
     this.$store.commit('session/processing', true);
-    await new Promise((res) => setTimeout(res, 1000));
+    // await new Promise((res) => setTimeout(res, 1000)); // 1 secound sleep for debug
     this.$store.commit('transfer/amount', Number(this.amount));
     await this.$store.dispatch('transfer/exec');
     this.$router.push('/statements');
