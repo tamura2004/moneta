@@ -2,6 +2,7 @@ type IAccount = Required<Account>;
 
 const isIAccount = (init: IAccount): init is IAccount =>
   init.id !== undefined &&
+//  init.password !== undefined &&
   init.bankId !== undefined &&
   init.bankName !== undefined &&
   init.branchId !== undefined &&
@@ -13,6 +14,7 @@ const isIAccount = (init: IAccount): init is IAccount =>
 
 class Account {
   public id!: string;
+//  public password!: string;
   public bankId!: string;
   public bankName!: string;
   public branchId!: string;

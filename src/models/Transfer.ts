@@ -38,6 +38,20 @@ class Transfer {
       return 'AMOUNT';
     }
   }
+
+  public get return_before(): string {
+    if (this.bankTo === undefined) {
+      return ' ';
+    } else if (this.branchTo === undefined) {
+      return 'setBankTo';
+    } else if (this.accountTo === undefined) {
+      return 'setBranchTo';
+    } else if (this.amount === undefined) {
+      return 'setAccountTo';
+    } else {
+      return 'setAmountTo';
+    }
+  }
 }
 
 export { Transfer, TransferProgress };

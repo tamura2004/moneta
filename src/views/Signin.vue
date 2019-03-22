@@ -7,7 +7,7 @@
         v-select(prepend-icon="account_balance" label="銀行" :items="banks" item-text="name" item-value="id" v-model="form.bankId")
         v-select(prepend-icon="account_balance" label="支店" :items="branches" item-text="name" item-value="id" v-model="form.branchId")
         v-text-field(prepend-icon="person" name="ID" label="お名前" type="text" v-model="form.name")
-        //- v-text-field(id="password" prepend-icon="lock" name="password" label="パスワード" type="password" v-model="form.pass")
+        v-text-field(id="password" prepend-icon="lock" name="password" label="パスワード" type="password" v-model="form.password")
     v-card-actions
       v-spacer
       v-btn(color="primary" @click="signin") 開設
@@ -25,6 +25,7 @@ export default class Signin extends Vue {
     bankId: '',
     branchId: '',
     name: '',
+ //   password: '',
   };
 
   private get banks(): Bank[] {

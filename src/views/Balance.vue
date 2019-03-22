@@ -4,6 +4,7 @@
       h2#label 残高
       h2#account {{ account.kind }}預金 {{ account.num }}
       v-btn#statement-btn(round large color="white" @click="statements") 明細
+      //v-btn#statement-btn(round large color="white" @click="transfer") 振込
     v-btn#btn.ma-0.orange(fab dark large) {{ account.total | threeDigitedYen }}
     //- v-btn#btn.ma-0.orange(dark large) {{ account.balance | threeDigitedYen }}
     //- v-btn#btn.ma-0.blue(fab dark large) {{ account.balance | threeDigitedYen }}
@@ -18,6 +19,9 @@ import { Account } from '@/models/Account';
 export default class Balance extends Vue {
   private statements(): void {
     this.$router.push('/statements');
+  }
+  private transfer(): void {
+    this.$router.push('/transfer');
   }
   private get account(): Account {
     return this.$store.getters.account;
