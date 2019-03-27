@@ -45,7 +45,7 @@ export default class TransferAmountInput extends Vue {
     (v: string) => Number(v) <= Number(this.account.total) || '残高が不足しています',
     // (v: number) => v > 0 || '振込金額は1円以上の金額を指定して下さい',
     // (v: number) => v > 0 || '不正な数値です。1円以上の金額を指定して下さい',
-    // (v: string) => (Number(v) > 0 && checknumber(Number(v))) || '不正な数値です。1円以上の金額を指定して下さい',
+    (v: string) => (Number(v) > 0 && checknumber(Number(v))) || '不正な数値です。1円以上の金額を指定して下さい',
 ];
 
   private async exec() {
