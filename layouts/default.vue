@@ -2,9 +2,9 @@
   <v-app>
     <v-app-bar app>
       <v-app-bar-nav-icon>
-        <v-btn text nuxt to="/">
+        <nuxt-link to="/" tag="div">
           <v-icon>mdi-home</v-icon>
-        </v-btn>
+        </nuxt-link>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
         <p class="body-1 my-0">{{ bank | name }}</p>

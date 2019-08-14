@@ -1,5 +1,5 @@
 {
-	"name": "moneta2",
+	"name": "moneta",
 	"scripts": {
 		"dev": "nuxt --spa",
 		"build": "nuxt build"
