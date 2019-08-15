@@ -11,29 +11,33 @@
           :items="accounts('ALL')"
           :value="id"
           @input="$store.dispatch('login/id', $event)"
-        ></v-select>
+        />
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn nuxt to="/signin" color="success">口座開設</v-btn>
+      <v-spacer />
+      <v-btn nuxt to="/signin" color="success">
+        口座開設
+      </v-btn>
       <v-btn
         nuxt
         to="/"
         color="primary"
-      >ログイン</v-btn>
+      >
+        ログイン
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  layout: 'login',
+  layout: "login",
   computed: {
-    ...mapGetters('accounts', ['accounts']),
-    ...mapGetters('login', ['id']),
+    ...mapGetters("accounts", ["accounts"]),
+    ...mapGetters("login", ["id"]),
   },
-}
+};
 </script>

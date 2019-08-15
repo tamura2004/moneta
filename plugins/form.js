@@ -1,23 +1,23 @@
 export default class Form {
-  constructor(fields) {
+  constructor (fields) {
     this.fields = ["id", ...fields];
   }
 
-  get state() {
+  get state () {
     return () => this.fields.reduce((a, field) => Object.assign(a, { [field]: null }), {});
   }
 
-  get mutations() {
+  get mutations () {
     return this.fields.reduce((obj, field) =>
       Object.assign(obj, { [field]: (state, value) => state[field] = value }), {});
   }
 
-  get getters() {
+  get getters () {
     return this.fields.reduce((obj, field) =>
       Object.assign(obj, { [field]: state => state[field] }), {});
   }
 
-  get actions() {
+  get actions () {
     return this.fields.reduce((obj, field) =>
       Object.assign(obj, { [field]: ({ commit }, value) => commit(field, value) }), {});
   }

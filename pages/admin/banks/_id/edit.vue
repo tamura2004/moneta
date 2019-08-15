@@ -1,6 +1,8 @@
 <template>
   <base-bank-form>
-    <v-btn color="primary" @click="modify().then(()=>$router.push('/admin/banks'))">登録</v-btn>
+    <v-btn color="primary" @click="modify().then(()=>$router.push('/admin/banks'))">
+      登録
+    </v-btn>
   </base-bank-form>
 </template>
 
@@ -10,15 +12,15 @@ import baseBankForm from "~/components/base-bank-form.vue";
 
 export default {
   components: {
-    baseBankForm
+    baseBankForm,
   },
-  asyncData({ params }) {
+  asyncData ({ params }) {
     const id = params.id;
     return { id };
   },
-  created() {
+  created () {
     this.edit(this.id);
   },
-  methods: mapActions('form/bank', ['edit', 'modify']),
+  methods: mapActions("form/bank", ["edit", "modify"]),
 };
 </script>

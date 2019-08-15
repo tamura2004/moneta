@@ -11,27 +11,28 @@
           :items="banks"
           :value="bankId"
           @input="$store.commit('transfer/bankId', $event)"
-        >
-        </v-select>
+        />
         <v-btn
           nuxt
           dark
           to="branch"
           color="primary"
           :disabled="!bankId"
-        >次へ</v-btn>
+        >
+          次へ
+        </v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters('banks', ['banks']),
-    ...mapGetters('transfer', ['bankId']),
+    ...mapGetters("banks", ["banks"]),
+    ...mapGetters("transfer", ["bankId"]),
   },
 };
 </script>

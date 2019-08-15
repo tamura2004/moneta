@@ -1,28 +1,44 @@
 <template>
   <div id="page">
     <div id="inner-page">
-      <h2 id="label">残高</h2>
-      <h2 id="account">{{ account | kind }}預金 {{ account | num }}</h2>
-      <v-btn nuxt to="/statements" id="statement-btn" class="mx-3" rounded large color="white">明細</v-btn>
+      <h2 id="label">
+        残高
+      </h2>
+      <h2 id="account">
+        {{ account | kind }}預金 {{ account | num }}
+      </h2>
+      <v-btn
+        id="statement-btn"
+        nuxt
+        to="/statements"
+        class="mx-3"
+        rounded
+        large
+        color="white"
+      >
+        明細
+      </v-btn>
     </div>
-    <v-btn id="btn" class="ma-0 orange" fab dark large>{{ account | yen }}</v-btn>
+    <v-btn id="btn" class="ma-0 orange" fab dark large>
+      {{ account | yen }}
+    </v-btn>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  middleware: 'login',
+  middleware: "login",
   filters: {
-    yen: v => (v && v.total) ? '￥' + v.total.toLocaleString() + '-' : '----',
-    num: v => (v && v.num) ? v.num : '----',
-    kind: v => (v && v.kind) ? v.kind : '----',
+    yen: v => (v && v.total) ? "￥" + v.total.toLocaleString() + "-" : "----",
+    num: v => (v && v.num) ? v.num : "----",
+    kind: v => (v && v.kind) ? v.kind : "----",
   },
   computed: {
-    ...mapGetters('login', ['account']),
-  }
-}
+    ...mapGetters("login", ["account"]),
+  },
+};
 </script>
 
 <style scoped>

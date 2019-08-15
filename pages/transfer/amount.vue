@@ -12,53 +12,55 @@
           :value="amount"
           :rules="[v => v < account.total - fee || '残高が不足しています']"
           @input="$store.commit('transfer/amount', $event)"
-        ></v-text-field>
+        />
         <v-btn
           nuxt
           dark
           color="primary"
           :disabled="!valid"
           @click="transfer"
-        >振込実行</v-btn>
+        >
+          振込実行
+        </v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  middleware: ['hasBank', 'hasBranch', 'hasAccount'],
+  middleware: ["hasBank", "hasBranch", "hasAccount"],
   data: () => ({
     valid: true,
   }),
   computed: {
-    ...mapGetters('transfer', ['fee', 'amount']),
-    ...mapGetters('login', ['account']),
+    ...mapGetters("transfer", ["fee", "amount"]),
+    ...mapGetters("login", ["account"]),
   },
   methods: {
-    transfer() {
+    transfer () {
       this.transferFrom();
       this.transferTo();
-      this.$router.push('/');
+      this.$router.push("/");
     },
-    transferFrom() {
+    transferFrom () {
       let total = this.account.total;
       total -= this.fee;
-      this.$store.dispatch('transfer/payFee', total);
-      this.$store.dispatch('transfer/addStatementPayFee', total);
+      this.$store.dispatch("transfer/payFee", total);
+      this.$store.dispatch("transfer/addStatementPayFee", total);
       total -= this.amount;
-      this.$store.dispatch('transfer/payTransfer', total);
-      this.$store.dispatch('transfer/addStatementPayTransfer', total);
+      this.$store.dispatch("transfer/payTransfer", total);
+      this.$store.dispatch("transfer/addStatementPayTransfer", total);
     },
-    transferTo() {
-      const account = this.$store.getters['transfer/account'];
+    transferTo () {
+      const account = this.$store.getters["transfer/account"];
       let total = account.total;
       total += parseInt(this.amount);
-      this.$store.dispatch('transfer/receiveTransfer', total);
-      this.$store.dispatch('transfer/addStatementReceiveTransfer', total);
+      this.$store.dispatch("transfer/receiveTransfer", total);
+      this.$store.dispatch("transfer/addStatementReceiveTransfer", total);
     },
   },
-}
+};
 </script>

@@ -1,6 +1,6 @@
-import { Firestore } from '~/plugins/firebase.js';
+import { Firestore } from "~/plugins/firebase.js";
 
-const firestore = new Firestore('statements');
+const firestore = new Firestore("statements");
 export const state = firestore.state;
 export const mutations = firestore.mutations;
 export const actions = firestore.actions;

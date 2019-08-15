@@ -10,14 +10,16 @@
           item-value="id"
           :items="accounts(branchId)"
           @input="$store.commit('transfer/accountId', $event)"
-        ></v-select>
+        />
         <v-btn
           nuxt
           dark
           to="amount"
           color="primary"
           :disabled="!accountId"
-        >次へ</v-btn>
+        >
+          次へ
+        </v-btn>
       </v-form>
       <!-- <code>{{ accounts(branchId) | json }}</code> -->
     </v-card-text>
@@ -25,13 +27,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  middleware: ['hasBank', 'hasBranch'],
+  middleware: ["hasBank", "hasBranch"],
   computed: {
-    ...mapGetters('accounts', ['accounts']),
-    ...mapGetters('transfer', ['bankId', 'branchId', 'accountId']),
-  }  
-}
+    ...mapGetters("accounts", ["accounts"]),
+    ...mapGetters("transfer", ["bankId", "branchId", "accountId"]),
+  },
+};
 </script>
