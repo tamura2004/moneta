@@ -34,6 +34,10 @@ export class Firestore {
         const index = state.values.findIndex((value) => value.id === id);
         Vue.set(state.values, index, { id, ...data });
       },
+      remove(state, { id }) {
+        const index = state.values.findIndex((value) => value.id === id);
+        state.values.splice(index, 1);
+      },
       setUnsubscribe(state, unsubscribe) {
         state.unsubscribe = unsubscribe;
       }
@@ -45,8 +49,13 @@ export class Firestore {
         ...data,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }),
-      modify:({}, { id, data }) => {
+      modify: ({}, { id, data }) => {
         db.collection(this.name).doc(id).update({ ...data });
+      },
+      remove: ({}, id) => {
+        if (confirm('本当に削除してよろしいですか')) {
+          db.collection(this.name).doc(id).delete();
+        }
       },
       listen: ({ state, commit }) => {
         if (state.unsubscribe !== null) {
@@ -60,6 +69,8 @@ export class Firestore {
               commit('add', { id, data });
             } else if (change.type === 'modified') {
               commit('modify', { id, data });
+            } else if (change.type === 'removed') {
+              commit('remove', { id });
             }
           });
         });
