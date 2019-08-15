@@ -6,6 +6,5 @@ export const actions = firestore.actions;
 export const mutations = firestore.mutations;
 export const getters = {
   banks: state => state.values,
-  bank: state => id =>
-    state.values.find(bank => bank.id === id),
+  bank: state => id => state.values.find(bank => bank.id === id),
 };

@@ -29,15 +29,21 @@ export const getters = {
 };
 
 export const mutations = {
-  bankId: (state, bankId) => state.bankId = bankId,
-  branchId: (state, branchId) => state.branchId = branchId,
-  name: (state, name) => state.name = name,
-  password: (state, password) => state.password = password,
+  bankId: (state, bankId) => (state.bankId = bankId),
+  branchId: (state, branchId) => (state.branchId = branchId),
+  name: (state, name) => (state.name = name),
+  password: (state, password) => (state.password = password),
 };
 
 export const actions = {
-  async signin ({ getters, dispatch }) {
-    const { id } = await dispatch("accounts/add", getters.account, { root: true });
-    dispatch("statements/add", { ...getters.statement, accountId: id }, { root: true });
+  async signin({ getters, dispatch }) {
+    const { id } = await dispatch("accounts/add", getters.account, {
+      root: true,
+    });
+    dispatch(
+      "statements/add",
+      { ...getters.statement, accountId: id },
+      { root: true },
+    );
   },
 };

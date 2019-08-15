@@ -1,6 +1,9 @@
 <template>
   <base-bank-form>
-    <v-btn color="primary" @click="add().then(()=>$router.push('/admin/banks'))">
+    <v-btn
+      color="primary"
+      @click="add().then(() => $router.push('/admin/banks'))"
+    >
       登録
     </v-btn>
   </base-bank-form>
@@ -14,7 +17,7 @@ export default {
   components: {
     baseBankForm,
   },
-  created () {
+  created() {
     this.new();
   },
   methods: mapActions("form/bank", ["new", "add"]),

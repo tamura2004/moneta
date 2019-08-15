@@ -36,7 +36,7 @@
               振込後
             </v-flex>
             <v-flex xs3>
-              {{ account.total - amount - fee | yen }}
+              {{ (account.total - amount - fee) | yen }}
             </v-flex>
           </v-layout>
         </v-list-item-title>
@@ -53,13 +53,12 @@ export default {
   name: "TheTransferFrom",
   middleware: "login",
   filters: {
-    name: v => v ? v.name : "----",
-    yen: v => v ? "￥" + v.toLocaleString() + "-" : "----",
+    name: v => (v ? v.name : "----"),
+    yen: v => (v ? "￥" + v.toLocaleString() + "-" : "----"),
   },
   computed: {
     ...mapGetters("login", ["account", "branch", "bank"]),
     ...mapGetters("transfer", ["amount", "fee"]),
-
   },
 };
 </script>

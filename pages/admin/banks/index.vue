@@ -3,13 +3,23 @@
     <v-toolbar flat>
       <v-toolbar-title>銀行一覧</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-switch class="pt-8" color="primary" v-model="editable" label="編集"></v-switch>
+      <v-switch
+        class="pt-8"
+        color="primary"
+        v-model="editable"
+        label="編集"
+      ></v-switch>
     </v-toolbar>
     <v-divider></v-divider>
     <template v-for="bank in banks">
       <v-list-item :key="bank.id">
         <v-list-item-icon>
-          <v-btn small color="light" :to="`/admin/banks/${bank.id}/edit`" :disabled="!editable">
+          <v-btn
+            small
+            color="light"
+            :to="`/admin/banks/${bank.id}/edit`"
+            :disabled="!editable"
+          >
             <v-icon left>mdi-pencil</v-icon> 編集
           </v-btn>
         </v-list-item-icon>
@@ -23,8 +33,13 @@
           </v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn small color="error" @click="remove(bank.id)" :disabled="!editable">
-            <v-icon left>mdi-delete</v-icon>  削除
+          <v-btn
+            small
+            color="error"
+            @click="remove(bank.id)"
+            :disabled="!editable"
+          >
+            <v-icon left>mdi-delete</v-icon> 削除
           </v-btn>
         </v-list-item-action>
       </v-list-item>
@@ -54,8 +69,8 @@ export default {
             .toDate()
             .toISOString()
             .substr(0, 19) // (0, 23) -> show milliseconds
-            .replace('T', ' ')
-        : "----"
+            .replace("T", " ")
+        : "----",
   },
 };
 </script>

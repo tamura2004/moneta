@@ -25,13 +25,17 @@ export const actions = {
     commit("name", bank.name);
     commit("num", bank.num);
   },
-  add ({ getters, dispatch }) {
+  add({ getters, dispatch }) {
     dispatch("banks/add", getters.bank, { root: true });
   },
-  modify ({ getters, dispatch }) {
-    dispatch("banks/modify", {
-      id: getters.id,
-      data: getters.bank,
-    }, { root: true });
+  modify({ getters, dispatch }) {
+    dispatch(
+      "banks/modify",
+      {
+        id: getters.id,
+        data: getters.bank,
+      },
+      { root: true },
+    );
   },
 };

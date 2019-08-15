@@ -4,16 +4,8 @@
     <v-divider />
     <v-card-text>
       <v-form>
-        <v-text-field
-          label="銀行名"
-          :value="bank.name"
-          @input="name($event)"
-        />
-        <v-text-field
-          label="番号"
-          :value="bank.num"
-          @input="num($event)"
-        />
+        <v-text-field label="銀行名" :value="bank.name" @input="name($event)" />
+        <v-text-field label="番号" :value="bank.num" @input="num($event)" />
       </v-form>
     </v-card-text>
     <v-card-actions>

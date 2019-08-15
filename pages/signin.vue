@@ -33,10 +33,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn
-        color="primary"
-        @click="signin"
-      >
+      <v-btn color="primary" @click="signin">
         口座開設
       </v-btn>
     </v-card-actions>
@@ -49,12 +46,19 @@ import { mapGetters } from "vuex";
 export default {
   layout: "login",
   computed: {
-    ...mapGetters("signin", ["bankId", "branchId", "name", "password", "account", "statement"]),
+    ...mapGetters("signin", [
+      "bankId",
+      "branchId",
+      "name",
+      "password",
+      "account",
+      "statement",
+    ]),
     ...mapGetters("banks", ["banks"]),
     ...mapGetters("branches", ["branches"]),
   },
   methods: {
-    async signin () {
+    async signin() {
       await this.$store.dispatch("signin/signin");
       this.$router.push("/");
     },

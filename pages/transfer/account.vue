@@ -11,13 +11,7 @@
           :items="accounts(branchId)"
           @input="$store.commit('transfer/accountId', $event)"
         />
-        <v-btn
-          nuxt
-          dark
-          to="amount"
-          color="primary"
-          :disabled="!accountId"
-        >
+        <v-btn nuxt dark to="amount" color="primary" :disabled="!accountId">
           次へ
         </v-btn>
       </v-form>

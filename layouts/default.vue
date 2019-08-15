@@ -19,7 +19,7 @@
       <v-container fluid>
         <v-layout align-start justify-center>
           <v-flex xs12 sm12 md8 xl8>
-            <nuxt/>
+            <nuxt />
           </v-flex>
         </v-layout>
       </v-container>
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   filters: {
-    name: v => (v && v.name) ? v.name : '----',
+    name: v => (v && v.name ? v.name : "----"),
   },
   computed: {
-    ...mapGetters('login', ['account', 'branch', 'bank']),
-  }
+    ...mapGetters("login", ["account", "branch", "bank"]),
+  },
 };
 </script>

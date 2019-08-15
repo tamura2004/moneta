@@ -1,6 +1,9 @@
 <template>
   <base-bank-form>
-    <v-btn color="primary" @click="modify().then(()=>$router.push('/admin/banks'))">
+    <v-btn
+      color="primary"
+      @click="modify().then(() => $router.push('/admin/banks'))"
+    >
       登録
     </v-btn>
   </base-bank-form>
@@ -14,11 +17,11 @@ export default {
   components: {
     baseBankForm,
   },
-  asyncData ({ params }) {
+  asyncData({ params }) {
     const id = params.id;
     return { id };
   },
-  created () {
+  created() {
     this.edit(this.id);
   },
   methods: mapActions("form/bank", ["edit", "modify"]),

@@ -7,6 +7,5 @@ export const actions = firestore.actions;
 export const getters = {
   statements: state => accountId =>
     state.values.filter(statement => statement.accountId === accountId),
-  statement: state => id =>
-    state.values.find(statement => statement.id === id),
+  statement: state => id => state.values.find(statement => statement.id === id),
 };

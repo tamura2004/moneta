@@ -19,11 +19,7 @@
       <v-btn nuxt to="/signin" color="success">
         口座開設
       </v-btn>
-      <v-btn
-        nuxt
-        to="/"
-        color="primary"
-      >
+      <v-btn nuxt to="/" color="primary">
         ログイン
       </v-btn>
     </v-card-actions>

@@ -6,7 +6,8 @@ export const mutations = firestore.mutations;
 export const actions = firestore.actions;
 export const getters = {
   accounts: state => branchId =>
-    state.values.filter(account => branchId === "ALL" || account.branchId === branchId),
-  account: state => id =>
-    state.values.find(account => account.id === id),
+    state.values.filter(
+      account => branchId === "ALL" || account.branchId === branchId,
+    ),
+  account: state => id => state.values.find(account => account.id === id),
 };

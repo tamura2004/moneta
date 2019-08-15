@@ -54,10 +54,10 @@ export default {
     date: v =>
       v && v.toDate
         ? v
-          .toDate()
-          .toISOString()
-          .substr(0, 19) // (0, 23) -> show milliseconds
-          .replace("T", " ")
+            .toDate()
+            .toISOString()
+            .substr(0, 19) // (0, 23) -> show milliseconds
+            .replace("T", " ")
         : "----",
   },
   data: () => ({
@@ -66,14 +66,17 @@ export default {
   }),
   computed: {
     ...mapGetters("login", ["statements"]),
-    totalPage () {
+    totalPage() {
       return Math.ceil(this.statements.length / this.PER_PAGE);
     },
-    lists () {
-      return this.statements.slice((this.page - 1) * this.PER_PAGE, this.page * this.PER_PAGE);
+    lists() {
+      return this.statements.slice(
+        (this.page - 1) * this.PER_PAGE,
+        this.page * this.PER_PAGE,
+      );
     },
   },
-  mounted () {
+  mounted() {
     this.page = this.totalPage;
   },
 };

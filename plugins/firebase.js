@@ -16,53 +16,58 @@ if (!firebase.apps.length) {
 export const db = firebase.firestore();
 
 export class Firestore {
-  constructor (name) {
+  constructor(name) {
     this.name = name;
   }
-  get state () {
+  get state() {
     return () => ({
       values: [],
       unsubscribe: null,
     });
   }
-  get mutations () {
+  get mutations() {
     return {
-      add (state, { id, data }) {
+      add(state, { id, data }) {
         state.values.push({ id, ...data });
       },
-      modify (state, { id, data }) {
+      modify(state, { id, data }) {
         const index = state.values.findIndex(value => value.id === id);
         Vue.set(state.values, index, { id, ...data });
       },
-      remove (state, { id }) {
+      remove(state, { id }) {
         const index = state.values.findIndex(value => value.id === id);
         state.values.splice(index, 1);
       },
-      setUnsubscribe (state, unsubscribe) {
+      setUnsubscribe(state, unsubscribe) {
         state.unsubscribe = unsubscribe;
       },
     };
   }
-  get actions () {
+  get actions() {
     return {
-      add: (_, data) => db.collection(this.name).add({
-        ...data,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      }),
+      add: (_, data) =>
+        db.collection(this.name).add({
+          ...data,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }),
       modify: (_, { id, data }) => {
-        db.collection(this.name).doc(id).update({ ...data });
+        db.collection(this.name)
+          .doc(id)
+          .update({ ...data });
       },
       remove: (_, id) => {
         if (confirm("本当に削除してよろしいですか")) {
-          db.collection(this.name).doc(id).delete();
+          db.collection(this.name)
+            .doc(id)
+            .delete();
         }
       },
       listen: ({ state, commit }) => {
         if (state.unsubscribe !== null) {
           return;
         }
-        const unsubscribe = db.collection(this.name).onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
+        const unsubscribe = db.collection(this.name).onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
             const id = change.doc.id;
             const data = change.doc.data();
             if (change.type === "added") {

@@ -13,13 +13,7 @@
           :rules="[v => v < account.total - fee || '残高が不足しています']"
           @input="$store.commit('transfer/amount', $event)"
         />
-        <v-btn
-          nuxt
-          dark
-          color="primary"
-          :disabled="!valid"
-          @click="transfer"
-        >
+        <v-btn nuxt dark color="primary" :disabled="!valid" @click="transfer">
           振込実行
         </v-btn>
       </v-form>
@@ -40,12 +34,12 @@ export default {
     ...mapGetters("login", ["account"]),
   },
   methods: {
-    transfer () {
+    transfer() {
       this.transferFrom();
       this.transferTo();
       this.$router.push("/");
     },
-    transferFrom () {
+    transferFrom() {
       let total = this.account.total;
       total -= this.fee;
       this.$store.dispatch("transfer/payFee", total);
@@ -54,7 +48,7 @@ export default {
       this.$store.dispatch("transfer/payTransfer", total);
       this.$store.dispatch("transfer/addStatementPayTransfer", total);
     },
-    transferTo () {
+    transferTo() {
       const account = this.$store.getters["transfer/account"];
       let total = account.total;
       total += parseInt(this.amount);
