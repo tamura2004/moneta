@@ -1,16 +1,16 @@
 <template>
   <div>
     <v-list class="elevation-6">
-      <the-transfer-from />
-      <the-transfer-to />
+      <transfer-from />
+      <transfer-to />
     </v-list>
     <nuxt-child />
   </div>
 </template>
 
 <script>
-import theTransferFrom from "~/components/the-transfer-from";
-import theTransferTo from "~/components/the-transfer-to";
+import theTransferFrom from "~/components/pages/transfer-from";
+import theTransferTo from "~/components/pages/transfer-to";
 
 export default {
   middleware: "login",

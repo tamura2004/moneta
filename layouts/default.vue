@@ -31,9 +31,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  filters: {
-    name: v => (v && v.name ? v.name : "----"),
-  },
   computed: {
     ...mapGetters("login", ["account", "branch", "bank"]),
   },

@@ -48,18 +48,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "PageStatements",
   middleware: "login",
-  filters: {
-    yen: v => (v ? "￥" + v.toLocaleString() + "-" : "----"),
-    kind: v => (v && v.kind ? v.kind : "----"),
-    date: v =>
-      v && v.toDate
-        ? v
-            .toDate()
-            .toISOString()
-            .substr(0, 19) // (0, 23) -> show milliseconds
-            .replace("T", " ")
-        : "----",
-  },
   data: () => ({
     page: 1,
     PER_PAGE: 5,

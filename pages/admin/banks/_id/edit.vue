@@ -1,21 +1,21 @@
 <template>
-  <base-bank-form>
+  <bank-form>
     <v-btn
       color="primary"
-      @click="modify().then(() => $router.push('/admin/banks'))"
+      @click="modify('banks').then(() => $router.push('/admin/banks'))"
     >
       登録
     </v-btn>
-  </base-bank-form>
+  </bank-form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import baseBankForm from "~/components/base-bank-form.vue";
+import bankForm from "~/components/pages/bank-form.vue";
 
 export default {
   components: {
-    baseBankForm,
+    bankForm,
   },
   asyncData({ params }) {
     const id = params.id;

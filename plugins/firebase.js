@@ -25,6 +25,12 @@ export class Firestore {
       unsubscribe: null,
     });
   }
+  get getters() {
+    return {
+      collection: state => state.values,
+      member: state => id => state.values.find(value => value.id === id),
+    };
+  }
   get mutations() {
     return {
       add(state, { id, data }) {

@@ -2,53 +2,19 @@
   <div class="columns">
     <div class="column"></div>
     <div class="column is-two-thirds">
-      <v-btn
-        nuxt
-        to="balance"
-        class="menu my-4"
-        rounded
-        dark
-        block
-        large
-        color="primary"
-        >残高照会</v-btn
-      >
-      <v-btn
-        nuxt
-        to="statements"
-        class="menu my-4"
-        rounded
-        dark
-        block
-        large
-        color="primary"
-        >入出金明細</v-btn
-      >
-      <v-btn
-        nuxt
-        to="transfer/bank"
-        class="menu my-4"
-        rounded
-        dark
-        block
-        large
-        color="primary"
-        >振込</v-btn
-      >
+      <menu-button to="/balance">残高照会</menu-button>
+      <menu-button to="/statements">入出金明細</menu-button>
+      <menu-button to="/transfer/bank">振込</menu-button>
     </div>
     <div class="column"></div>
   </div>
 </template>
 
 <script>
+import menuButton from "~/components/ui/menu-button";
+
 export default {
+  components: { menuButton },
   middleware: "login",
 };
 </script>
-
-<style scoped>
-.v-btn.menu {
-  height: 60px;
-  font-size: 32px;
-}
-</style>

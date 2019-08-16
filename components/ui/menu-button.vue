@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import baseMenuButton from "~/components/base-menu-button";
-
 export default {
   props: ["to"],
 };

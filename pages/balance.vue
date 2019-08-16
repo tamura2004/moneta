@@ -28,11 +28,6 @@ import { mapGetters } from "vuex";
 
 export default {
   middleware: "login",
-  filters: {
-    yen: v => (v && v.total ? "￥" + v.total.toLocaleString() + "-" : "----"),
-    num: v => (v && v.num ? v.num : "----"),
-    kind: v => (v && v.kind ? v.kind : "----"),
-  },
   computed: {
     ...mapGetters("login", ["account"]),
   },
@@ -84,6 +79,7 @@ export default {
   color: white;
   z-index: 4;
   text-align: center;
+  font-size: 16px;
 }
 
 #statement-btn {

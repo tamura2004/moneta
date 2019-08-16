@@ -46,7 +46,7 @@
       <v-divider :key="'div' + bank.id"></v-divider>
     </template>
     <v-card-actions class="pa-4">
-      <v-btn small color="primary" to="/admin/banks/new">
+      <v-btn small color="primary" to="/admin/banks/new" :disabled="!editable">
         <v-icon left>mdi-plus</v-icon> 追加
       </v-btn>
     </v-card-actions>
@@ -62,15 +62,5 @@ export default {
   }),
   computed: mapGetters("banks", ["banks"]),
   methods: mapActions("banks", ["remove"]),
-  filters: {
-    date: v =>
-      v && v.toDate
-        ? v
-            .toDate()
-            .toISOString()
-            .substr(0, 19) // (0, 23) -> show milliseconds
-            .replace("T", " ")
-        : "----",
-  },
 };
 </script>

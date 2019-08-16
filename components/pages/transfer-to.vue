@@ -50,14 +50,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "TheTransferFrom",
   middleware: "login",
-  filters: {
-    name: v => (v ? v.name : "----"),
-    kind: v => (v ? v.kind : "----"),
-    num: v => (v ? v.num : "----"),
-    yen: v => (v ? "￥" + v.toLocaleString() + "-" : "----"),
-  },
   computed: {
     ...mapGetters("transfer", ["account", "branch", "bank", "amount", "fee"]),
   },
