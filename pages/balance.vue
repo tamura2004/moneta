@@ -7,18 +7,17 @@
       <h2 id="account">{{ account | kind }}預金 {{ account | num }}</h2>
       <v-btn
         id="statement-btn"
-        nuxt
         to="/statements"
-        class="mx-3"
+        class="mx-4"
+        nuxt
         rounded
-        large
         color="white"
       >
         明細
       </v-btn>
     </div>
-    <v-btn id="btn" class="ma-0 orange" fab dark large>
-      {{ account | yen }}
+    <v-btn id="btn" class="orange" fab dark large>
+      {{ account.total | yen }}
     </v-btn>
   </div>
 </template>
@@ -79,11 +78,11 @@ export default {
   color: white;
   z-index: 4;
   text-align: center;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 #statement-btn {
-  grid-row: 8;
+  grid-row: 9;
   grid-column: 2;
   font-size: 24px;
   color: orange;
