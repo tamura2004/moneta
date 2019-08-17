@@ -1,71 +1,50 @@
 export default class Form {
-  constructor(collection, fields) {
+  constructor(collection, names) {
     this.collection = collection;
-    this.fields = ["id", ...fields];
+    this.names = names;
+    this.fields = ["id", ...names];
   }
 
   get state() {
-    return () =>
-      this.fields.reduce((a, field) => Object.assign(a, { [field]: null }), {});
+    return () => {
+      const init = this.fields.map(field => ({ [field]: null }));
+      return Object.assign(...init);
+    };
   }
 
   get mutations() {
-    return this.fields.reduce(
-      (obj, field) =>
-        Object.assign(obj, {
-          [field]: (state, value) => (state[field] = value),
-        }),
-      {},
-    );
+    const init = this.fields.map(field => ({
+      [field]: (state, value) => (state[field] = value),
+    }));
+    return Object.assign(...init);
   }
 
   get getters() {
-    return this.fields.reduce(
-      (obj, field) => Object.assign(obj, { [field]: state => state[field] }),
-      {
-        data: state =>
-          this.fields
-            .filter(field => field !== "id")
-            .reduce(
-              (obj, field) =>
-                Object.assign(obj, {
-                  [field]: state[field],
-                }),
-              {},
-            ),
-      },
-    );
+    const init = this.fields.map(field => ({ [field]: state => state[field] }));
+    const data = state =>
+      Object.assign(...this.names.map(field => ({ [field]: state[field] })));
+    return Object.assign(...init, { data });
   }
 
   get actions() {
-    return this.fields.reduce(
-      (obj, field) =>
-        Object.assign(obj, {
-          [field]: ({ commit }, value) => commit(field, value),
-        }),
-      {
-        new: ({ commit }) => {
-          this.fields.forEach(field => commit(field, null));
-        },
-        edit: ({ commit, rootGetters, dispatch }, id) => {
-          const member = rootGetters[`${this.collection}/member`](id);
-          if (member !== undefined) {
-            commit("id", id);
-            this.fields.forEach(field => {
-              field === "id" || commit(field, member[field]);
-            });
-          } else {
-            dispatch("new");
-          }
-        },
-        add: ({ getters, dispatch }) =>
-          dispatch(`${this.collection}/add`, getters.data, { root: true }),
-        modify: ({ getters, dispatch }) =>
-          dispatch(`${this.collection}/modify`, {
-            id: getters.id,
-            data: getters.data,
-          }),
-      },
-    );
+    const init = this.fields.map(field => ({
+      [field]: ({ commit }, value) => commit(field, value),
+    }));
+
+    const clear = ({ commit }) =>
+      this.fields.forEach(field => commit(field, null));
+
+    const edit = ({ commit, dispatch }, member) => {
+      if (member !== undefined) {
+        commit("id", member.id);
+        this.names.forEach(field => {
+          commit(field, member[field]);
+        });
+      } else {
+        dispatch("clear");
+      }
+    };
+
+    return Object.assign(...init, { clear, edit });
   }
 }

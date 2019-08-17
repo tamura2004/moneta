@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "prettier '{nuxt.config.js,jest.config.js,{store,pages,components,layouts,middleware,plugins}/**/*.{js,vue}}' --write",
+    "lint": "prettier '{store,pages,components,layouts,middleware,plugins}/**/*.{js,vue}' --write",
     "test": "jest"
   },
   "dependencies": {

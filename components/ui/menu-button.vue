@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <v-btn
     :to="to"
     class="menu my-4"

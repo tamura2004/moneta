@@ -9,6 +9,6 @@ module.exports = {
     "^.+\\.js$": "babel-jest",
     ".*\\.(vue)$": "vue-jest",
   },
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ["<rootDir>/plugins/**/*.js", "<rootDir>/store/**/*.js"],
 };

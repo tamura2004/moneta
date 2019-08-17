@@ -1,6 +1,6 @@
 <template>
   <v-card class="mt-4">
-    <v-card-title>銀行情報</v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
     <v-divider />
     <v-card-text>
       <v-form>
@@ -9,7 +9,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <slot />
+      <v-btn color="primary" @click="$emit('click')">登録</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -18,6 +18,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  props: ["title"],
   computed: mapGetters("form/bank", ["data"]),
   methods: mapActions("form/bank", ["name", "num"]),
 };

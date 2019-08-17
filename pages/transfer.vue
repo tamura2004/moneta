@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import theTransferFrom from "~/components/pages/transfer-from";
-import theTransferTo from "~/components/pages/transfer-to";
+import transferFrom from "~/components/pages/transfer-from";
+import transferTo from "~/components/pages/transfer-to";
 
 export default {
   middleware: "login",
   components: {
-    theTransferFrom,
-    theTransferTo,
+    transferFrom,
+    transferTo,
   },
 };
 </script>

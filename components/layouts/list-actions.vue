@@ -1,0 +1,13 @@
+<template>
+  <v-card-actions class="pa-4">
+    <v-btn small color="primary" :to="to" :disabled="!edit">
+      <v-icon left>mdi-plus</v-icon>追加
+    </v-btn>
+  </v-card-actions>
+</template>
+
+<script>
+export default {
+  props: ["edit", "to"],
+};
+</script>

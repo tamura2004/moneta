@@ -1,16 +1,9 @@
 <template>
-  <bank-form>
-    <v-btn
-      color="primary"
-      @click="add('banks').then(() => $router.push('/admin/banks'))"
-    >
-      登録
-    </v-btn>
-  </bank-form>
+  <bank-form title="銀行情報新規登録" @click="save"></bank-form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import bankForm from "~/components/pages/bank-form.vue";
 
 export default {
@@ -18,8 +11,16 @@ export default {
     bankForm,
   },
   created() {
-    this.new();
+    this.clear();
   },
-  methods: mapActions("form/bank", ["new", "add"]),
+  computed: mapGetters("form/bank", ["data"]),
+  methods: {
+    ...mapActions("form/bank", ["clear"]),
+    ...mapActions("banks", ["add"]),
+    async save() {
+      await this.add(this.data);
+      this.$router.push("/admin/banks");
+    },
+  },
 };
 </script>
