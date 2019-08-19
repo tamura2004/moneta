@@ -29,10 +29,10 @@ function runner(p5) {
         char.vx = (char.ox - char.x) / 20;
         char.vy = (char.oy - char.y) / 20;
       }
-      if (char.x < 0 || p5.windowWidth < char.x) {
+      if (char.x < 0 || p5.windowWidth < char.x + SIZE) {
         char.vx = -char.vx;
       }
-      if (char.y < 0 || HEIGHT < char.y) {
+      if (char.y < SIZE || HEIGHT < char.y) {
         char.vy = -char.vy;
       }
       char.x += char.vx;
@@ -50,6 +50,9 @@ function runner(p5) {
   };
 
   p5.mouseReleased = () => {
+    if (p5.mouseY > HEIGHT) {
+      return;
+    }
     for (const char of chars) {
       char.color = p5.int(p5.random(100));
       if (toggle) {
