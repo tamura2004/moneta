@@ -7,27 +7,27 @@ export default class Form {
 
   get state() {
     return () => {
-      const init = this.fields.map(field => ({ [field]: null }));
-      return Object.assign(...init);
+      const base = this.fields.map(field => ({ [field]: null }));
+      return Object.assign(...base);
     };
   }
 
   get mutations() {
-    const init = this.fields.map(field => ({
+    const base = this.fields.map(field => ({
       [field]: (state, value) => (state[field] = value),
     }));
-    return Object.assign(...init);
+    return Object.assign(...base);
   }
 
   get getters() {
-    const init = this.fields.map(field => ({ [field]: state => state[field] }));
+    const base = this.fields.map(field => ({ [field]: state => state[field] }));
     const data = state =>
       Object.assign(...this.names.map(field => ({ [field]: state[field] })));
-    return Object.assign(...init, { data });
+    return Object.assign(...base, { data });
   }
 
   get actions() {
-    const init = this.fields.map(field => ({
+    const base = this.fields.map(field => ({
       [field]: ({ commit }, value) => commit(field, value),
     }));
 
@@ -45,6 +45,6 @@ export default class Form {
       }
     };
 
-    return Object.assign(...init, { clear, edit });
+    return Object.assign(...base, { clear, edit });
   }
 }

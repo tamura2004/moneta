@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-content>
+      <div id="p5"></div>
       <v-container fluid>
         <v-layout align-start justify-center>
           <v-flex xs12 sm12 md8 xl8>
@@ -13,9 +14,13 @@
 </template>
 
 <script>
+import p5 from "~/middleware/p5";
 import { mapGetters } from "vuex";
 
 export default {
+  mounted() {
+    p5();
+  },
   computed: {
     ...mapGetters("login", ["account"]),
   },

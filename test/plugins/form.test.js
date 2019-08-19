@@ -41,5 +41,14 @@ describe("plugins/form", () => {
 
     await store.dispatch("edit", undefined);
     expect(store.state).toMatchObject({ id: null, name: null, age: null });
+
+    await store.dispatch("id", "xyz");
+    expect(store.state).toMatchObject({ id: "xyz", name: null, age: null });
+
+    await store.dispatch("name", "四郎");
+    expect(store.state).toMatchObject({ id: "xyz", name: "四郎", age: null });
+
+    await store.dispatch("age", 42);
+    expect(store.state).toMatchObject({ id: "xyz", name: "四郎", age: 42 });
   });
 });
