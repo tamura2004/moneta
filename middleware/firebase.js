@@ -3,4 +3,5 @@ export default ({ store }) => {
   store.dispatch("branches/listen");
   store.dispatch("accounts/listen");
   store.dispatch("statements/listen");
+  store.dispatch("bugs/listen");
 };

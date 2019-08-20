@@ -1,20 +1,20 @@
 <template>
   <v-card class="mt-4">
-    <list-toolbar title="銀行一覧"></list-toolbar>
+    <list-toolbar title="支店一覧"></list-toolbar>
     <v-divider></v-divider>
     <app-list
-      v-for="bank in banks"
-      :bank="bank"
-      :key="bank.id"
-      @delete="remove(bank.id)"
+      v-for="branch in branches('ALL')"
+      :branch="branch"
+      :key="branch.id"
+      @delete="remove(branch.id)"
     ></app-list>
-    <list-actions collection="banks"></list-actions>
+    <list-actions collection="branches"></list-actions>
   </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import appList from "~/components/pages/bank/app-list";
+import appList from "~/components/pages/branch/app-list";
 import listToolbar from "~/components/ui/list-toolbar";
 import listActions from "~/components/ui/list-actions";
 
@@ -22,10 +22,10 @@ export default {
   layout: "admin",
   components: { appList, listToolbar, listActions },
   computed: {
-    ...mapGetters("banks", ["banks"]),
+    ...mapGetters("branches", ["branches"]),
     ...mapGetters("nav/edit", ["edit"]),
   },
-  methods: mapActions("banks", ["remove"]),
+  methods: mapActions("branches", ["remove"]),
   methods: mapActions("nav/edit", ["toggle"]),
 };
 </script>

@@ -1,14 +1,15 @@
 <template>
-  <bank-form title="銀行情報編集" @click="save"></bank-form>
+  <app-form title="銀行情報編集" @click="save"></app-form>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import bankForm from "~/components/pages/bank-form.vue";
+import appForm from "~/components/pages/bank/app-form.vue";
 
 export default {
+  layout: "admin",
   components: {
-    bankForm,
+    appForm,
   },
   asyncData({ params }) {
     const id = params.id;

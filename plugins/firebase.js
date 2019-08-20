@@ -1,6 +1,7 @@
 import Vue from "vue";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import pluralize from "pluralize";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -18,6 +19,8 @@ export const db = firebase.firestore();
 export class Firestore {
   constructor(name) {
     this.name = name;
+    this.collectionName = this.name;
+    this.memberName = pluralize.singular(this.name);
   }
   get state() {
     return () => ({

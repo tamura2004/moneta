@@ -1,16 +1,21 @@
 <template>
-  <v-btn
-    small
-    color="error"
-    @click="$emit('click')"
-    :disabled="!edit"
-  >
+  <v-btn small color="error" @click="remove" :disabled="!edit">
     <v-icon left>mdi-delete</v-icon>削除
   </v-btn>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
-  props: ["edit"],
+  props: ["collection", "id"],
+  computed: mapGetters("nav/edit", ["edit"]),
+  methods: {
+    remove() {
+      this.$store.dispatch(`${this.collection}/remove`, this.id);
+      this.toggle();
+    },
+    ...mapActions("nav/edit", ["toggle"]),
+  },
 };
 </script>

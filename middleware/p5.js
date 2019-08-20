@@ -2,23 +2,24 @@ import p5 from "p5";
 
 function runner(p5) {
   const HEIGHT = 100;
+  const WIDTH = p5.windowWidth;
   const SIZE = HEIGHT / 2;
   const LETTERS = "MONETA";
-  const GAP = p5.windowWidth / (LETTERS.length + 3);
+  const GAP = WIDTH / (LETTERS.length + 3);
 
   let chars = LETTERS.split("").map((letter, index) => ({ letter, index }));
   let toggle = true;
 
   p5.setup = () => {
-    const canvas = p5.createCanvas(p5.windowWidth, HEIGHT);
+    const canvas = p5.createCanvas(WIDTH, HEIGHT);
     canvas.parent("p5");
     for (const char of chars) {
       char.size = SIZE;
       char.ox = char.x = GAP * (char.index + 2) - SIZE / 2;
       char.oy = char.y = (HEIGHT + SIZE) / 2;
       char.vx = 2.5 - char.index;
-      char.vy = (2.5 - char.index) / 10;
-      char.color = char.index * 18;
+      char.vy = ((2.5 - char.index) * HEIGHT) / WIDTH;
+      char.color = (char.index * 100) / (LETTERS.length + 1);
     }
   };
 
@@ -29,7 +30,7 @@ function runner(p5) {
         char.vx = (char.ox - char.x) / 20;
         char.vy = (char.oy - char.y) / 20;
       }
-      if (char.x < 0 || p5.windowWidth < char.x + SIZE) {
+      if (char.x < 0 || WIDTH < char.x + SIZE) {
         char.vx = -char.vx;
       }
       if (char.y < SIZE || HEIGHT < char.y) {
