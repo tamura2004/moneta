@@ -4,6 +4,7 @@
     <v-divider />
     <v-card-text>
       <v-form>
+        <v-text-field label="表題" :value="data.name" @input="name($event)"></v-text-field>
         <v-row>
           <v-col>
             <app-user-select label="発見者" :value="data.reporter" @input="reporter($event)" />
@@ -13,27 +14,12 @@
           </v-col>
         </v-row>
         <v-radio-group row :value="data.impactRate" @change="impactRate($event)">
-          <v-radio label="緊急" value="error" color="error"></v-radio>
-          <v-radio label="通常" value="primary" color="primary"></v-radio>
-          <v-radio label="軽微" value="success" color="success"></v-radio>
+          <v-radio label="重大" value="error" color="error"></v-radio>
+          <v-radio label="軽微" value="warning" color="warning"></v-radio>
+          <v-radio label="改善" value="primary" color="primary"></v-radio>
+          <v-radio label="追加" value="success" color="success"></v-radio>
         </v-radio-group>
         <v-textarea label="発生事象" :value="data.bugDescription" @input="bugDescription($event)"></v-textarea>
-        <v-row>
-          <v-col>
-            <app-user-select
-              label="暫定対応者"
-              :value="data.interimRecoverer"
-              @input="interimRecoverer($event)"
-            />
-          </v-col>
-          <v-col>
-            <app-date-picker
-              label="暫定対応完了日"
-              :value="data.interimRecoverDate"
-              @input="interimRecoverDate($event)"
-            />
-          </v-col>
-        </v-row>
         <v-row>
           <v-col>
             <app-user-select label="調査対応者" :value="data.inspector" @input="inspector($event)"></app-user-select>
@@ -106,6 +92,7 @@ export default {
     ...mapGetters("accounts", ["accounts"]),
   },
   methods: mapActions("form/bug", [
+    "name",
     "reporter",
     "reportDate",
     "bugDescription",

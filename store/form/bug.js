@@ -1,5 +1,6 @@
 import Form from "~/plugins/form";
 const form = new Form("bugs", [
+  "name",
   "reporter",
   "reportDate",
   "bugDescription",

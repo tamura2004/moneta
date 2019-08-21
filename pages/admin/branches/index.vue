@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-4">
+  <v-card>
     <list-toolbar title="支店一覧"></list-toolbar>
     <v-divider></v-divider>
     <app-list

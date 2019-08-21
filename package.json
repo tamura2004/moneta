@@ -13,18 +13,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
-    "pluralize": "^8.0.0",
-    "prettier": "^1.18.2"
-  },
-  "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",
-    "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-jest": "^24.1.0",
     "blueimp-md5": "^2.11.1",
     "firebase": "^6.3.5",
-    "jest": "^24.1.0",
+    "nuxt": "^2.0.0",
     "p5": "^0.9.0",
+    "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "prettier": "^1.18.2",
     "vue-jest": "^4.0.0-0"
   }
 }

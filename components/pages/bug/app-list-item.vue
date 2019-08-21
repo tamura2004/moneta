@@ -3,7 +3,7 @@
     <v-list-item-title>
       <v-row>
         <v-col cols="1" :class="`${bug.impactRate}--text`">■</v-col>
-        <v-col cols="11">{{bug && bug.bugDescription}}</v-col>
+        <v-col cols="11">{{ bug && bug.name }}</v-col>
       </v-row>
     </v-list-item-title>
     <v-list-item-subtitle>

@@ -36,12 +36,11 @@ export default {
    */
   devModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    "@nuxtjs/vuetify",
   ],
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["@nuxtjs/vuetify"],
   router: {
     middleware: ["firebase"],
   },

@@ -3,7 +3,7 @@
     <v-app-bar app>
       <v-app-bar-nav-icon>
         <nuxt-link to="/" tag="div">
-          <v-icon>mdi-home</v-icon>
+          <v-icon>mdi-bank</v-icon>
         </nuxt-link>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
