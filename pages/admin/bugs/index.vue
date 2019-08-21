@@ -4,11 +4,11 @@
       <list-toolbar title="不備・障害一覧"></list-toolbar>
       <v-divider></v-divider>
       <v-tabs>
-        <v-tab @click="rate=null">すべて</v-tab>
-        <v-tab @click="rate='error'">重大</v-tab>
-        <v-tab @click="rate='warning'">軽微</v-tab>
-        <v-tab @click="rate='primary'">改善</v-tab>
-        <v-tab @click="rate='success'">追加</v-tab>
+        <v-tab @click="progress=null">すべて</v-tab>
+        <v-tab @click="progress='report'">報告済</v-tab>
+        <v-tab @click="progress='design'">設計済</v-tab>
+        <v-tab @click="progress='develop'">開発済</v-tab>
+        <v-tab @click="progress='test'">検証済</v-tab>
       </v-tabs>
       <v-divider></v-divider>
       <app-list v-for="bug in allBugs" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
@@ -27,14 +27,20 @@ export default {
   layout: "admin",
   components: { appList, listToolbar, listActions },
   data: () => ({
-    rate: null,
+    progress: null,
   }),
   computed: {
     allBugs() {
-      if (this.rate === null) {
+      if (this.progress === null) {
         return this.bugs;
-      } else {
-        return this.bugs.filter(bug => bug.impactRate === this.rate);
+      } else if (this.progress === "report") {
+        return this.bugs.filter(bug => bug.reportDate !== null && bug.designDate === null);
+      } else if (this.progress === "design") {
+        return this.bugs.filter(bug => bug.designDate !== null && bug.developDate === null);
+      } else if (this.progress === "develop") {
+        return this.bugs.filter(bug => bug.developDate !== null && bug.testDate === null);
+      } else if (this.progress === "test") {
+        return this.bugs.filter(bug => bug.testDate !== null);
       }
     },
     ...mapGetters("bugs", ["bugs"]),

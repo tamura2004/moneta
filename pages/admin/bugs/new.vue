@@ -19,6 +19,7 @@ export default {
     ...mapActions("form/bug", ["clear"]),
     ...mapActions("bugs", ["add"]),
     async save() {
+      debugger
       await this.add(this.data);
       this.$router.push("/admin/bugs");
     },

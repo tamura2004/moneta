@@ -3,7 +3,7 @@
     small
     color="light"
     :to="`/admin/${collection}/${id}/edit`"
-    :disabled="!edit"
+    v-show="edit"
     @click="toggle"
   >
     <v-icon left>mdi-pencil</v-icon>編集
