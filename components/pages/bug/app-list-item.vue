@@ -10,12 +10,6 @@
       <v-row>
         <v-col>報告：{{ bug && account(bug.reporter) | name }}</v-col>
         <v-col>{{ bug && bug.reportDate }}</v-col>
-        <v-col>初期：{{ bug && account(bug.interimRecoverer) | name }}</v-col>
-        <v-col>{{ bug && bug.interimRecoverDate }}</v-col>
-      </v-row>
-    </v-list-item-subtitle>
-    <v-list-item-subtitle>
-      <v-row>
         <v-col>調査：{{ bug && account(bug.inspector) | name }}</v-col>
         <v-col>{{ bug && bug.inspectDate }}</v-col>
         <v-col>対応：{{ bug && account(bug.fullRecoverer) | name }}</v-col>
