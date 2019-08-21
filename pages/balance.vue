@@ -43,7 +43,7 @@ export default {
 #btn {
   grid-row: 1;
   grid-column: 2;
-  font-size: 48px;
+  font-size: １48px;
   height: 320px;
   width: 320px;
   z-index: 1;

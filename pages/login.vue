@@ -6,12 +6,15 @@
     <v-card-text>
       <v-form>
         <v-select
+          label="お名前"
           item-text="name"
           item-value="id"
           :items="accounts('ALL')"
           :value="id"
           @input="$store.dispatch('login/id', $event)"
         />
+        <v-text-field label="ユーザーID"></v-text-field>
+        <v-text-field label="パスワード"></v-text-field>
       </v-form>
     </v-card-text>
     <v-card-actions>

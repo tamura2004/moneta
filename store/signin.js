@@ -3,14 +3,18 @@ import md5 from "blueimp-md5";
 export const state = () => ({
   bankId: null,
   branchId: null,
+  user: null,
   name: null,
   password: null,
+  isLogin: false,
 });
 
 export const getters = {
   bankId: state => state.bankId,
   branchId: state => state.branchId,
+  user: state => state.user,
   name: state => state.name,
+  isLogin: state => state.isLogin,
   password: state => state.password,
   initialAmount: () => 100000,
   account: (state, getters) => ({
@@ -32,6 +36,8 @@ export const mutations = {
   bankId: (state, bankId) => (state.bankId = bankId),
   branchId: (state, branchId) => (state.branchId = branchId),
   name: (state, name) => (state.name = name),
+  user: (state, user) => (state.user = user),
+  isLogin: (state, isLogin) => (state.isLogin = isLogin),
   password: (state, password) => (state.password = password),
 };
 

@@ -6,6 +6,7 @@
     <v-card-text>
       <v-form>
         <v-select
+          label="銀行"
           item-text="name"
           item-value="id"
           :items="banks"
@@ -13,6 +14,7 @@
           @input="$store.commit('signin/bankId', $event)"
         />
         <v-select
+          label="支店"
           item-text="name"
           item-value="id"
           :items="branches(bankId)"
@@ -20,11 +22,19 @@
           @input="$store.commit('signin/branchId', $event)"
         />
         <v-text-field
+          label="ユーザーＩＤ"
+          type="text"
+          :value="user"
+          @input="$store.commit('signin/user', $event)"
+        />
+        <v-text-field
+          label="お名前"
           type="text"
           :value="name"
           @input="$store.commit('signin/name', $event)"
         />
         <v-text-field
+          label="パスワード"
           type="password"
           :value="password"
           @input="$store.commit('signin/password', $event)"
@@ -49,6 +59,7 @@ export default {
     ...mapGetters("signin", [
       "bankId",
       "branchId",
+      "user",
       "name",
       "password",
       "account",
