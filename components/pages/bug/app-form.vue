@@ -11,7 +11,7 @@
           <v-radio label="操作性改善" value="primary" color="primary"></v-radio>
           <v-radio label="機能追加" value="success" color="success"></v-radio>
         </v-radio-group>
-        <app-form-block name="report" label="発見"></app-form-block>
+        <app-form-block name="report" label="報告"></app-form-block>
         <app-form-block name="design" label="設計" v-if="reportDate"></app-form-block>
         <app-form-block name="develop" label="開発" v-if="designDate"></app-form-block>
         <app-form-block name="test" label="検証" v-if="developDate"></app-form-block>
