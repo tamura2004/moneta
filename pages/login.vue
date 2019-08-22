@@ -14,7 +14,7 @@
           @input="$store.dispatch('login/id', $event)"
         />
         <v-text-field label="ユーザーID"></v-text-field>
-        <v-text-field label="パスワード"></v-text-field>
+        <v-text-field type="password" label="パスワード"></v-text-field>
       </v-form>
     </v-card-text>
     <v-card-actions>
