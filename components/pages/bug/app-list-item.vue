@@ -2,8 +2,9 @@
   <v-list-item-content>
     <v-list-item-title>
       <v-row>
+        <v-col cols="1" :class="`${bug.category}--text`">#{{ bug.id.substr(0, 4) }}</v-col>
         <v-col cols="2" :class="`${bug.category}--text`">■{{ category }}</v-col>
-        <v-col cols="10">{{ bug && bug.name }}</v-col>
+        <v-col cols="9">{{ bug && bug.name }}</v-col>
       </v-row>
     </v-list-item-title>
     <v-list-item-subtitle>

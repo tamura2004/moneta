@@ -9,28 +9,16 @@
           <v-list-item-content>
             <v-list-item-title>
               <v-layout>
-                <v-flex xs4>
-                  {{ statement.timestamp | date }}
-                </v-flex>
-                <v-flex xs4>
-                  {{ statement.memo }}
-                </v-flex>
-                <v-flex xs4>
-                  残高
-                </v-flex>
+                <v-flex xs4>{{ statement.timestamp | date }}</v-flex>
+                <v-flex xs4>{{ statement.memo }}</v-flex>
+                <v-flex xs4>残高</v-flex>
               </v-layout>
             </v-list-item-title>
             <v-list-item-subtitle>
               <v-layout>
-                <v-flex xs4>
-                  {{ statement.kind }}
-                </v-flex>
-                <v-flex xs4>
-                  {{ statement.amount | yen }}
-                </v-flex>
-                <v-flex xs4>
-                  {{ statement.total | yen }}
-                </v-flex>
+                <v-flex xs4>{{ statement.kind }}</v-flex>
+                <v-flex xs4>{{ statement.amount | yen }}</v-flex>
+                <v-flex xs4>{{ statement.total | yen }}</v-flex>
               </v-layout>
             </v-list-item-subtitle>
           </v-list-item-content>

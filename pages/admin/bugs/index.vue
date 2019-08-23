@@ -11,7 +11,7 @@
         <v-tab @click="progress='test'">検証済</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <app-list v-for="bug in allBugs" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
+      <app-list v-for="bug in bugs(query, progress, account)" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
       <list-actions collection="bugs"></list-actions>
     </v-card>
   </div>
@@ -30,21 +30,10 @@ export default {
     progress: null,
   }),
   computed: {
-    allBugs() {
-      if (this.progress === null) {
-        return this.bugs;
-      } else if (this.progress === "report") {
-        return this.bugs.filter(bug => bug.reportDate !== null && bug.designDate === null);
-      } else if (this.progress === "design") {
-        return this.bugs.filter(bug => bug.designDate !== null && bug.developDate === null);
-      } else if (this.progress === "develop") {
-        return this.bugs.filter(bug => bug.developDate !== null && bug.testDate === null);
-      } else if (this.progress === "test") {
-        return this.bugs.filter(bug => bug.testDate !== null);
-      }
-    },
     ...mapGetters("bugs", ["bugs"]),
     ...mapGetters("nav/edit", ["edit"]),
+    ...mapGetters("nav/query", ["query"]),
+    ...mapGetters("accounts", ["account"]),
   },
   methods: mapActions("bugs", ["remove"]),
   methods: mapActions("nav/edit", ["toggle"]),

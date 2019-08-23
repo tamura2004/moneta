@@ -8,7 +8,7 @@ describe("plugins/filters", () => {
     expect(date(timestamp)).toBe("1996-01-02 03:04:05");
   });
   test("yen", () => {
-    expect(yen(1234567)).toBe("￥1,234,567-");
+    expect(yen(999999)).toBe("￥1,234,567-");
   });
   test("show", () => {
     expect(show("name")({ name: "太郎" })).toBe("太郎");
