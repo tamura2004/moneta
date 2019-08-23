@@ -102,7 +102,7 @@ function runner(p5) {
       p5.text("GAME OVER", p5.windowWidth / 2, HEIGHT / 2);
       return;
     }
-    if (p5.dist(bullet.x + bullet.w, bullet.y, enemy.x, enemy.y) < 50) {
+    if (p5.dist(bullet.x + bullet.w, bullet.y, enemy.x, enemy.y) < 10) {
       enemy.destroy();
       ship.score++;
     }
@@ -116,7 +116,8 @@ function runner(p5) {
 
   p5.mouseClicked = () => {
     bullet.create();
-    if (p5.dist(p5.windowWidth / 2, HEIGHT / 2, p5.mouseX, p5.mouseY) < 10) {
+    // 画面中央付近をクリックしたらゲーム再開
+    if (p5.dist(p5.windowWidth / 2, HEIGHT / 2, p5.mouseX, p5.mouseY) < 100) {
       enemy.gameover = false;
     }
   };
