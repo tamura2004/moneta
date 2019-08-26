@@ -4,12 +4,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import branchForm from "~/components/pages/branch/app-form.vue";
+import appForm from "~/components/pages/branch/app-form.vue";
 
 export default {
   layout: "admin",
   components: {
-    branchForm,
+    appForm,
   },
   asyncData({ params }) {
     const id = params.id;
