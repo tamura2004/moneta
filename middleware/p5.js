@@ -39,6 +39,9 @@ function runner(p5) {
       char.x += char.vx;
       char.y += char.vy;
 
+      char.x -= 0.1;
+      char.y -= 0.1;
+
       p5.colorMode(p5.HSB, 100);
       p5.fill(char.color, 20, 100);
       p5.strokeWeight(6);

@@ -11,9 +11,15 @@
         <v-tab @click="progress='test'">検証済</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <app-list v-for="bug in bugs(query, progress, account)" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
+      <app-list
+        v-for="bug in bugs(query, progress, account)"
+        :bug="bug"
+        :key="bug.id"
+        @delete="remove(bug.id)"
+      ></app-list>
       <list-actions collection="bugs"></list-actions>
     </v-card>
+    <v-pagination v-model="page" class="mt-4" :length="totalPage"/>
   </div>
 </template>
 
@@ -28,14 +34,29 @@ export default {
   components: { appList, listToolbar, listActions },
   data: () => ({
     progress: null,
+    page: 1,
+    PER_PAGE: 5,
   }),
   computed: {
     ...mapGetters("bugs", ["bugs"]),
     ...mapGetters("nav/edit", ["edit"]),
     ...mapGetters("nav/query", ["query"]),
     ...mapGetters("accounts", ["account"]),
+    totalPage() {
+      return Math.ceil(this.statements.length / this.PER_PAGE);
+    },
+    lists() {
+      return this.statements.slice(
+        (this.page - 1) * this.PER_PAGE,
+        this.page * this.PER_PAGE,
+      );
+    },
   },
   methods: mapActions("bugs", ["remove"]),
   methods: mapActions("nav/edit", ["toggle"]),
+  name: "PageStatements",
+  mounted() {
+    this.page = this.totalPage;
+  },
 };
 </script>
