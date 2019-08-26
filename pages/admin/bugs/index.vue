@@ -43,10 +43,10 @@ export default {
     ...mapGetters("nav/query", ["query"]),
     ...mapGetters("accounts", ["account"]),
     totalPage() {
-      return Math.ceil(this.statements.length / this.PER_PAGE);
+      return Math.ceil(this.bugs.length / this.PER_PAGE);
     },
     lists() {
-      return this.statements.slice(
+      return this.bugs.slice(
         (this.page - 1) * this.PER_PAGE,
         this.page * this.PER_PAGE,
       );
@@ -54,7 +54,7 @@ export default {
   },
   methods: mapActions("bugs", ["remove"]),
   methods: mapActions("nav/edit", ["toggle"]),
-  name: "PageStatements",
+  name: "Pagebugs",
   mounted() {
     this.page = this.totalPage;
   },
