@@ -1,4 +1,4 @@
-# fullspec
+# moneta
 
 > My wonderful Nuxt.js project
 
