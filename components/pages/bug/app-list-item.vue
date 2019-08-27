@@ -8,18 +8,12 @@
       </v-row>
     </v-list-item-title>
     <v-list-item-subtitle>
-      <v-row>
-        <v-col>報告</v-col>
-        <v-col>設計</v-col>
-        <v-col>開発</v-col>
-        <v-col>検証</v-col>
-      </v-row>
       <v-list-item-title>
         <v-row>
-          <v-col>{{ account(bug.reportUser) | name }} / {{ bug.reportDate || "----" }}</v-col>
-          <v-col>{{ account(bug.designUser) | name }} / {{ bug.designDate || "----" }}</v-col>
-          <v-col>{{ account(bug.developUser) | name }} / {{ bug.developDate || "----" }}</v-col>
-          <v-col>{{ account(bug.testUser) | name }} / {{ bug.testDate || "----" }}</v-col>
+          <v-col>報:<span class="font-weight-bold">{{ account(bug.reportUser) | name }}</span> / {{ bug.reportDate || "----" }}</v-col>
+          <v-col>設:<span class="font-weight-bold">{{ account(bug.designUser) | name }}</span> / {{ bug.designDate || "----" }}</v-col>
+          <v-col>開:<span class="font-weight-bold">{{ account(bug.developUser) | name }}</span> / {{ bug.developDate || "----" }}</v-col>
+          <v-col>検:<span class="font-weight-bold">{{ account(bug.testUser) | name }}</span> / {{ bug.testDate || "----" }}</v-col>
         </v-row>
       </v-list-item-title>
     </v-list-item-subtitle>
@@ -45,3 +39,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.col {
+  padding: 1px 16px;
+}
+</style>

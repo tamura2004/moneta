@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list-item three-line>
+    <v-list-item>
       <v-list-item-icon>
         <edit-button collection="bugs" :id="bug.id"></edit-button>
       </v-list-item-icon>
@@ -23,3 +23,10 @@ export default {
   props: ["bug"],
 };
 </script>
+
+<style scoped>
+.v-list-item__content {
+  padding: 2px 0px;
+}
+</style>
+
