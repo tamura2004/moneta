@@ -9,6 +9,7 @@ function runner(p5) {
 
   let chars = LETTERS.split("").map((letter, index) => ({ letter, index }));
   let toggle = true;
+  let velocity = 0.999;
 
   p5.setup = () => {
     const canvas = p5.createCanvas(WIDTH, HEIGHT);
@@ -38,6 +39,9 @@ function runner(p5) {
       }
       char.x += char.vx;
       char.y += char.vy;
+
+      char.vx *= velocity;
+      char.vy *= velocity;
 
       p5.colorMode(p5.HSB, 100);
       p5.fill(char.color, 20, 100);
