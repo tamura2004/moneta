@@ -33,9 +33,9 @@ export default {
   layout: "admin",
   components: { appList, listToolbar, listActions },
   data: () => ({
-    progress: null,
     page: 1,
     PER_PAGE: 5,
+    progress: null,
   }),
   computed: {
     ...mapGetters("bugs", ["bugs"]),
@@ -43,10 +43,10 @@ export default {
     ...mapGetters("nav/query", ["query"]),
     ...mapGetters("accounts", ["account"]),
     totalPage() {
-      return Math.ceil(this.bugs.length / this.PER_PAGE);
+      return Math.ceil(this.bugs(this.query, this.progress, this.account).length / this.PER_PAGE);
     },
     lists() {
-      return this.bugs.slice(
+      return this.bugs(this.query, this.progress, this.account).slice(
         (this.page - 1) * this.PER_PAGE,
         this.page * this.PER_PAGE,
       );
