@@ -117,7 +117,8 @@ function runner(p5) {
   p5.mouseClicked = () => {
     bullet.create();
     // 画面中央付近をクリックしたらゲーム再開
-    if (p5.dist(p5.windowWidth / 2, HEIGHT / 2, p5.mouseX, p5.mouseY) < 100) {
+    if (enemy.gameover && p5.dist(p5.windowWidth / 2, HEIGHT / 2, p5.mouseX, p5.mouseY) < 100) {
+      ship.score = 0;
       enemy.gameover = false;
     }
   };
