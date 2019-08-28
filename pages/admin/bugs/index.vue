@@ -11,9 +11,15 @@
         <v-tab @click="progress='test'">検証済</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <app-list v-for="bug in bugs(query, progress, account)" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
+      <app-list
+        v-for="bug in pageList"
+        :bug="bug"
+        :key="bug.id"
+        @delete="remove(bug.id)"
+      ></app-list>
       <list-actions collection="bugs"></list-actions>
     </v-card>
+    <v-pagination class="mt-4" v-model="page" :length="totalPage"></v-pagination>
   </div>
 </template>
 
@@ -28,14 +34,32 @@ export default {
   components: { appList, listToolbar, listActions },
   data: () => ({
     progress: null,
+    page: 1,
+    PER_PAGE: 5,
   }),
   computed: {
     ...mapGetters("bugs", ["bugs"]),
     ...mapGetters("nav/edit", ["edit"]),
     ...mapGetters("nav/query", ["query"]),
     ...mapGetters("accounts", ["account"]),
+    filteredList() {
+      return this.bugs(this.query, this.progress, this.account).sort(
+        (a, b) => a.num - b.num,
+      );
+    },
+    pageList() {
+      return this.filteredList.slice(
+        (this.page - 1) * this.PER_PAGE,
+        this.page * this.PER_PAGE,
+      );
+    },
+    totalPage() {
+      return Math.ceil(this.filteredList.length / this.PER_PAGE);
+    },
   },
-  methods: mapActions("bugs", ["remove"]),
-  methods: mapActions("nav/edit", ["toggle"]),
+  methods: {
+    ...mapActions("bugs", ["remove"]),
+    ...mapActions("nav/edit", ["toggle"]),
+  }
 };
 </script>

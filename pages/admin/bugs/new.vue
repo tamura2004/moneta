@@ -14,13 +14,18 @@ export default {
   created() {
     this.clear();
   },
-  computed: mapGetters("form/bug", ["data"]),
+  computed: {
+    ...mapGetters("form/bug", ["data"]),
+    ...mapGetters("bugs", ["collection"]),
+  },
   methods: {
     ...mapActions("form/bug", ["clear"]),
     ...mapActions("bugs", ["add"]),
     async save() {
-      debugger
-      await this.add(this.data);
+      await this.add({
+        ...this.data,
+        num: this.collection.length,
+      });
       this.$router.push("/admin/bugs");
     },
   },
