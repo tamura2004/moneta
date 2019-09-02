@@ -2,12 +2,7 @@
   <v-card>
     <list-toolbar title="銀行一覧"></list-toolbar>
     <v-divider></v-divider>
-    <app-list
-      v-for="bank in banks"
-      :bank="bank"
-      :key="bank.id"
-      @delete="remove(bank.id)"
-    ></app-list>
+    <app-list v-for="bank in banks" :bank="bank" :key="bank.id" @delete="remove(bank.id)"></app-list>
     <list-actions collection="banks"></list-actions>
   </v-card>
 </template>
@@ -25,7 +20,9 @@ export default {
     ...mapGetters("banks", ["banks"]),
     ...mapGetters("nav/edit", ["edit"]),
   },
-  methods: mapActions("banks", ["remove"]),
-  methods: mapActions("nav/edit", ["toggle"]),
+  methods: {
+    ...mapActions("banks", ["remove"]),
+    ...mapActions("nav/edit", ["toggle"]),
+  },
 };
 </script>
