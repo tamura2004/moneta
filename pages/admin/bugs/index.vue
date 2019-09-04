@@ -11,13 +11,9 @@
         <v-tab @click="progress='test'">検証済</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <app-list
-        v-for="bug in pageList"
-        :bug="bug"
-        :key="bug.id"
-        @delete="remove(bug.id)"
-      ></app-list>
+      <app-list v-for="bug in pageList" :bug="bug" :key="bug.id" @delete="remove(bug.id)"></app-list>
       <list-actions collection="bugs"></list-actions>
+      <v-btn color="success" @click="download">download</v-btn>
     </v-card>
     <v-pagination class="mt-4" v-model="page" :length="totalPage"></v-pagination>
   </div>
@@ -38,7 +34,7 @@ export default {
     PER_PAGE: 5,
   }),
   computed: {
-    ...mapGetters("bugs", ["bugs"]),
+    ...mapGetters("bugs", ["bugs", "collection"]),
     ...mapGetters("nav/edit", ["edit"]),
     ...mapGetters("nav/query", ["query"]),
     ...mapGetters("accounts", ["account"]),
@@ -60,6 +56,17 @@ export default {
   methods: {
     ...mapActions("bugs", ["remove"]),
     ...mapActions("nav/edit", ["toggle"]),
-  }
+    download() {
+      let csv = "\ufeffid,name,category,reportUser,reportDate,report\n";
+      for (const bug of this.collection) {
+        csv += `${bug.id},${bug.name},${bug.category},${bug.reportUser},${bug.reportDate},${bug.reportDescription && bug.reportDescription.replace("\n","。")}\n`;
+      }
+      const blob = new Blob([csv], { type: "text/csv" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "bugs.csv";
+      link.click();
+    },
+  },
 };
 </script>
