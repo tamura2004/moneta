@@ -59,7 +59,9 @@ export default {
     download() {
       let csv = "\ufeffid,name,category,reportUser,reportDate,report\n";
       for (const bug of this.collection) {
-        csv += `${bug.id},${bug.name},${bug.category},${bug.reportUser},${bug.reportDate},${bug.reportDescription && bug.reportDescription.replace("\n","。")}\n`;
+        const user = this.account(bug.reportUser);
+        const name = user && user.name;
+        csv += `${bug.id},${bug.name},${bug.category},${name},${bug.reportDate},${bug.reportDescription && bug.reportDescription.replace("\n","。")}\n`;
       }
       const blob = new Blob([csv], { type: "text/csv" });
       const link = document.createElement("a");
