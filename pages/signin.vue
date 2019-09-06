@@ -43,9 +43,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn color="primary" @click="signin">
-        口座開設
-      </v-btn>
+      <v-btn color="primary" @click="signin">口座開設</v-btn>
     </v-card-actions>
   </v-card>
 </template>
