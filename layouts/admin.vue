@@ -21,12 +21,15 @@ export default {
   components: {
     appDrawer,
   },
-  data: () => ({
-    drawer: true,
-  }),
   computed: {
-    ...mapGetters("login", ["account", "branch", "bank"]),
+    drawer() {
+      return this.$store.getters["nav/drawer"];
+    },
   },
-  methods: mapActions("nav/drawer", ["toggle"]),
+  methods: {
+    toggle() {
+      this.$store.dispatch("nav/drawer", !this.drawer);
+    },
+  },
 };
 </script>

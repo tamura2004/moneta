@@ -17,12 +17,17 @@ export default {
   layout: "admin",
   components: { appList, listToolbar, listActions },
   computed: {
-    ...mapGetters("banks", ["banks"]),
-    ...mapGetters("nav/edit", ["edit"]),
+    banks() {
+      return this.$store.getters["banks/banks"];
+    },
   },
   methods: {
-    ...mapActions("banks", ["remove"]),
-    ...mapActions("nav/edit", ["toggle"]),
+    remove(id) {
+      this.$store.dispatch("banks/remove", id);
+    },
   },
+  created() {
+    this.$store.dispatch("nav/edit", false); // 編集ボタンを初期化
+  }
 };
 </script>

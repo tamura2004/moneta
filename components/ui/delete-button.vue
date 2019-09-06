@@ -9,13 +9,15 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   props: ["collection", "id"],
-  computed: mapGetters("nav/edit", ["edit"]),
+  computed: {
+    edit() {
+      return this.$store.getters["nav/edit"];
+    },
+  },
   methods: {
     remove() {
       this.$store.dispatch(`${this.collection}/remove`, this.id);
-      this.toggle();
     },
-    ...mapActions("nav/edit", ["toggle"]),
   },
 };
 </script>

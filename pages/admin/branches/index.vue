@@ -3,7 +3,7 @@
     <list-toolbar title="支店一覧"></list-toolbar>
     <v-divider></v-divider>
     <app-list
-      v-for="branch in branches('ALL')"
+      v-for="branch in branches"
       :branch="branch"
       :key="branch.id"
       @delete="remove(branch.id)"
@@ -22,10 +22,14 @@ export default {
   layout: "admin",
   components: { appList, listToolbar, listActions },
   computed: {
-    ...mapGetters("branches", ["branches"]),
-    ...mapGetters("nav/edit", ["edit"]),
+    branches() {
+      return this.$store.getters["branches/collection"]("ALL");
+    },
   },
-  methods: mapActions("branches", ["remove"]),
-  methods: mapActions("nav/edit", ["toggle"]),
+  methods: {
+    remove(id) {
+      this.$store.dispatch("branches/remove", id);
+    },
+  },
 };
 </script>

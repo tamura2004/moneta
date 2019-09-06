@@ -1,11 +1,5 @@
 <template>
-  <v-btn
-    small
-    color="light"
-    :to="`/admin/${collection}/${id}/edit`"
-    v-show="edit"
-    @click="toggle"
-  >
+  <v-btn small color="light" :to="`/admin/${collection}/${id}/edit`" v-show="edit">
     <v-icon left>mdi-pencil</v-icon>編集
   </v-btn>
 </template>
@@ -15,7 +9,10 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   props: ["collection", "id"],
-  computed: mapGetters("nav/edit", ["edit"]),
-  methods: mapActions("nav/edit", ["toggle"]),
+  computed: {
+    edit() {
+      return this.$store.getters["nav/edit"];
+    },
+  },
 };
 </script>

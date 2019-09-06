@@ -16,14 +16,10 @@
 <script>
 import p5 from "~/middleware/p5";
 import game from "~/middleware/game";
-import { mapGetters } from "vuex";
 
 export default {
   mounted() {
     this.$route.query.game ? game() : p5();
-  },
-  computed: {
-    ...mapGetters("login", ["account"]),
   },
 };
 </script>

@@ -11,6 +11,10 @@ import { mapGetters } from "vuex";
 
 export default {
   props: ["collection"],
-  computed: mapGetters("nav/edit", ["edit"]),
+  computed: {
+    edit() {
+      return this.$store.getters["nav/edit"];
+    },
+  },
 };
 </script>

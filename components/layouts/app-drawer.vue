@@ -14,17 +14,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   data: () => ({
     menues: [
       { icon: "mdi-account", to: "/login?game=1", name: "ログイン画面" },
       { icon: "mdi-bank", to: "/admin/banks", name: "銀行" },
       { icon: "mdi-city", to: "/admin/branches", name: "支店" },
-      { icon: "mdi-bug", to: "/admin/bugs", name: "障害" },
     ],
   }),
-  computed: mapGetters("nav/drawer", ["drawer"]),
+  computed: {
+    drawer() {
+      return this.$store.getters["nav/drawer"];
+    }
+  },
 };
 </script>
