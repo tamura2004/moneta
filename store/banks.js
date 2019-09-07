@@ -1,11 +1,11 @@
-import { Firestore } from "~/plugins/firebase.js";
+import { Gateway } from "~/plugins/gateway.js";
 
-const firestore = new Firestore("banks");
-export const state = firestore.state;
-export const actions = firestore.actions;
-export const mutations = firestore.mutations;
+const gateway = new Gateway("banks");
+export const state = gateway.state;
+export const actions = gateway.actions;
+export const mutations = gateway.mutations;
 export const getters = {
-  ...firestore.getters,
+  ...gateway.getters,
   banks: state => state.values,
   bank: state => id => state.values.find(bank => bank.id === id),
 };
