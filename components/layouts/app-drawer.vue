@@ -20,6 +20,7 @@ export default {
       { icon: "mdi-account", to: "/login?game=1", name: "ログイン画面" },
       { icon: "mdi-bank", to: "/admin/banks", name: "銀行" },
       { icon: "mdi-city", to: "/admin/branches", name: "支店" },
+      { icon: "mdi-account-card-details", to: "/admin/accounts", name: "口座" },
     ],
   }),
   computed: {

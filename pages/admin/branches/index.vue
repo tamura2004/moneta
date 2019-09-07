@@ -23,7 +23,7 @@ export default {
   components: { appList, listToolbar, listActions },
   computed: {
     branches() {
-      return this.$store.getters["branches/collection"]("ALL");
+      return this.$store.getters["branches/collection"];
     },
   },
   methods: {
