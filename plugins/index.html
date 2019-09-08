@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/zangodb@latest/dist/zangodb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
+    <title>zango.db</title>
+  </head>
+  <body>
+    <script>
+      const errHandle = e => e && alert(e);
+      const execBank = async () => {
+        const db = new zango.Db("banks", {
+          values: true,
+        });
+        const values = db.collection("values");
+        await values.insert({ _id: cuid(), name: "東埼玉銀行", num: 3188 });
+        values.update({ _id: 6 }, { num: 3333 }, errHandle);
+        values.remove({ _id: 7 }, errHandle);
+        // const doc = { name: "西目黒銀行", num: 7321 };
+        // await values.insert(doc);
+        values.find({}).forEach(doc => console.log("doc:", doc));
+      };
+      // const execBranch = async () => {
+      //   const db = new zango.Db("branches", {
+      //     values: true,
+      //   });
+      //   const values = db.collection("values");
+      //   const doc = { name: "美術館支店", num: 0021 };
+      //   await values.insert(doc);
+      //   values.find({}).forEach(doc => console.log("doc:", doc));
+      // };
+      execBank();
+    </script>
+  </body>
+</html>

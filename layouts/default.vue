@@ -23,6 +23,7 @@
           </v-flex>
         </v-layout>
       </v-container>
+      <code v-if="debug">{{ $store.state }}</code>
     </v-content>
   </v-app>
 </template>
@@ -31,6 +32,9 @@
 import { mapGetters } from "vuex";
 
 export default {
+  data: () => ({
+    debug: false,
+  }),
   computed: {
     ...mapGetters("login", ["account", "branch", "bank"]),
   },

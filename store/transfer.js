@@ -67,7 +67,7 @@ export const actions = {
         amount: getters.amount,
         total,
         kind: "出金",
-        memo: `振込：${getters.account.name}`,
+        memo: `振込先：${getters.account.name}`,
       },
       { root: true },
     );
@@ -81,7 +81,7 @@ export const actions = {
         amount: getters.amount,
         total,
         kind: "入金",
-        memo: `振込：${rootGetters["login/account"].name}`,
+        memo: `振込元：${rootGetters["login/account"].name}`,
       },
       { root: true },
     );

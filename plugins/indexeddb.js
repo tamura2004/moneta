@@ -1,23 +1,15 @@
 import Vue from "vue";
-import firebase from "firebase/app";
-import "firebase/firestore";
 import pluralize from "pluralize";
+import zango from "zangodb";
+import cuid from "cuid";
 
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyDLIbhYxnQgFYEVELcec20pbN78umBG9dg",
-    authDomain: "moneta-f39eb.firebaseapp.com",
-    databaseURL: "https://moneta-f39eb.firebaseio.com",
-    projectId: "moneta-f39eb",
-    storageBucket: "moneta-f39eb.appspot.com",
-    messagingSenderId: "450912157988",
-  });
-}
+const handleErr = e => e && alert(e);
 
-export const db = firebase.firestore();
-
-export class Firestore {
+export class IndexedDB {
   constructor(name) {
+    this.db = new zango.Db(name, { values: true });
+    this.collection = this.db.collection("values");
+
     this.name = name;
     this.collectionName = this.name;
     this.memberName = pluralize.singular(this.name);
@@ -40,6 +32,9 @@ export class Firestore {
   get mutations() {
     return {
       add(state, { id, data }) {
+        if (state.values.some(v => v.id === id)) {
+          return;
+        }
         state.values.push({ id, ...data });
       },
       modify(state, { id, data }) {
@@ -57,41 +52,37 @@ export class Firestore {
   }
   get actions() {
     return {
-      add: (_, data) =>
-        db.collection(this.name).add({
-          ...data,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        }),
-      modify: (_, { id, data }) => {
-        db.collection(this.name)
-          .doc(id)
-          .update({ ...data });
+      add: async ({ commit }, data) => {
+        const id = cuid();
+        const timestamp = new Date();
+        Object.assign(data, { _id: id, timestamp });
+        commit("add", { id, data });
+        await this.collection.insert({ id, ...data }, handleErr);
+        return { id };
       },
-      remove: (_, id) => {
+      modify: async ({ state, commit }, { id, data }) => {
+        const value = state.values.find(v => v.id === id);
+        const _id = id;
+        Object.assign(data, value);
+        commit("modify", { id, data });
+        await this.collection.update({ _id }, { id, _id, ...data }, handleErr);
+      },
+      remove: async ({ commit }, id) => {
         if (confirm("本当に削除してよろしいですか")) {
-          db.collection(this.name)
-            .doc(id)
-            .delete();
+          commit("remove", { id });
+          await this.collection.remove({ _id: id }, handleErr);
         }
       },
       listen: ({ state, commit }) => {
-        if (state.unsubscribe !== null) {
+        if (state.values.length > 0) {
           return;
         }
-        const unsubscribe = db.collection(this.name).onSnapshot(snapshot => {
-          snapshot.docChanges().forEach(change => {
-            const id = change.doc.id;
-            const data = change.doc.data();
-            if (change.type === "added") {
-              commit("add", { id, data });
-            } else if (change.type === "modified") {
-              commit("modify", { id, data });
-            } else if (change.type === "removed") {
-              commit("remove", { id });
-            }
+        this.collection.find({}).forEach(doc => {
+          commit("add", {
+            id: doc.id,
+            data: doc,
           });
         });
-        commit("setUnsubscribe", unsubscribe);
       },
     };
   }
