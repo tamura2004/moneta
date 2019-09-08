@@ -19,7 +19,8 @@ import game from "~/middleware/game";
 
 export default {
   mounted() {
-    this.$route.query.game ? game() : p5();
+    const context = { store: this.$store, router: this.$router };
+    this.$route.query.game ? game(context) : p5(context);
   },
 };
 </script>

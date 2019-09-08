@@ -1,6 +1,6 @@
 import p5 from "p5";
 
-function runner(p5) {
+const runner = ({ store, router }) => p5 => {
   const HEIGHT = 100;
 
   class Bullet {
@@ -55,6 +55,7 @@ function runner(p5) {
       this.t = 0;
       this.exist = true;
       this.gameover = false;
+      this.count = 720;
     }
     get x() {
       return p5.windowWidth - this.t ** 1.2;
@@ -98,8 +99,21 @@ function runner(p5) {
   p5.draw = () => {
     p5.background(0);
     if (enemy.gameover) {
-      p5.textSize(72);
-      p5.text("GAME OVER", p5.windowWidth / 2, HEIGHT / 2);
+      enemy.count--;
+      if (enemy.count === 0) {
+        const id = p5.random(store.getters["accounts/collection"]).id;
+        store.dispatch("login/id", id);
+        store.dispatch("accounts/modify", { id, data: { total: ship.score * 1000000 } });
+        router.push("/");
+      } else if (enemy.count > 360) {
+        const size = enemy.count - 360;
+        p5.textSize(size);
+        p5.text("GAME OVER", p5.windowWidth / 2, HEIGHT / 2);
+      } else {
+        const size = enemy.count % 36 * 10;
+        p5.textSize(size);
+        p5.text(Math.floor(enemy.count/36), p5.windowWidth / 2, HEIGHT / 2);
+      }
       return;
     }
     if (p5.dist(bullet.x + bullet.w, bullet.y, enemy.x, enemy.y) < 10) {
@@ -123,6 +137,6 @@ function runner(p5) {
   };
 }
 
-export default function() {
-  new p5(runner);
+export default function(context) {
+  new p5(runner(context));
 }
