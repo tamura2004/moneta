@@ -1,6 +1,7 @@
 <template>
   <v-btn
     :to="to"
+    v-on="$listeners"
     class="menu my-4"
     nuxt
     rounded

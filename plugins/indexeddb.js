@@ -63,7 +63,7 @@ export class IndexedDB {
       modify: async ({ state, commit }, { id, data }) => {
         const value = state.values.find(v => v.id === id);
         const _id = id;
-        Object.assign(data, value);
+        data = Object.assign({}, value, data);
         commit("modify", { id, data });
         await this.collection.update({ _id }, { id, _id, ...data }, handleErr);
       },
