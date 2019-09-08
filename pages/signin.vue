@@ -35,8 +35,8 @@
         />
         <v-text-field
           label="パスワード"
-          type="password"
           :value="password"
+          :rules="passwordRules"
           @input="$store.commit('signin/password', $event)"
         />
       </v-form>
@@ -53,6 +53,12 @@ import { mapGetters } from "vuex";
 
 export default {
   layout: "login",
+  data: () => ({
+    passwordRules: [
+      v => v && v.length > 4 || "パスワードは4文字以上です",
+      v => /[0-9]/.test(v) || "パスワードは1文字以上数字を含みます",
+    ],
+  }),
   computed: {
     ...mapGetters("signin", [
       "bankId",
