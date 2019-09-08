@@ -1,22 +1,10 @@
 # moneta
+Nuxt.js演習用
 
-> My wonderful Nuxt.js project
+# demo
+https://moneta.ogisui.name
 
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+# text
+[テキスト「上」](https://hackmd.io/@gJYLoEk3SIy6W6KbXarreg/HyfPl_m4B)
+[テキスト「中」](https://hackmd.io/@gJYLoEk3SIy6W6KbXarreg/HkIScumVr)
+[テキスト「下」](https://hackmd.io/@gJYLoEk3SIy6W6KbXarreg/HJPeK6jVS)
