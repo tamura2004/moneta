@@ -28,7 +28,6 @@
 
 <script>
 import md5 from "blueimp-md5";
-import { mapGetters } from "vuex";
 
 export default {
   layout: "login",
@@ -55,10 +54,7 @@ export default {
     },
   },
   methods: {
-    login(id) {
-      if (this.account !== undefined) {
-        alert("ユーザーIDがありません");
-      }
+    login() {
       this.$store.dispatch("login/id", this.id);
       this.$router.push("/");
     },

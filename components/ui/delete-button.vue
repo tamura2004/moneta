@@ -5,15 +5,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   props: ["collection", "id"],
-  computed: {
-    edit() {
-      return this.$store.getters["nav/edit"];
-    },
-  },
+  computed: mapGetters("nav", ["edit"]),
   methods: {
     remove() {
       this.$store.dispatch(`${this.collection}/remove`, this.id);

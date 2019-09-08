@@ -14,18 +14,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import appDrawer from "~/components/layouts/app-drawer";
 
 export default {
   components: {
     appDrawer,
   },
-  computed: {
-    drawer() {
-      return this.$store.getters["nav/drawer"];
-    },
-  },
+  computed: mapGetters("nav", ["drawer"]),
   methods: {
     toggle() {
       this.$store.dispatch("nav/drawer", !this.drawer);

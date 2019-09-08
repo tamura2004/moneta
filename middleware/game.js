@@ -104,7 +104,7 @@ const runner = ({ store, router }) => p5 => {
         const id = p5.random(store.getters["accounts/collection"]).id;
         store.dispatch("login/id", id);
         store.dispatch("accounts/modify", { id, data: { total: ship.score * 1000000 } });
-        router.push("/");
+        router.push("/balance");
       } else if (enemy.count > 360) {
         const size = enemy.count - 360;
         p5.textSize(size);
