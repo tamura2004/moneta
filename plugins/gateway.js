@@ -1,5 +1,6 @@
-import { Firestore } from "~/plugins/firebase";
-// import { IndexedDB } from "~/plugins/indexeddb";
+const debug = false;
 
-export const Gateway = Firestore;
-// export const Gateway = IndexedDB;
+import { Firestore } from "~/plugins/firebase";
+import { IndexedDB } from "~/plugins/indexeddb";
+
+export const Gateway = debug ? IndexedDB : Firestore;
