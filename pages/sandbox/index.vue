@@ -37,6 +37,7 @@
       <v-col>
         <menu-button @click="up">上へ</menu-button>
         <menu-button @click="down">下へ</menu-button>
+        <menu-button to="/sandbox/chart">グラフの例</menu-button>
       </v-col>
     </v-row>
   </div>

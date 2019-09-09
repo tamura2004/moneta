@@ -103,16 +103,19 @@ const runner = ({ store, router }) => p5 => {
       if (enemy.count === 0) {
         const id = p5.random(store.getters["accounts/collection"]).id;
         store.dispatch("login/id", id);
-        store.dispatch("accounts/modify", { id, data: { total: ship.score * 1000000 } });
+        store.dispatch("accounts/modify", {
+          id,
+          data: { total: ship.score * 1000000 },
+        });
         router.push("/balance");
       } else if (enemy.count > 360) {
         const size = enemy.count - 360;
         p5.textSize(size);
         p5.text("GAME OVER", p5.windowWidth / 2, HEIGHT / 2);
       } else {
-        const size = enemy.count % 36 * 10;
+        const size = (enemy.count % 36) * 10;
         p5.textSize(size);
-        p5.text(Math.floor(enemy.count/36), p5.windowWidth / 2, HEIGHT / 2);
+        p5.text(Math.floor(enemy.count / 36), p5.windowWidth / 2, HEIGHT / 2);
       }
       return;
     }
@@ -135,7 +138,7 @@ const runner = ({ store, router }) => p5 => {
       enemy.gameover = false;
     }
   };
-}
+};
 
 export default function(context) {
   new p5(runner(context));
