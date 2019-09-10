@@ -16,6 +16,7 @@ export default {
     chart,
     menuButton,
   },
+  layout: "admin",
   data: () => ({
     data: {
       labels: ["1月", "2月", "3月", "4月"],

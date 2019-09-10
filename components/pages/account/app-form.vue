@@ -22,6 +22,7 @@
         ></v-select>
         <v-text-field label="氏名" :value="data.name" @input="name($event)" />
         <v-text-field label="ユーザー" :value="data.user" @input="user($event)" />
+        <v-select label="口座種類" :items="['普通', '別段']" :value="data.kind" @input="kind($event)"></v-select>
         <v-text-field label="口座番号" :value="data.num" @input="num($event)" />
         <v-text-field label="残高" :value="data.total" @input="total(parseInt($event))" />
         <v-text-field label="パスワード" :value="data.password" @input="password($event)" />
@@ -48,6 +49,7 @@ export default {
     "branchId",
     "name",
     "user",
+    "kind",
     "num",
     "total",
     "password",
