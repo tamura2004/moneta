@@ -31,12 +31,12 @@ export const mutations = {
 export const actions = {
   // 手数料支払い
   payFee({ dispatch, getters, rootGetters }, total) {
-    const id = rootGetters["login/id"];
+    const id = rootGetters["nav/login"];
     dispatch("accounts/modify", { id, data: { total } }, { root: true });
   },
   // 振込金額支払い
   payTransfer({ dispatch, getters, rootGetters }, total) {
-    const id = rootGetters["login/id"];
+    const id = rootGetters["nav/login"];
     dispatch("accounts/modify", { id, data: { total } }, { root: true });
   },
   // 振込金額入金
@@ -49,7 +49,7 @@ export const actions = {
     dispatch(
       "statements/add",
       {
-        accountId: rootGetters["login/id"],
+        accountId: rootGetters["nav/login"],
         amount: getters.fee,
         total,
         kind: "出金",
@@ -63,7 +63,7 @@ export const actions = {
     dispatch(
       "statements/add",
       {
-        accountId: rootGetters["login/id"],
+        accountId: rootGetters["nav/login"],
         amount: getters.amount,
         total,
         kind: "出金",

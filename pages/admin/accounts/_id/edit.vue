@@ -4,6 +4,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
 import appForm from "~/components/pages/account/app-form.vue";
 
 export default {
@@ -16,23 +17,23 @@ export default {
     return { id };
   },
   created() {
-    const account = this.account(this.id);
-    if (account === undefined) {
+    const account = this.accounts.find(v => v.id === this.id);
+    if (!account) {
+      alert("口座がありません");
       this.$router.push("/admin/accounts/new");
     } else {
-      this.edit(this.account(this.id));
+      this.data = account;
     }
   },
   computed: {
-    ...mapGetters("form/account", ["data"]),
-    ...mapGetters("accounts", ["account"]),
+    ...mapAccessors("form/account", ["data"]),
+    ...mapGetters("accounts", ["accounts"]),
   },
   methods: {
-    ...mapActions("form/account", ["edit"]),
     ...mapActions("accounts", ["modify"]),
-    async save() {
+    save() {
       const { id, data } = this;
-      await this.modify({ id, data });
+      this.modify({ id, data });
       this.$router.push("/admin/accounts");
     },
   },

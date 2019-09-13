@@ -4,6 +4,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
 import appForm from "~/components/pages/bank/app-form.vue";
 
 export default {
@@ -11,14 +12,14 @@ export default {
   components: {
     appForm,
   },
+  computed: mapAccessors("form/bank", ["data"]),
   created() {
-    this.clear();
+    this.data = null;
   },
   methods: {
-    ...mapActions("form/bank", ["clear"]),
     ...mapActions("banks", ["add"]),
-    async save() {
-      await this.add(this.data);
+    save() {
+      this.add(this.data);
       this.$router.push("/admin/banks");
     },
   },

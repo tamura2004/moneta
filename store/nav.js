@@ -1,7 +1,4 @@
 import Values from "~/plugins/values";
-const values = new Values(["drawer", "query", "edit"]);
+const values = new Values(["loginId", "drawer", "query", "edit", "valid"]);
 
-export const state = values.state
-export const mutations = values.mutations
-export const getters = values.getters
-export const actions = values.actions
+export const { state, getters, mutations, actions } = values;

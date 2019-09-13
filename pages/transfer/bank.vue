@@ -20,7 +20,7 @@ import { mapItems } from "~/plugins/mapItems";
 
 export default {
   computed: {
-    ...mapAccessors("transfer", ["bankId"]),
+    ...mapAccessors("form/transfer", ["bankId"]),
     ...mapItems(["banks"]),
   },
 };

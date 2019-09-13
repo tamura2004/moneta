@@ -19,7 +19,7 @@ import { mapItems } from "~/plugins/mapItems";
 export default {
   middleware: "hasBank",
   computed: {
-    ...mapAccessors("transfer", ["bankId", "branchId"]),
+    ...mapAccessors("form/transfer", ["bankId", "branchId"]),
     ...mapItems(["branches"]),
     branchItems() {
       return this.branches.filter(v => v.bankId === this.bankId);

@@ -5,7 +5,7 @@
       <v-list-item-content>
         <v-list-item-title>
           <v-layout>
-            <v-flex xs4>{{ bank | name }}</v-flex>
+            <v-flex xs4><moneta-bank-name /></v-flex>
             <v-flex xs1>{{ account.kind }}</v-flex>
             <v-flex xs3>{{ account.num }}</v-flex>
             <v-flex xs1>残高</v-flex>
@@ -14,8 +14,8 @@
         </v-list-item-title>
         <v-list-item-title>
           <v-layout>
-            <v-flex xs4>{{ branch | name }}</v-flex>
-            <v-flex xs4>{{ account | name }}</v-flex>
+            <v-flex xs4><moneta-branch-name /></v-flex>
+            <v-flex xs4><moneta-account-name /></v-flex>
             <v-flex xs1>振込後</v-flex>
             <v-flex xs3>{{ (account.total - amount - fee) | yen }}</v-flex>
           </v-layout>
@@ -29,11 +29,17 @@
 <script>
 import { mapGetters } from "vuex";
 
+
 export default {
   middleware: "login",
   computed: {
-    ...mapGetters("login", ["account", "branch", "bank"]),
     ...mapGetters("transfer", ["amount", "fee"]),
+    ...mapGetters("nav", ["loginId"]),
+    ...mapGetters("accounts", ["accounts"]),
+    account() {
+      return this.accounts.find(v => v.id === this.loginId);
+    },
+
   },
 };
 </script>

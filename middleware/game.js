@@ -102,10 +102,10 @@ const runner = ({ store, router }) => p5 => {
       enemy.count--;
       if (enemy.count === 0) {
         const id = p5.random(store.getters["accounts/collection"]).id;
-        store.dispatch("login/id", id);
+        store.dispatch("nav/login", id);
         store.dispatch("accounts/modify", {
           id,
-          data: { total: ship.score * 1000000 },
+          data: { total: (ship.score + 1) * 1000000 },
         });
         router.push("/balance");
       } else if (enemy.count > 360) {

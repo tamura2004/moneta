@@ -1,13 +1,4 @@
 import Form from "~/plugins/form";
 const form = new Form("banks", ["name", "num"]);
 
-export const state = form.state;
-export const mutations = form.mutations;
-export const actions = form.actions;
-export const getters = {
-  ...form.getters,
-  bank: state => ({
-    name: state.name,
-    num: state.num,
-  }),
-};
+export const { state, getters, mutations, actions } = form;

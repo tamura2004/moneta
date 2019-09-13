@@ -6,32 +6,40 @@
     <v-card-text>
       <v-form v-model="valid">
         <v-text-field
-          name="金額"
           label="金額"
           type="number"
-          :value="amount"
-          :rules="[v => v < account.total - fee || '残高が不足しています']"
-          @input="$store.commit('transfer/amount', $event)"
+          v-model="amount"
+          :rules="rules"
         />
-        <v-btn nuxt dark color="primary" :disabled="!valid" @click="transfer">
-          振込実行
-        </v-btn>
+        <v-btn color="primary" :disabled="!valid" @click="transfer">振込実行</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
+import { mapItems } from "~/plugins/mapItems";
 
 export default {
   middleware: ["hasBank", "hasBranch", "hasAccount"],
-  data: () => ({
-    valid: true,
-  }),
   computed: {
-    ...mapGetters("transfer", ["fee", "amount"]),
-    ...mapGetters("login", ["account"]),
+    ...mapAccessors("form/transfer", ["amount"]),
+    ...mapAccessors("nav", ["loginId", "valid"]),
+    ...mapItems(["accounts"]),
+    account() {
+      this.accounts.find(v => v.id === this.loginId);
+    },
+    rules() {
+      return [
+        v => this.account || "口座がありません",
+        // v => v < this.account.total - this.fee || "残高が不足しています",
+        v => typeof v === "number" || "金額は数字で入力してください",
+      ];
+    },
+    fee() {
+      return this.amount < 30000 ? 210 : 432;
+    },
   },
   methods: {
     transfer() {

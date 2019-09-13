@@ -7,12 +7,14 @@
         </nuxt-link>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
-        <p class="body-1 my-0">{{ bank | name }}</p>
-        <p class="body-1 my-0">{{ branch | name }}</p>
+        <p class="body-1 my-0"><moneta-bank-name /></p>
+        <p class="body-1 my-0"><moneta-branch-name /></p>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn class="title" nuxt to="login" text>{{ account | name }}様</v-btn>
+        <v-btn class="title" nuxt to="login" text>
+          <moneta-account-name />
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -23,20 +25,21 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <code v-if="debug">{{ $store.state }}</code>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import monetaBankName from "~/components/ui/moneta-bank-name";
+import monetaBranchName from "~/components/ui/moneta-branch-name";
+import monetaAccountName from "~/components/ui/moneta-account-name";
 
 export default {
-  data: () => ({
-    debug: false,
-  }),
-  computed: {
-    ...mapGetters("login", ["account", "branch", "bank"]),
+  components: {
+    monetaBankName,
+    monetaBranchName,
+    monetaAccountName,
   },
 };
 </script>

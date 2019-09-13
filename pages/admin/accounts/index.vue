@@ -14,7 +14,6 @@ import listToolbar from "~/components/ui/list-toolbar";
 import listActions from "~/components/ui/list-actions";
 
 export default {
-  name: "PagesAdminAccountsIndex",
   layout: "admin",
   components: { appList, listToolbar, listActions },
   computed: {

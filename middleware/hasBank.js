@@ -1,5 +1,5 @@
 export default function({ store, redirect }) {
-  if (!store.getters["transfer/bankId"]) {
+  if (!store.getters["form/transfer/bankId"]) {
     return redirect("/transfer/bank");
   }
 }

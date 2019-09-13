@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import { mapAccessors } from "~/plugins/mapAccessors";
 import { mapItems } from "~/plugins/mapItems";
 

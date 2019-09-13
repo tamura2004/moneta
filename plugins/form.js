@@ -45,6 +45,17 @@ export default class Form {
       }
     };
 
-    return Object.assign(...base, { clear, edit });
+    const data = ({ commit, dispatch }, member) => {
+      if (member) {
+        commit("id", member.id);
+        this.names.forEach(field => {
+          commit(field, member[field]);
+        });
+      } else {
+        dispatch("clear");
+      }
+    };
+
+    return Object.assign(...base, { clear, edit, data });
   }
 }
