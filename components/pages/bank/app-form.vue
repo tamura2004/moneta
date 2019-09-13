@@ -4,8 +4,8 @@
     <v-divider />
     <v-card-text>
       <v-form>
-        <v-text-field label="銀行名" :value="data.name" @input="name($event)" />
-        <v-text-field label="番号" :value="data.num" @input="num($event)" />
+        <v-text-field label="銀行名" v-model="name" />
+        <v-text-field label="番号" v-model="num" />
       </v-form>
     </v-card-text>
     <v-card-actions>
@@ -15,11 +15,10 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
 
 export default {
   props: ["title"],
-  computed: mapGetters("form/bank", ["data"]),
-  methods: mapActions("form/bank", ["name", "num"]),
+  computed: mapAccessors("form/bank", ["name", "num"]),
 };
 </script>

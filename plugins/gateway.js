@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 
 import { Firestore } from "~/plugins/firebase";
 import { IndexedDB } from "~/plugins/indexeddb";
