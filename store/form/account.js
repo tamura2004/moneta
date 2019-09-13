@@ -10,7 +10,4 @@ const form = new Form("accounts", [
   "branchId",
 ]);
 
-export const state = form.state;
-export const mutations = form.mutations;
-export const actions = form.actions;
-export const getters = form.getters;
+export const { state, getters, mutations, actions } = form;
