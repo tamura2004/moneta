@@ -5,13 +5,7 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select
-          item-text="name"
-          item-value="id"
-          :items="banks"
-          :value="bankId"
-          @input="$store.commit('transfer/bankId', $event)"
-        />
+        <v-select v-model="bankId" :items="banks" />
         <v-btn nuxt dark to="branch" color="primary" :disabled="!bankId">
           次へ
         </v-btn>
@@ -21,12 +15,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
+import { mapItems } from "~/plugins/mapItems";
 
 export default {
   computed: {
-    ...mapGetters("banks", ["banks"]),
-    ...mapGetters("transfer", ["bankId"]),
+    ...mapAccessors("transfer", ["bankId"]),
+    ...mapItems(["banks"]),
   },
 };
 </script>

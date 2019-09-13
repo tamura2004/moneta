@@ -5,29 +5,25 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select
-          item-text="name"
-          item-value="id"
-          :items="accounts(branchId)"
-          @input="$store.commit('transfer/accountId', $event)"
-        />
-        <v-btn nuxt dark to="amount" color="primary" :disabled="!accountId">
-          次へ
-        </v-btn>
+        <v-select v-model="accountId" :items="accountItems" />
+        <v-btn nuxt dark to="amount" color="primary" :disabled="!accountId">次へ</v-btn>
       </v-form>
-      <!-- <code>{{ accounts(branchId) | json }}</code> -->
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
+import { mapItems } from "~/plugins/mapItems";
 
 export default {
   middleware: ["hasBank", "hasBranch"],
   computed: {
-    ...mapGetters("accounts", ["accounts"]),
-    ...mapGetters("transfer", ["bankId", "branchId", "accountId"]),
+    ...mapAccessors("transfer", ["bankId", "branchId", "accountId"]),
+    ...mapItems(["accounts"]),
+    accountItems() {
+      return this.accounts.filter(v => v.branchId === this.branchId);
+    },
   },
 };
 </script>

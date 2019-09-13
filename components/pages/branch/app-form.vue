@@ -4,33 +4,27 @@
     <v-divider />
     <v-card-text>
       <v-form>
-        <v-select
-          label="所属銀行"
-          :items="banks"
-          :value="data.bankId"
-          @input="bankId($event)"
-          item-text="name"
-          item-value="id"
-        ></v-select>
-        <v-text-field label="支店名" :value="data.name" @input="name($event)" />
-        <v-text-field label="番号" :value="data.num" @input="num($event)" />
+        <v-select label="所属銀行" v-model="bankId" :items="banks" />
+        <v-text-field label="支店名" v-model="name" />
+        <v-text-field label="番号" v-model="num" />
       </v-form>
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" @click="$emit('click')">登録</v-btn>
     </v-card-actions>
   </v-card>
-</template>
+</template>k
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
+import { mapItems } from "~/plugins/mapItems";
 
 export default {
   props: ["title"],
   computed: {
-    ...mapGetters("form/branch", ["data"]),
-    ...mapGetters("banks", ["banks"]),
+    ...mapItems(["banks"]),
+    ...mapAccessors("form/branch", ["bankId", "name", "num"]),
   },
-  methods: mapActions("form/branch", ["bankId", "name", "num"]),
 };
 </script>

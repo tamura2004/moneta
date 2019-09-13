@@ -14,7 +14,6 @@ export default {
   created() {
     this.clear();
   },
-  computed: mapGetters("form/bank", ["data"]),
   methods: {
     ...mapActions("form/bank", ["clear"]),
     ...mapActions("banks", ["add"]),

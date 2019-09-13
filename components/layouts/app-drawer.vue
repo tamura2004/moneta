@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app clipped :value="data.drawer" @input="drawer($event)">
+  <v-navigation-drawer app clipped v-model="drawer">
     <v-list dense>
       <v-list-item v-for="menu in menues" :key="menu.name" :to="menu.to">
         <v-list-item-action>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
 
 export default {
   data: () => ({
@@ -25,7 +25,6 @@ export default {
       { icon: "mdi-account-card-details", to: "/admin/accounts", name: "口座" },
     ],
   }),
-  computed: mapGetters("nav", ["data"]),
-  methods: mapActions("nav", ["drawer"]),
+  computed: mapAccessors("nav", ["drawer"]),
 };
 </script>
