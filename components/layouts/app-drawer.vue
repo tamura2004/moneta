@@ -19,6 +19,7 @@ import { mapAccessors } from "~/plugins/mapAccessors";
 export default {
   data: () => ({
     menues: [
+      { icon: "mdi-account", to: "/", name: "メインメニュー" },
       { icon: "mdi-account", to: "/login?game=1", name: "ログイン画面" },
       { icon: "mdi-bank", to: "/admin/banks", name: "銀行" },
       { icon: "mdi-city", to: "/admin/branches", name: "支店" },

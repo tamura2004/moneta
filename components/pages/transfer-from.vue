@@ -27,17 +27,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
-
 export default {
   middleware: "login",
   computed: {
-    ...mapGetters("transfer", ["amount", "fee"]),
-    ...mapGetters("nav", ["loginId"]),
-    ...mapGetters("accounts", ["accounts"]),
+    amount() {
+      return this.$read("form/transfer", "amount")
+    },
+    fee() {
+      return this.amount < 30000 ? 220 : 432;
+    },
     account() {
-      return this.accounts.find(v => v.id === this.loginId);
+      return this.$read("accounts", this.$read("session", "id"))
     },
 
   },

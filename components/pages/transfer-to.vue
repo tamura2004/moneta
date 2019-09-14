@@ -42,9 +42,8 @@ export default {
       "accountId",
       "amount",
     ]),
-    ...mapGetters("accounts", ["accounts"]),
     account() {
-      return this.accounts.find(v => v.id === this.accountId);
+      return this.$read("accounts", this.accountId)
     },
     fee() {
       return this.amount <= 30000 ? 210 : 421;

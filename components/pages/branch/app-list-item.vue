@@ -9,17 +9,16 @@
     </v-list-item-title>
     <v-list-item-subtitle>
       <v-layout>
-        <v-flex xs4>{{ bank(branch.bankId) | name }}</v-flex>
+        <v-flex xs4>
+          <moneta-bank-name :id="branch.bankId" />
+        </v-flex>
       </v-layout>
     </v-list-item-subtitle>
   </v-list-item-content>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   props: ["branch"],
-  computed: mapGetters("banks", ["bank"]),
 };
 </script>

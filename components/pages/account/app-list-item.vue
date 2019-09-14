@@ -10,8 +10,12 @@
     <v-list-item-subtitle>
       <v-layout>
         <v-flex xs4>{{ account.kind }}{{ account.num }}</v-flex>
-        <v-flex xs4>{{ bank(account.bankId) | name }}</v-flex>
-        <v-flex xs4>{{ branch(account.branchId) | name }}</v-flex>
+        <v-flex xs4>
+          <moneta-bank-name :id="account.bankId" />
+        </v-flex>
+        <v-flex xs4>
+          <moneta-branch-name :id="account.branchId" />
+        </v-flex>
       </v-layout>
     </v-list-item-subtitle>
     <v-list-item-subtitle>
@@ -24,13 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   props: ["account"],
-  computed: {
-    ...mapGetters("banks", ["bank"]),
-    ...mapGetters("branches", ["branch"]),
-  }
 };
 </script>

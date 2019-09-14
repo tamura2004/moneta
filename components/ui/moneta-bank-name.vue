@@ -3,24 +3,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   props: ["id"],
   computed: {
-    ...mapGetters("nav", ["loginId"]),
-    ...mapGetters("accounts", ["accounts"]),
-    ...mapGetters("branches", ["branches"]),
-    ...mapGetters("banks", ["banks"]),
     account() {
-      return this.accounts.find(v => v.id === this.loginId);
+      return this.$read("accounts", this.$read("session", "id"));
     },
     branch() {
-      return this.branches.find(v => v.id === this.account.branchId);
+      return this.$read("branches", this.account.branchId);
     },
     bank() {
       const id = this.id || this.branch.bankId;
-      return this.banks.find(v => v.id === id);
+      return this.$read("banks", id);
     },
   },
 };

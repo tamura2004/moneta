@@ -5,12 +5,7 @@
     </v-toolbar>
     <v-card-text>
       <v-form v-model="valid">
-        <v-text-field
-          label="金額"
-          type="number"
-          v-model="amount"
-          :rules="rules"
-        />
+        <v-text-field label="金額" v-model.number="amount" type="number" :rules="rules" />
         <v-btn color="primary" :disabled="!valid" @click="transfer">振込実行</v-btn>
       </v-form>
     </v-card-text>
@@ -19,22 +14,18 @@
 
 <script>
 import { mapAccessors } from "~/plugins/mapAccessors";
-import { mapItems } from "~/plugins/mapItems";
 
 export default {
   middleware: ["hasBank", "hasBranch", "hasAccount"],
   computed: {
-    ...mapAccessors("form/transfer", ["amount"]),
-    ...mapAccessors("nav", ["loginId", "valid"]),
-    ...mapItems(["accounts"]),
+    ...mapAccessors("form/transfer", ["valid", "amount"]),
     account() {
-      this.accounts.find(v => v.id === this.loginId);
+      return this.$read("accounts", this.$read("session", "id"));
     },
     rules() {
       return [
-        v => this.account || "口座がありません",
-        // v => v < this.account.total - this.fee || "残高が不足しています",
-        v => typeof v === "number" || "金額は数字で入力してください",
+        v => !!v || "振込金額を入力してください",
+        v => v < this.account.total - this.fee || "残高が不足しています",
       ];
     },
     fee() {

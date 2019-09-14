@@ -1,14 +1,16 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-app-bar-nav-icon>
-        <nuxt-link to="/" tag="div">
-          <v-icon>mdi-bank</v-icon>
-        </nuxt-link>
+      <v-app-bar-nav-icon to="/">
+        <v-icon>mdi-bank</v-icon>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
-        <p class="body-1 my-0"><moneta-bank-name /></p>
-        <p class="body-1 my-0"><moneta-branch-name /></p>
+        <p class="body-1 my-0">
+          <moneta-bank-name />
+        </p>
+        <p class="body-1 my-0">
+          <moneta-branch-name />
+        </p>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
@@ -28,18 +30,3 @@
     </v-content>
   </v-app>
 </template>
-
-<script>
-import { mapGetters } from "vuex";
-import monetaBankName from "~/components/ui/moneta-bank-name";
-import monetaBranchName from "~/components/ui/moneta-branch-name";
-import monetaAccountName from "~/components/ui/moneta-account-name";
-
-export default {
-  components: {
-    monetaBankName,
-    monetaBranchName,
-    monetaAccountName,
-  },
-};
-</script>

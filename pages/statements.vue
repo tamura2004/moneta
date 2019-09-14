@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "PageStatements",
   middleware: "login",
@@ -41,7 +39,12 @@ export default {
     PER_PAGE: 5,
   }),
   computed: {
-    ...mapGetters("login", ["statements"]),
+    statements() {
+      return this.$read(
+        "statements",
+        v => v.accountId === this.$read("session", "id"),
+      );
+    },
     totalPage() {
       return Math.ceil(this.statements.length / this.PER_PAGE);
     },

@@ -5,7 +5,7 @@
     </v-toolbar>
     <v-card-text>
       <v-form v-model="valid">
-        <v-select label="お名前" v-model="id" :items="accounts" :rules="rules" />
+        <v-select label="お名前" v-model="id" :items="$read('accounts')" :rules="rules" />
         <v-text-field label="ユーザーID" v-model="user" />
         <v-text-field label="パスワード" v-model="password" />
       </v-form>
@@ -20,22 +20,19 @@
 
 <script>
 import { mapAccessors } from "~/plugins/mapAccessors";
-import { mapItems } from "~/plugins/mapItems";
 import md5 from "blueimp-md5";
 
 export default {
   layout: "login",
   computed: {
-    ...mapItems(["accounts"]),
     ...mapAccessors("form/login", ["valid", "id", "user", "password"]),
-    ...mapAccessors("nav", ["loginId"]),
     rules() {
       return [v => !!v || "必須項目です"];
     },
   },
   methods: {
     login() {
-      this.loginId = this.id;
+      this.$store.dispatch("session/id", this.id);
       this.$router.push("/");
     },
   },

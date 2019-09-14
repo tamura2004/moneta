@@ -1,5 +1,5 @@
 export default function({ store, redirect }) {
-  if (!store.getters["nav/loginId"]) {
+  if (!store.getters["session/id"]) {
     return redirect("/login");
   }
 }

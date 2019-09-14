@@ -3,16 +3,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   props: ["id"],
   computed: {
-    ...mapGetters("nav", ["loginId"]),
-    ...mapGetters("accounts", ["accounts"]),
     account() {
-      const id = this.id || this.loginId;
-      return this.accounts.find(v => v.id === this.loginId);
+      const id = this.id || this.$read("session", "id");
+      return this.$read("accounts", id);
     },
   },
 };

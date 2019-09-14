@@ -1,6 +1,6 @@
 import p5 from "p5";
 
-const runner = ({ store, router }) => p5 => {
+const runner = ({ store, router, read }) => p5 => {
   const HEIGHT = 100;
 
   class Bullet {
@@ -101,8 +101,8 @@ const runner = ({ store, router }) => p5 => {
     if (enemy.gameover) {
       enemy.count--;
       if (enemy.count === 0) {
-        const id = p5.random(store.getters["accounts/collection"]).id;
-        store.dispatch("nav/login", id);
+        const id = p5.random(read("accounts")).id;
+        store.dispatch("session/id", id);
         store.dispatch("accounts/modify", {
           id,
           data: { total: (ship.score + 1) * 1000000 },

@@ -4,7 +4,7 @@
     <v-divider />
     <v-card-text>
       <v-form>
-        <v-select label="所属銀行" v-model="bankId" :items="banks" />
+        <v-select label="所属銀行" v-model="bankId" :items="$read('banks')" />
         <v-text-field label="支店名" v-model="name" />
         <v-text-field label="番号" v-model="num" />
       </v-form>
@@ -16,14 +16,11 @@
 </template>k
 
 <script>
-import { mapGetters } from "vuex";
 import { mapAccessors } from "~/plugins/mapAccessors";
-import { mapItems } from "~/plugins/mapItems";
 
 export default {
   props: ["title"],
   computed: {
-    ...mapItems(["banks"]),
     ...mapAccessors("form/branch", ["bankId", "name", "num"]),
   },
 };
