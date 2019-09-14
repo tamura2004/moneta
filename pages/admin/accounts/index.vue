@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import appList from "~/components/pages/account/app-list";
-
 
 export default {
   layout: "admin",

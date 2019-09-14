@@ -3,22 +3,17 @@
     <v-toolbar flat>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-switch class="pt-8" color="primary" :value="edit" @change="toggle" label="編集"></v-switch>
+      <v-switch class="pt-8" color="primary" v-model="edit" label="編集"></v-switch>
     </v-toolbar>
     <v-divider></v-divider>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapAccessors } from "~/plugins/mapAccessors";
 
 export default {
   props: ["title"],
-  computed: mapGetters("nav", ["edit"]),
-  methods: {
-    toggle() {
-      this.$store.dispatch("nav/edit", !this.edit);
-    }
-  },
+  computed: mapAccessors("nav", ["edit"]),
 };
 </script>
