@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import appForm from "~/components/pages/account/app-form.vue";
 
 export default {
@@ -12,14 +11,11 @@ export default {
     appForm,
   },
   created() {
-    this.clear();
+    this.$account.data = null;
   },
-  computed: mapGetters("form/account", ["data"]),
   methods: {
-    ...mapActions("form/account", ["clear"]),
-    ...mapActions("accounts", ["add"]),
-    async save() {
-      await this.add(this.data);
+    save() {
+      this.$write("accounts", this.$account.data);
       this.$router.push("/admin/accounts");
     },
   },

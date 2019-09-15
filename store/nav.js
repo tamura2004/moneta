@@ -1,5 +1,4 @@
 import Values from "~/plugins/values";
-export const fields = ["drawer", "query", "edit", "valid"];
-const values = new Values(fields);
+const values = new Values(["drawer", "query", "edit", "valid"]);
 
-export const { state, getters, mutations, actions } = values;
+export const { state, getters, mutations, actions, accessors } = values;

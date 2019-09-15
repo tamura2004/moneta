@@ -1,11 +1,4 @@
 export default ({ store }, inject) => {
-
-  /**
-   * Vuex読み出しユーティリティ
-   * @param { String } name Vuexのモジュール名
-   * @param { undefined | String | Function } param
-   * @return { [Object] | Object }
-   */
   inject("read", (name, param) => {
     const base = store.getters[`${name}/collection`];
 
@@ -14,7 +7,7 @@ export default ({ store }, inject) => {
     }
 
     const collection = base.map(v =>
-      Object.assign(v, { text: v.name, value: v.id }),
+      Object.assign({ text: v.name, value: v.id }, v),
     );
 
     if (typeof param === "string") {

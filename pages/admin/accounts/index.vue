@@ -2,7 +2,7 @@
   <v-card>
     <list-toolbar title="口座一覧"></list-toolbar>
     <v-divider></v-divider>
-    <app-list v-for="account in $read('accounts')" :account="account" :key="account.id"></app-list>
+    <app-list v-for="account in $read('accounts')" :account="account" :key="account.id" />
     <list-actions collection="accounts"></list-actions>
   </v-card>
 </template>

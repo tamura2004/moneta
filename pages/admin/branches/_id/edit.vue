@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import appForm from "~/components/pages/branch/app-form.vue";
 
 export default {
@@ -16,23 +15,11 @@ export default {
     return { id };
   },
   created() {
-    const branch = this.branch(this.id);
-    if (branch === undefined) {
-      this.$router.push("/admin/branches/new");
-    } else {
-      this.edit(this.branch(this.id));
-    }
-  },
-  computed: {
-    ...mapGetters("form/branch", ["data"]),
-    ...mapGetters("branches", ["branch"]),
+    this.$branch.data = this.$read("branches", this.id);
   },
   methods: {
-    ...mapActions("form/branch", ["edit"]),
-    ...mapActions("branches", ["modify"]),
-    async save() {
-      const { id, data } = this;
-      await this.modify({ id, data });
+    save() {
+      this.$write("branches", this.$branch);
       this.$router.push("/admin/branches");
     },
   },

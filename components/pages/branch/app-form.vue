@@ -4,9 +4,9 @@
     <v-divider />
     <v-card-text>
       <v-form>
-        <v-select label="所属銀行" v-model="bankId" :items="$read('banks')" />
-        <v-text-field label="支店名" v-model="name" />
-        <v-text-field label="番号" v-model="num" />
+        <v-select label="所属銀行" v-model="$branch.bankId" :items="$read('banks')" />
+        <v-text-field label="支店名" v-model="$branch.name" />
+        <v-text-field label="番号" v-model="$branch.num" />
       </v-form>
     </v-card-text>
     <v-card-actions>
@@ -16,12 +16,7 @@
 </template>k
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-
 export default {
   props: ["title"],
-  computed: {
-    ...mapAccessors("form/branch", ["bankId", "name", "num"]),
-  },
 };
 </script>

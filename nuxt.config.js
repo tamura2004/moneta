@@ -35,7 +35,11 @@ export default {
     "~/plugins/filters",
     "~/plugins/components",
     "~/plugins/read",
-    "~/plugins/read-write",
+    "~/plugins/write",
+    "~/plugins/accessors/nav",
+    "~/plugins/accessors/account",
+    "~/plugins/accessors/bank",
+    "~/plugins/accessors/branch",
   ],
   /*
    ** Nuxt.js dev-modules

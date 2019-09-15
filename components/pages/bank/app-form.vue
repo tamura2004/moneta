@@ -4,8 +4,8 @@
     <v-divider />
     <v-card-text>
       <v-form v-model="$nav.valid">
-        <v-text-field label="銀行名" v-model="name" :rules="rules" />
-        <v-text-field label="番号" v-model="num" :rules="rules" />
+        <v-text-field label="銀行名" v-model="$bank.name" :rules="rules" />
+        <v-text-field label="番号" v-model="$bank.num" :rules="rules" />
       </v-form>
     </v-card-text>
     <v-card-actions>
@@ -15,15 +15,12 @@
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-
 export default {
   props: ["title"],
   computed: {
     rules() {
       return [v => !!v || "必須項目です"];
     },
-    ...mapAccessors("form/bank", ["name", "num"]),
   },
 };
 </script>

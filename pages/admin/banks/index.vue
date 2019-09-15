@@ -2,7 +2,7 @@
   <v-card>
     <list-toolbar title="銀行一覧"></list-toolbar>
     <v-divider></v-divider>
-    <app-list v-for="bank in $read('banks')" :bank="bank" :key="bank.id" @delete="remove(bank.id)"></app-list>
+    <app-list v-for="bank in $read('banks')" :bank="bank" :key="bank.id" />
     <list-actions collection="banks"></list-actions>
   </v-card>
 </template>
@@ -13,13 +13,5 @@ import appList from "~/components/pages/bank/app-list";
 export default {
   layout: "admin",
   components: { appList },
-  methods: {
-    remove(id) {
-      this.$store.dispatch("banks/remove", id);
-    },
-  },
-  created() {
-    this.$store.dispatch("nav/edit", false); // 編集ボタンを初期化
-  },
 };
 </script>

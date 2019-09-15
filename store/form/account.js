@@ -1,5 +1,5 @@
-import Form from "~/plugins/form";
-const form = new Form("accounts", [
+import Values from "~/plugins/values";
+const values = new Values([
   "name",
   "user",
   "password",
@@ -10,4 +10,4 @@ const form = new Form("accounts", [
   "branchId",
 ]);
 
-export const { state, getters, mutations, actions } = form;
+export const { state, getters, mutations, actions, accessors } = values;

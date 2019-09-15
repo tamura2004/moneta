@@ -1,4 +1,4 @@
-import Form from "~/plugins/form";
-const form = new Form("banks", ["name", "num"]);
+import Values from "~/plugins/values";
+const values = new Values(["name", "num"]);
 
-export const { state, getters, mutations, actions } = form;
+export const { state, getters, mutations, actions, accessors } = values;
