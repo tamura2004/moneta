@@ -1,4 +1,4 @@
 import Values from "~/plugins/values";
-const values = new Values(["id"]);
+const values = new Values([]);
 
-export const { state, getters, mutations, actions } = values;
+export const { state, getters, mutations, actions, accessors } = values;

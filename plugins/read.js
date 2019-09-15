@@ -7,7 +7,7 @@ export default ({ store }, inject) => {
     }
 
     const collection = base.map(v =>
-      Object.assign({ text: v.name, value: v.id }, v),
+      ({...v, text: v.name, value: v.id }),
     );
 
     if (typeof param === "string") {

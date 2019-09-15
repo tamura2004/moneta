@@ -40,6 +40,8 @@ export default {
     "~/plugins/accessors/account",
     "~/plugins/accessors/bank",
     "~/plugins/accessors/branch",
+    "~/plugins/accessors/login",
+    "~/plugins/accessors/session",
   ],
   /*
    ** Nuxt.js dev-modules
