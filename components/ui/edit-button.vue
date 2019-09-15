@@ -1,5 +1,5 @@
 <template>
-  <v-btn small color="light" :to="`/admin/${collection}/${id}/edit`" v-show="$read('nav', 'edit')">
+  <v-btn small color="light" :to="`/admin/${collection}/${id}/edit`" v-show="$nav.edit">
     <v-icon left>mdi-pencil</v-icon>編集
   </v-btn>
 </template>

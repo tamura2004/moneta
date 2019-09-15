@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app clipped v-model="drawer">
+  <v-navigation-drawer app clipped v-model="$nav.drawer">
     <v-list dense>
       <v-list-item v-for="menu in menues" :key="menu.name" :to="menu.to">
         <v-list-item-action>
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-
 export default {
   data: () => ({
     menues: [
@@ -26,6 +24,5 @@ export default {
       { icon: "mdi-account-card-details", to: "/admin/accounts", name: "口座" },
     ],
   }),
-  computed: mapAccessors("nav", ["drawer"]),
 };
 </script>

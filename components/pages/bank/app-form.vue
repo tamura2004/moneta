@@ -3,13 +3,13 @@
     <v-card-title>{{ title }}</v-card-title>
     <v-divider />
     <v-card-text>
-      <v-form>
-        <v-text-field label="銀行名" v-model="name" />
-        <v-text-field label="番号" v-model="num" />
+      <v-form v-model="$nav.valid">
+        <v-text-field label="銀行名" v-model="name" :rules="rules" />
+        <v-text-field label="番号" v-model="num" :rules="rules" />
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="$emit('click')">登録</v-btn>
+      <v-btn color="primary" @click="$emit('click')" :disabled="!$nav.valid">登録</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -19,6 +19,11 @@ import { mapAccessors } from "~/plugins/mapAccessors";
 
 export default {
   props: ["title"],
-  computed: mapAccessors("form/bank", ["name", "num"]),
+  computed: {
+    rules() {
+      return [v => !!v || "必須項目です"];
+    },
+    ...mapAccessors("form/bank", ["name", "num"]),
+  },
 };
 </script>
