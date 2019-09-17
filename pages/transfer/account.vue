@@ -7,7 +7,7 @@
       <v-form>
         <v-select
           v-model="$transfer.accountId"
-          :items="$read('accounts', v => v.branchId === $transfer.branchId)"
+          :items="$read('accounts', { branchId: $transfer.branchId })"
         />
         <v-btn dark @click="click" color="primary" :disabled="!$transfer.accountId">次へ</v-btn>
       </v-form>

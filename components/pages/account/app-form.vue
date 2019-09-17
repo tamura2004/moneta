@@ -8,7 +8,7 @@
         <v-select
           label="支店"
           v-model="$account.branchId"
-          :items="$read('branches', v => v.bankId === $account.bankId)"
+          :items="$read('branches', { bankId: $account.bankId })"
         />
         <v-text-field label="氏名" v-model="$account.name" />
         <v-text-field label="ユーザー" v-model="$account.user" />

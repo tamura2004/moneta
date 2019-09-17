@@ -40,10 +40,7 @@ export default {
   }),
   computed: {
     statements() {
-      return this.$read(
-        "statements",
-        v => v.accountId === this.$read("session", "id"),
-      );
+      return this.$read("statements", { accountId: this.$session.id });
     },
     totalPage() {
       return Math.ceil(this.statements.length / this.PER_PAGE);

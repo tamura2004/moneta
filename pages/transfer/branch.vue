@@ -7,7 +7,7 @@
       <v-form>
         <v-select
           v-model="$transfer.branchId"
-          :items="$read('branches', v => v.bankId === $transfer.bankId)"
+          :items="$read('branches', { bankId: $transfer.bankId })"
         />
         <v-btn nuxt dark to="account" color="primary" :disable="!$transfer.branchId">次へ</v-btn>
       </v-form>
