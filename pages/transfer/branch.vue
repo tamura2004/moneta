@@ -5,25 +5,18 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select v-model="branchId" :items="branches" />
-        <v-btn nuxt dark to="account" color="primary" :disable="!branchId">次へ</v-btn>
+        <v-select
+          v-model="$transfer.branchId"
+          :items="$read('branches', v => v.bankId === $transfer.bankId)"
+        />
+        <v-btn nuxt dark to="account" color="primary" :disable="!$transfer.branchId">次へ</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-import { mapItems } from "~/plugins/mapItems";
-
 export default {
   middleware: "hasBank",
-  computed: {
-    ...mapAccessors("form/transfer", ["bankId", "branchId"]),
-    ...mapItems(["branches"]),
-    branchItems() {
-      return this.branches.filter(v => v.bankId === this.bankId);
-    },
-  },
 };
 </script>

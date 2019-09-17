@@ -5,25 +5,25 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select v-model="accountId" :items="accountItems" />
-        <v-btn nuxt dark to="amount" color="primary" :disabled="!accountId">次へ</v-btn>
+        <v-select
+          v-model="$transfer.accountId"
+          :items="$read('accounts', v => v.branchId === $transfer.branchId)"
+        />
+        <v-btn dark @click="click" color="primary" :disabled="!$transfer.accountId">次へ</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-import { mapItems } from "~/plugins/mapItems";
-
 export default {
   middleware: ["hasBank", "hasBranch"],
-  computed: {
-    ...mapAccessors("form/transfer", ["bankId", "branchId", "accountId"]),
-    ...mapItems(["accounts"]),
-    accountItems() {
-      return this.accounts.filter(v => v.branchId === this.branchId);
-    },
-  },
+  methods: {
+    click() {
+      this.$transfer.account = this.$read("accounts", this.$transfer.accountId);
+      this.$transfer.total = this.$transfer.account.total;
+      this.$router.push("amount");
+    }
+  }
 };
 </script>

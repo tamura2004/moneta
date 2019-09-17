@@ -4,21 +4,18 @@
       <v-toolbar-title>振込金額を入力して下さい</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
-      <v-form v-model="valid">
-        <v-text-field label="金額" v-model.number="amount" type="number" :rules="rules" />
-        <v-btn color="primary" :disabled="!valid" @click="transfer">振込実行</v-btn>
+      <v-form v-model="$nav.valid">
+        <v-text-field label="金額" v-model.number="$transfer.amount" type="number" :rules="rules" />
+        <v-btn color="primary" :disabled="!$nav.valid" to="/transfer/pay/fee">振込実行</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
-
 export default {
   middleware: ["hasBank", "hasBranch", "hasAccount"],
   computed: {
-    ...mapAccessors("form/transfer", ["valid", "amount"]),
     account() {
       return this.$read("accounts", this.$read("session", "id"));
     },
@@ -32,28 +29,28 @@ export default {
       return this.amount < 30000 ? 210 : 432;
     },
   },
-  methods: {
-    transfer() {
-      this.transferFrom();
-      this.transferTo();
-      this.$router.push("/");
-    },
-    transferFrom() {
-      let total = this.account.total;
-      total -= this.fee;
-      this.$store.dispatch("transfer/payFee", total);
-      this.$store.dispatch("transfer/addStatementPayFee", total);
-      total -= this.amount;
-      this.$store.dispatch("transfer/payTransfer", total);
-      this.$store.dispatch("transfer/addStatementPayTransfer", total);
-    },
-    transferTo() {
-      const account = this.$store.getters["transfer/account"];
-      let total = account.total;
-      total += parseInt(this.amount);
-      this.$store.dispatch("transfer/receiveTransfer", total);
-      this.$store.dispatch("transfer/addStatementReceiveTransfer", total);
-    },
-  },
+  // methods: {
+  //   transfer() {
+  //     // this.transferFrom();
+  //     // this.transferTo();
+  //     this.$router.push("/transfer/pay/fee");
+  //   },
+  //   transferFrom() {
+  //     let total = this.account.total;
+  //     total -= this.fee;
+  //     this.$store.dispatch("transfer/payFee", total);
+  //     this.$store.dispatch("transfer/addStatementPayFee", total);
+  //     total -= this.amount;
+  //     this.$store.dispatch("transfer/payTransfer", total);
+  //     this.$store.dispatch("transfer/addStatementPayTransfer", total);
+  //   },
+  //   transferTo() {
+  //     const account = this.$store.getters["transfer/account"];
+  //     let total = account.total;
+  //     total += parseInt(this.amount);
+  //     this.$store.dispatch("transfer/receiveTransfer", total);
+  //     this.$store.dispatch("transfer/addStatementReceiveTransfer", total);
+  //   },
+  // },
 };
 </script>
