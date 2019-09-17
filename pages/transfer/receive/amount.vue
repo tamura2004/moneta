@@ -6,16 +6,16 @@
 export default {
   layout: "login",
   created() {
-    const amount = this.$transfer.amount;
-    const total = this.$transfer.total + this.$transfer.amount;
+    let { accountId, amount, total } = this.$transfer
+    total -= amount;
 
     this.$write("accounts", {
-      id: this.$transfer.accountId,
+      id: accountId,
       data: { total },
     });
 
     this.$write("statements", {
-      accountId: this.$transfer.accountId,
+      accountId,
       amount,
       total,
       kind: "入金",

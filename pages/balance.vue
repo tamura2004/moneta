@@ -14,7 +14,7 @@ export default {
   middleware: "login",
   computed: {
     account() {
-      return this.$read("accounts", this.$read("session", "id"));
+      return this.$session.account;
     },
   },
 };

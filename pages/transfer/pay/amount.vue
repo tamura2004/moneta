@@ -6,22 +6,21 @@
 export default {
   layout: "login",
   created() {
-    const accountId = this.$read("session", "id");
-    const account = this.$read("accounts", accountId);
+    let { id, total, name } = this.$session.account;
     const amount = this.$transfer.amount;
-    const total = account && account.total - amount;
+    total -= amount;
 
     this.$write("accounts", {
-      id: this.$read("session", "id"),
+      id,
       data: { total },
     });
 
     this.$write("statements", {
-      accountId,
+      accountId: id,
       amount,
       total,
       kind: "出金",
-      memo: `振込先：${this.$transfer.account.name}`,
+      memo: `振込先：${name}`,
     });
 
     this.$router.push("/transfer/receive/amount");
