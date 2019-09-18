@@ -6,7 +6,13 @@ describe("pages/admin/banks/index.vue", () => {
     const localVue = createLocalVue();
     const wrapper = shallowMount(Component, {
       localVue,
-      stubs: ["v-card", "v-divider", "list-toolbar", "list-actions", "app-list"],
+      stubs: [
+        "v-card",
+        "v-divider",
+        "list-toolbar",
+        "list-actions",
+        "app-list",
+      ],
       mocks: {
         $read: () => [],
       },
