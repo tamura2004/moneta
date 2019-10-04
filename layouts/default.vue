@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-app-bar-nav-icon to="/">
+      <v-app-bar-nav-icon to="/" v-if="$route.path !== '/'">
         <v-icon>mdi-bank</v-icon>
       </v-app-bar-nav-icon>
       <v-toolbar-title>

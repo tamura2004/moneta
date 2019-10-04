@@ -1,11 +1,11 @@
 <template>
   <v-list-item-content>
     <v-list-item-title>
-      <v-layout>
-        <v-flex xs4>{{ bank.timestamp | date }}</v-flex>
-        <v-flex xs4>{{ bank.name }}</v-flex>
-        <v-flex xs4>{{ bank.num }}</v-flex>
-      </v-layout>
+      <v-row no-gutters>
+        <v-col sm="4" cols="4">{{ bank.num }}</v-col>
+        <v-col sm="4" cols="8">{{ bank.name }}</v-col>
+        <v-col sm="4" cols="12">{{ bank.timestamp | date }}</v-col>
+      </v-row>
     </v-list-item-title>
   </v-list-item-content>
 </template>

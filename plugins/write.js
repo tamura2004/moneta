@@ -4,14 +4,11 @@
  */
 
 export default ({ store }, inject) => {
-  inject("write", (name, params) => {
-    const { id, data } = params;
-    if (typeof data === "undefined") {
-      store.dispatch(`${name}/add`, params);
-    } else if (typeof id === "string") {
-      store.dispatch(`${name}/modify`, { id, data });
+  inject("write", (name, opt1, opt2) => {
+    if (typeof opt2 === "undefined") {
+      store.dispatch(`${name}/write`, opt1);
     } else {
-      alert(`Bad $write params: ${params}`)
+      store.dispatch(`${name}/write`, { ...opt2, id: opt1 });
     }
   });
 };
