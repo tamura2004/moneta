@@ -1,4 +1,6 @@
-import { Gateway } from "~/plugins/gateway.js";
-const gateway = new Gateway("branches");
+import { Collection } from "~/plugins/collection";
+import { IndexedDB } from "~/plugins/indexeddb";
+import { DATA } from "~/assets/init/branches";
 
-export const { state, getters, mutations, actions } = gateway;
+export const { state, getters, mutations } = new Collection(DATA);
+export const { actions } = new IndexedDB("branches");

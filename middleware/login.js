@@ -1,5 +1,5 @@
-export default function({ store, redirect }) {
-  if (!store.getters["session/id"]) {
+export default function({ app, redirect }) {
+  if (!app.$session.account) {
     return redirect("/login");
   }
 }

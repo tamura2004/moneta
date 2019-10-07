@@ -22,6 +22,7 @@ export default {
       { icon: "mdi-bank", to: "/admin/banks", name: "銀行" },
       { icon: "mdi-city", to: "/admin/branches", name: "支店" },
       { icon: "mdi-account-card-details", to: "/admin/accounts", name: "口座" },
+      { icon: "mdi-card-text-outline", to: "/admin/statements", name: "明細" },
     ],
   }),
 };

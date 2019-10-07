@@ -32,13 +32,9 @@ export default {
     login() {
       const account = this.$read("accounts", this.$login.id);
 
-      if (account.password === md5(this.$login.password) || true) {
-        this.$session.id = this.$login.id;
-        this.$session.account = account;
-        this.$router.push("/");
-      } else {
-        alert("パスワードが違います");
-      }
+      this.$session.id = this.$login.id;
+      this.$session.account = account;
+      this.$router.push("/");
     },
   },
 };

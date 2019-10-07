@@ -1,7 +1,7 @@
 <template>
   <moneta-list
-    label="口座一覧"
-    collection="accounts"
+    label="取引一覧"
+    collection="statements"
   />
 </template>
 

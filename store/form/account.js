@@ -1,13 +1,13 @@
 import Values from "~/plugins/values";
 const values = new Values([
-  "name",
+  "bankId",
+  "branchId",
   "user",
+  "name",
   "password",
   "kind",
   "num",
   "total",
-  "bankId",
-  "branchId",
 ]);
 
 export const { state, getters, mutations, actions, accessors } = values;

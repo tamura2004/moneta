@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     save() {
-      this.$write("banks", this.$bank);
+      this.$write("banks", this.$bank.data);
       this.$router.push("/admin/banks");
     },
   },

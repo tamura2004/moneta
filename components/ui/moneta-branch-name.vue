@@ -6,11 +6,8 @@
 export default {
   props: ["id"],
   computed: {
-    account() {
-      return this.$read("accounts", this.$read("session", "id"));
-    },
     branch() {
-      const id = this.id || this.account.branchId;
+      const id = this.id || this.$session.account.branchId;
       return this.$read("branches", id);
     },
   },

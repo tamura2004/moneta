@@ -1,4 +1,5 @@
-import { Gateway } from "~/plugins/gateway.js";
-const gateway = new Gateway("accounts");
+import { Collection } from "~/plugins/collection";
+import { IndexedDB } from "~/plugins/indexeddb";
 
-export const { state, getters, mutations, actions } = gateway;
+export const { state, getters, mutations } = new Collection();
+export const { actions } = new IndexedDB("accounts");

@@ -1,8 +1,8 @@
 import zango from "zangodb";
 import cuid from "cuid";
 
-const handleErr = e => {
-  console.log(e);
+const handleErr = p => e => {
+  console.log(e, p);
 };
 
 export class IndexedDB {
@@ -10,21 +10,32 @@ export class IndexedDB {
     this.name = name;
     this.db = new zango.Db(name, { values: ["id"] });
     this.collection = this.db.collection("values");
+    this.read = false;
   }
   get actions() {
     return {
       add: async ({ commit }, data) => {
         commit("add", data);
-        await this.collection.insert(data, handleErr);
+        await this.collection.insert(data, handleErr(data));
       },
       modify: async ({ commit }, { id, data }) => {
         commit("modify", { id, data });
-        await this.collection.update({ id }, data, handleErr);
+        await this.collection.update({ id }, data, handleErr({ id, data }));
       },
       remove: async ({ commit }, id) => {
         if (confirm("本当に削除してよろしいですか")) {
           commit("remove", { id });
-          await this.collection.remove({ id }, handleErr);
+          await this.collection.remove({ id }, handleErr(id));
+        }
+      },
+      upsert: async ({ commit, dispatch }, data) => {
+        commit("upsert", data);
+        const { _id } = data;
+        const saved = await dispatch("findOne", _id);
+        if (saved) {
+          await this.collection.update({ _id }, data, handleErr(_id));
+        } else {
+          await this.collection.insert(data, handleErr(data));
         }
       },
       listen: async ({ state, commit }) => {
@@ -39,24 +50,20 @@ export class IndexedDB {
         const value = await this.collection.findOne({ _id });
         return value;
       },
-      write: async ({ dispatch, commit, state }, { data }) => {
+      read: async ({ dispatch }) => {
+        if (this.read) {
+          return
+        }
+        await this.collection.find({}).forEach(doc => {
+          dispatch("write", doc);
+        });
+        this.read = true;
+      },
+      write: async ({ dispatch }, data) => {
         const id = data.id || data._id || cuid();
         const _id = id;
         const timestamp = new Date();
-        const saved = await dispatch("findOne", id);
-        data = Object.assign({}, saved, data, { id, _id, timestamp });
-
-        if (typeof saved === "undefined") {
-          await this.collection.insert(data, handleErr);
-        } else {
-          await this.collection.update({ _id }, data, handleErr);
-        }
-
-        if (state.values.some(v => v.id === id)) {
-          commit("modify", { id, data });
-        } else {
-          commit("add", data);
-        }
+        await dispatch("upsert", { ...data, id, _id, timestamp });
       },
     };
   }
