@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column"></div>
     <div class="column is-two-thirds">
-      <menu-button v-for="(menu, index) in menues" :key="index" :to="menu.path">{{ menu.label }}</menu-button>
+      <moneta-menu-button v-for="(menu, index) in menues" :key="index" :to="menu.path">{{ menu.label }}</moneta-menu-button>
     </div>
     <div class="column"></div>
   </div>

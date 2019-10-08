@@ -35,16 +35,16 @@
         <code>{{ $store.getters }}</code>
       </v-col>
       <v-col>
-        <menu-button @click="up">上へ</menu-button>
-        <menu-button @click="down">下へ</menu-button>
-        <menu-button to="/sandbox/chart">グラフの例</menu-button>
+        <moneta-menu-button @click="up">上へ</moneta-menu-button>
+        <moneta-menu-button @click="down">下へ</moneta-menu-button>
+        <moneta-menu-button to="/sandbox/chart">グラフの例</moneta-menu-button>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import menuButton from "~/components/ui/menu-button";
+import menuButton from "~/components/ui/moneta-menu-button";
 
 export default {
   layout: "admin",

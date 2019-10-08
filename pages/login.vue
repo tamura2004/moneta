@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { mapAccessors } from "~/plugins/mapAccessors";
 import md5 from "blueimp-md5";
 
 export default {

@@ -1,16 +1,15 @@
 <template>
   <div>
     <h1 class="display-2">グラフの例</h1>
-    <chart :data="nodes"></chart>
+    <moneta-sandbox-chart :data="nodes"></moneta-sandbox-chart>
     <a href="https://www.chartjs.org/docs/latest/">https://www.chartjs.org/docs/latest</a>
-    <menu-button to="/sandbox">戻る</menu-button>
+    <moneta-menu-button to="/sandbox">戻る</moneta-menu-button>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import chart from "~/components/pages/sandbox/chart";
-import menuButton from "~/components/ui/menu-button";
+import menuButton from "~/components/ui/moneta-menu-button";
 
 export default {
   components: {

@@ -6,21 +6,20 @@
 export default {
   layout: "login",
   created() {
-    let { id, total, name } = this.$session.account;
+    const account = this.$session.account;
     const amount = this.$transfer.amount;
-    total -= amount;
 
     this.$write("accounts", {
-      id,
-      data: { total },
+      ...account,
+      total: account.total - amount,
     });
 
     this.$write("statements", {
-      accountId: id,
+      accountId: account.id,
       amount,
-      total,
+      total: account.total - amount,
       kind: "出金",
-      memo: `振込先：${name}`,
+      memo: `振込先：${ this.$transfer.account.name }`,
     });
 
     this.$router.push("/transfer/receive/amount");

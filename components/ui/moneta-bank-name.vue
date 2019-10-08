@@ -1,5 +1,5 @@
 <template>
-  <span>{{ bank | name}}</span>
+  <span>{{ bank | name }}</span>
 </template>
 
 <script>

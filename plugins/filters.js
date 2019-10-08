@@ -8,7 +8,7 @@ export const date = v => {
   const d = v.toDate ? v.toDate() : v;
   return d
     .toISOString()
-    .substr(0, 19)
+    .substr(0, 10)
     .replace("T", " ");
 };
 export const yen = v => (v ? "￥" + v.toLocaleString() + "-" : "----");

@@ -1,15 +1,10 @@
 <template>
-  <app-form title="支店情報新規登録" @click="save"></app-form>
+  <moneta-branch-form title="支店情報新規登録" @click="save"></moneta-branch-form>
 </template>
 
 <script>
-import appForm from "~/components/pages/branch/app-form.vue";
-
 export default {
   layout: "admin",
-  components: {
-    appForm,
-  },
   created() {
     this.$branch.data = null;
   },

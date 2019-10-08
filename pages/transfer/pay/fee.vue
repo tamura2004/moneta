@@ -6,19 +6,18 @@
 export default {
   layout: "login",
   created() {
-    let { id, total } = this.$session.account;
+    const account = this.$session.account;
     const fee = this.$transfer.amount < 30000 ? 210 : 432;
-    total -= fee;
 
     this.$write("accounts", {
-      id,
-      data: { total },
+      ...account,
+      total: account.total - fee,
     });
 
     this.$write("statements", {
-      accountId: id,
+      accountId: account.id,
       amount: fee,
-      total,
+      total: account.total - fee,
       kind: "出金",
       memo: "振込手数料",
     });

@@ -40,12 +40,9 @@ export default {
     },
   },
   methods: {
-    async signin() {
-      const account = this.$createAccount();
-
-      this.$write("accounts", account);
-      this.$session.account = account;
-      this.$router.push("/");
+    signin() {
+      // 口座作成画面へ
+      this.$router.push("/signin/create/account");
     },
   },
 };

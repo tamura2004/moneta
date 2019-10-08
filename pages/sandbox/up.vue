@@ -35,15 +35,15 @@
         <code>{{ $store.getters }}</code>
       </v-col>
       <v-col>
-        <menu-button to="/sandbox">中央へ</menu-button>
-        <menu-button to="/sandbox/down">下へ</menu-button>
+        <moneta-menu-button to="/sandbox">中央へ</moneta-menu-button>
+        <moneta-menu-button to="/sandbox/down">下へ</moneta-menu-button>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import menuButton from "~/components/ui/menu-button";
+import menuButton from "~/components/ui/moneta-menu-button";
 
 export default {
   layout: "admin",

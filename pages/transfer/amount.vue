@@ -19,7 +19,8 @@ export default {
     rules() {
       return [
         v => !!v || "振込金額を入力してください",
-        v => v < this.$session.account.total - this.fee || "残高が不足しています",
+        v =>
+          v < this.$session.account.total - this.fee || "残高が不足しています",
       ];
     },
     fee() {

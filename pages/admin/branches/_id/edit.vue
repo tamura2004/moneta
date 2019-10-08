@@ -1,15 +1,10 @@
 <template>
-  <app-form title="支店情報編集" @click="save"></app-form>
+  <moneta-branch-form title="支店情報編集" @click="save"></moneta-branch-form>
 </template>
 
 <script>
-import appForm from "~/components/pages/branch/app-form.vue";
-
 export default {
   layout: "admin",
-  components: {
-    appForm,
-  },
   asyncData({ params }) {
     const id = params.id;
     return { id };

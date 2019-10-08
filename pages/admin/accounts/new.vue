@@ -3,15 +3,10 @@
 </template>
 
 <script>
-import appForm from "~/components/pages/account/app-form.vue";
-
 export default {
   layout: "admin",
-  components: {
-    appForm,
-  },
-  created() {
-    this.$account.data = null;
+  fetch({ app }) {
+    app.$account.data = null;
   },
   methods: {
     save() {
